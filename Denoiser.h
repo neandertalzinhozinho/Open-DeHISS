@@ -12,19 +12,22 @@ class HissChannel
 public:
     void prepare(double sampleRate)
     {
-        fs=sampleRate; order=12;
+        fs=std::isfinite(sampleRate) && sampleRate>=8000?sampleRate:48000; order=12;
         while ((1<<order) < sampleRate/11.71875 && order<13) ++order;
+        // Respect the explicit 96 ms budget, including low sample rates.
+        while(order>1 && double(1<<order)/fs>.096)--order;
         n=1<<order; hop=n/4; bins=n/2+1;
         fft=std::make_unique<juce::dsp::FFT>(order);
         input.assign(n,0); dry.assign(n,0); output.assign(4*n,0);
         work.assign(2*n,0); window.resize(n); noise.assign(bins,0); gain.assign(bins,1);
-        histories.assign(bins*21,0); frames=0; historyPos=0; cursor=0; sinceFrame=0; rapidTrackingFrames=0;
+        histories.assign(bins*21,0); frames=0; historyPos=0; cursor=0; sinceFrame=0; rapidTrackingFrames=0; denseWeight=0;
         power.assign(bins,0); temporalEstimate.assign(bins,0); averagedPower.assign(bins,0); frameEstimate.assign(bins,0);
         // Hann/75% overlap reduces leakage from dense vocal harmonics into hiss
         // bins. Sum of squared periodic Hann windows is 1.5.
         for(int i=0;i<n;++i) window[i]=float(.5-.5*std::cos(2*juce::MathConstants<double>::pi*i/n));
     }
     int latency() const {return n;}
+    float denseSpectrumWeight()const{return denseWeight;}
     float process(float sample,const HissSettings& s)
     {
         if(!std::isfinite(sample)) sample=0;
@@ -93,14 +96,17 @@ private:
             // Same noise estimator and suppression law, restricted to the high band.
             // A short transition ABOVE 15 kHz avoids a discontinuous spectral edge.
             const double highWeight=std::clamp((frequency-15000.0)/500.0,0.0,1.0);
-            const double effectiveReduction=std::max(double(s.reduction),s.highEndCut*highWeight);
+            // Small Auto-only floor calibration from the licensed reference
+            // sweeps. Preserve exact manual/high-band amounts and default zero.
+            const double mainReduction=s.automatic?std::max(0.0,double(s.reduction)-.25):double(s.reduction);
+            const double effectiveReduction=std::max(mainReduction,s.highEndCut*highWeight);
             const double floorGain=std::pow(10.0,-effectiveReduction/20.0);
             const double shape=std::pow(10.0,(s.bias+s.lowBias*std::max(0.0,1.0-frequency/5000.0))/10.0);
             const double np=(s.automatic?noise[k]:manualPower)*shape;
             // Independent probability-like classifier. Averaging avoids treating
             // random frame peaks in stationary hiss as useful signal.
             const double ratio=averagedPower[k]/(np+1e-30);
-            const double confidence=std::clamp((ratio-4.0)/6.0,0.0,1.0);
+            const double confidence=std::clamp((ratio-6.0)/6.0,0.0,1.0);
             // No unconditional tonal exemption: weak coherent residue is still
             // attenuated, and positive Bias increases suppression under speech.
             const double useful=confidence*confidence*(3-2*confidence);
@@ -110,12 +116,21 @@ private:
             const double g=(effectiveReduction<=0 || s.bypass)?1.0:gain[k];
             work[2*k]*=float(g); work[2*k+1]*=float(g);
         }
+        int peaks=0;
+        for(int k=1;k<bins-1;++k){const double f=k*fs/n;
+            if(f<800||f>6000)continue;
+            std::array<double,29> local{};int count=0;
+            for(int j=std::max(0,k-14);j<=std::min(bins-1,k+14);++j)if(std::abs(j-k)>2)local[count++]=power[j];
+            std::sort(local.begin(),local.begin()+count);
+            const double instantFloor=count?local[count/4]*1.3:frameEstimate[k];
+            if(power[k]>power[k-1]&&power[k]>power[k+1]&&power[k]>25*std::max({frameEstimate[k],instantFloor,1e-30}))++peaks;}
+        denseWeight=float(std::clamp((peaks-4)/4.,0.,1.));
         fft->performRealOnlyInverseTransform(work.data());
         for(int i=0;i<n;++i) output[(cursor+1+i)%output.size()]+=work[i]*window[i]*(2.f/3.f);
         ++frames; historyPos=(historyPos+1)%21;
     }
     double fs=48000; int order=10,n=1024,hop=512,bins=513,sinceFrame=0,historyPos=0,rapidTrackingFrames=0;
-    uint64_t frames=0, cursor=0;
+    uint64_t frames=0, cursor=0;float denseWeight=0;
     std::unique_ptr<juce::dsp::FFT> fft;
     std::vector<float> input,dry,output,work,window;
     std::vector<double> histories,noise,gain,power,temporalEstimate,averagedPower,frameEstimate;

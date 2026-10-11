@@ -1,5 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 #include "Processor.h"
+#include "RecoveredMath.h"
+#include "RecoveredSynthesis.h"
+#include "DerivedChannel.h"
+#include <juce_audio_formats/juce_audio_formats.h>
 #include <random>
 #include <iostream>
 #include <stdexcept>
@@ -7,10 +11,87 @@ static void require(bool condition,const char* name){if(!condition)throw std::ru
 static double rms(const std::vector<float>& x,int start,int end){double p=0;for(int i=start;i<end;++i)p+=double(x[i])*x[i];return std::sqrt(p/(end-start));}
 static std::vector<float> render(const std::vector<float>& x,double fs,HissSettings s)
 {HissChannel c;c.prepare(fs);std::vector<float> out;out.reserve(x.size()+c.latency());for(float a:x)out.push_back(c.process(a,s));for(int i=0;i<c.latency();++i)out.push_back(c.process(0,s));return out;}
-int main()
+int main(int argc,char** argv)
 {
     try{
     juce::ScopedJuceInitialiser_GUI runtime;
+    if(argc>1 && juce::String(argv[1])=="--derived-render"){
+        if(argc!=6)throw std::runtime_error("--derived-render input.wav output.wav attenuationPositive bias");
+        juce::AudioFormatManager formats;formats.registerBasicFormats();
+        std::unique_ptr<juce::AudioFormatReader> reader(formats.createReaderFor(juce::File(argv[2])));
+        if(!reader || reader->numChannels<1 || reader->numChannels>2 || reader->lengthInSamples>10000000)throw std::runtime_error("Invalid input audio");
+        const juce::File destination(argv[3]);if(destination.exists())throw std::runtime_error("Preserve existing output");
+        DerivedChannel probe;probe.prepare(reader->sampleRate);const int delay=probe.latency(),length=int(reader->lengthInSamples);
+        juce::AudioBuffer<float> input(int(reader->numChannels),length),output(int(reader->numChannels),length+delay);
+        if(!reader->read(&input,0,length,0,true,true))throw std::runtime_error("Audio read failed");
+        HissSettings settings;settings.reduction=float(std::atof(argv[4]));settings.bias=float(std::atof(argv[5]));
+        for(int ch=0;ch<input.getNumChannels();++ch){DerivedChannel channel;channel.prepare(reader->sampleRate);
+            for(int t=0;t<length+delay;++t)output.setSample(ch,t,channel.process(t<length?input.getSample(ch,t):0,settings));}
+        juce::WavAudioFormat wav;auto stream=destination.createOutputStream();
+        if(!stream)throw std::runtime_error("Output stream failed");
+        std::unique_ptr<juce::AudioFormatWriter> writer(wav.createWriterFor(stream.get(),reader->sampleRate,unsigned(output.getNumChannels()),32,{},0));
+        if(!writer)throw std::runtime_error("WAV writer failed");stream.release();
+        if(!writer->writeFromAudioSampleBuffer(output,0,output.getNumSamples()))throw std::runtime_error("WAV write failed");
+        std::cout<<"Derived render latency="<<delay<<" samples, Fs="<<reader->sampleRate<<" frames="<<output.getNumSamples()<<'\n';return 0;
+    }
+    for(double rate:{8000.,44100.,48000.,96000.}){
+        DerivedChannel channel;channel.prepare(rate);const int delay=channel.latency();
+        require(delay/rate<=.096,"derived streaming channel stays within 96 ms");
+        HissSettings settings;settings.reduction=0;double error=0;
+        for(int t=0;t<delay+5000;++t){const float x=float(.1*std::sin(t*.13));const float y=channel.process(x,settings);
+            const float expected=t<delay?0:float(.1*std::sin((t-delay)*.13));error=std::max(error,std::abs(double(y-expected)));}
+        require(error==0,"derived streaming dry delay is exact");
+        channel.prepare(rate);settings.reduction=.000001f;settings.automatic=false;settings.threshold=-150;error=0;
+        for(int t=0;t<delay+5000;++t){const float x=float(.1*std::sin(t*.13));const float y=channel.process(x,settings);
+            const float expected=t<delay?0:float(.1*std::sin((t-delay)*.13));error=std::max(error,std::abs(double(y-expected)));}
+        require(error<2e-6,"derived streaming wet reconstruction aligns with dry");
+    }
+    {
+        const double input[]={-.8,.1,.9,-.2,.5};double output[5];
+        const double expected[]={.040171935836507855,.04105496772205626,.041880431414837944,.04186781951698711,.04209142588418635};
+        openhiss_derived::spectral(input,output,5,1024,48000,1500);
+        double error=0;for(int k=0;k<5;++k)error=std::max(error,std::abs(output[k]-expected[k]));
+        require(error<1e-12,"derived C++ spectral sweep matches independent Python fixture");
+        require(std::abs(openhiss_derived::probability(.1,.4)-.42857142937447573)<1e-12 &&
+                std::abs(openhiss_derived::probability(.6,.8)-.11111741637065309)<1e-12,
+                "derived C++ stable probability matches independent Python fixture");
+        require(std::abs(openhiss_derived::gain(.5,9000,-26)-.6437945212610228)<1e-12 &&
+                std::abs(openhiss_derived::gain(1,18000,-26)-.05220700350284086)<1e-12,
+                "derived C++ frequency gain matches independent Python fixture");
+        double values[]={1,100,3,2};require(openhiss_derived::upperMedian(values,4)==3,"derived global upper median");
+        openhiss_derived::BoundedTemporal temporal;temporal.prepare(3,1024,48000,.125);
+        const double first[]={-.8,.2,.7,.1,.9,-.5,.8,-.4,.3};double smoothed[3];
+        temporal.process(first,3,smoothed);
+        const double initial[]={.011844581835505446,.2510849106576259,.16292949249313138};
+        error=0;for(int k=0;k<3;++k)error=std::max(error,std::abs(smoothed[k]-initial[k]));
+        require(error<1e-12,"C++ bounded temporal startup matches Python fixture");
+        const double next[]={.8,-.4,.3,.1,.9,-.5,-.8,.2,.7};temporal.process(next,3,smoothed);
+        const double second[]={-.14834950328722935,.22606601986851083,.28294368210382675};
+        error=0;for(int k=0;k<3;++k)error=std::max(error,std::abs(smoothed[k]-second[k]));
+        require(error<1e-12,"C++ bounded temporal history matches Python fixture");
+        require((1024+temporal.lookahead()*512)/48000.<=.096,"C++ temporal lookahead respects latency budget");
+        openhiss_derived::GlobalNoiseHistory estimator;estimator.prepare(2);
+        for(int frame=0;frame<25;++frame){double energy[]={double(frame),double(frame+100)};estimator.push(energy);}
+        require(estimator.median()==104 && estimator.median(3)==122,"C++ global median retains chronological history across ring wrap");
+        juce::dsp::FFT frameFft(10);std::vector<float> waveform(1024),packed(2048,0),block(512);
+        std::vector<std::complex<float>> spectrum(513);std::vector<double> curve(513,1.);
+        for(int j=0;j<1024;++j)waveform[j]=packed[j]=float(.1*std::sin(j*.13)+.07*std::cos(j*.037));
+        frameFft.performRealOnlyForwardTransform(packed.data());
+        for(int k=0;k<513;++k)spectrum[k]={packed[2*k],packed[2*k+1]};
+        DerivedSynthesis synthesis;synthesis.prepare(10);synthesis.render(spectrum.data(),curve.data(),block.data());
+        error=0;for(int j=0;j<512;++j)error=std::max(error,std::abs(double(block[j]-waveform[256+j])));
+        require(error<2e-6,"C++ derived synthesis is transparent at unit gain");
+        synthesis.prepare(10);for(int k=0;k<513;++k)curve[k]=.1+.8*k/512.;
+        synthesis.render(spectrum.data(),curve.data(),block.data());
+        const int points[]={0,1,63,127,255,383,510,511};
+        const double audioFixture[]={.02580819542222028,.021389849678714885,-.007545803509620561,-.03777812630133492,.013835791580460742,.036462149548190666,-.01899510185393798,-.017603360610348284};
+        error=0;for(int j=0;j<8;++j)error=std::max(error,std::abs(block[points[j]]-audioFixture[j]));
+        require(error<2e-6,"C++ circular impulse reconstruction matches Python audio fixture");
+    }
+    for(double rate:{8000.,16000.,22050.,24000.,30000.,32000.,44100.,48000.,88200.,96000.,192000.,384000.}){
+        HissChannel latencyProbe;latencyProbe.prepare(rate);
+        require(double(latencyProbe.latency())/rate<=.096,"algorithmic latency never exceeds 96 ms at supported sample rates");
+    }
     for(double fs:{44100.0,48000.0,96000.0})
     {
         std::vector<float> x(static_cast<size_t>(fs),0.f);for(int i=0;i<int(x.size());++i)x[i]=float(0.2*std::sin(i*0.13));
@@ -120,7 +201,11 @@ int main()
     juce::MemoryBlock saved;processor.getStateInformation(saved);OpenHissProcessor restored;
     restored.setStateInformation(saved.getData(),int(saved.getSize()));
     require(std::abs(restored.state.getRawParameterValue("bias")->load()-5)<0.001,"parameter state survives save and restore");
+#if OPEN_DEHISS_EXPERIMENTAL_DERIVED
+    require(processor.getLatencySamples()==4608,"derived 48 kHz latency reported to host");
+#else
     require(processor.getLatencySamples()==4096,"48 kHz latency reported to host");
+#endif
     const auto partitioned=[&noise](int size){OpenHissProcessor p;p.prepareToPlay(48000,size);p.state.getParameter("attenuation")->setValueNotifyingHost(0.7f);juce::MidiBuffer m;
         std::vector<float> result;for(int offset=0;offset<24000;){const int count=std::min(size,24000-offset);juce::AudioBuffer<float> a(2,count);a.clear();
             for(int i=0;i<count;++i)a.setSample(0,i,noise[offset+i]);p.processBlock(a,m);
@@ -142,13 +227,17 @@ int main()
     }
     HissSettings aboveNyquist;aboveNyquist.reduction=0;aboveNyquist.highEndCut=40;
     std::vector<float> lowRateInput(30000,0.01f);auto lowRateOutput=render(lowRateInput,30000,aboveNyquist);
-    require(lowRateOutput[6000]==lowRateInput[1904],"high cut is exact dry when Nyquist is at or below 15 kHz");
+    HissChannel lowRateProbe;lowRateProbe.prepare(30000);
+    require(lowRateOutput[6000]==lowRateInput[6000-lowRateProbe.latency()],"high cut is exact dry when Nyquist is at or below 15 kHz");
     require(processor.state.getRawParameterValue("highEndCut")->load()==0,"High End Cut defaults off");
     processor.state.getParameter("highEndCut")->setValueNotifyingHost(0.4f);
     processor.getStateInformation(saved);restored.setStateInformation(saved.getData(),int(saved.getSize()));
     require(std::abs(restored.state.getRawParameterValue("highEndCut")->load()+24)<0.001,"High End Cut survives state restore");
     OpenHissProcessor uiProcessor;
     std::unique_ptr<juce::AudioProcessorEditor> editor(uiProcessor.createEditor());
+    auto* versionInfo=dynamic_cast<juce::Label*>(editor->findChildWithID("versionInfo"));
+    require(versionInfo && versionInfo->isVisible() && versionInfo->getText().contains(OPEN_DEHISS_VERSION)
+        && versionInfo->getText().contains(OPEN_DEHISS_UPDATE_DATE),"editor visibly identifies compiled version and release date");
     const auto preview=editor->createComponentSnapshot(editor->getLocalBounds());
     juce::FileOutputStream previewFile(juce::File::getCurrentWorkingDirectory().getChildFile("editor-preview.png"));
     previewFile.setPosition(0);previewFile.truncate();

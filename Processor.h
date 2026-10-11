@@ -2,6 +2,10 @@
 #pragma once
 #include <juce_audio_processors/juce_audio_processors.h>
 #include "Denoiser.h"
+#if OPEN_DEHISS_EXPERIMENTAL_DERIVED
+#include "DerivedChannel.h"
+#include "MultiResolutionChannel.h"
+#endif
 class OpenHissProcessor final : public juce::AudioProcessor
 {
 public:
@@ -29,7 +33,11 @@ public:
     juce::AudioProcessorValueTreeState state;
 private:
     void processAudio(juce::AudioBuffer<float>&,bool forceBypass);
+#if OPEN_DEHISS_EXPERIMENTAL_DERIVED
+    std::array<MultiResolutionChannel,2> channels;
+#else
     std::array<HissChannel,2> channels;
+#endif
     std::array<std::atomic<float>*,8> params{};
     bool prepared=false;
 };

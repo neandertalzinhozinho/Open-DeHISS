@@ -2,7 +2,7 @@
 
 Run from workspace root. No microphone capture or proprietary plugin required.
 """
-import argparse,json,struct,subprocess
+import argparse,json,struct,subprocess,re
 from pathlib import Path
 import numpy as np
 from compare_renders import read_wav
@@ -38,9 +38,13 @@ def main():
         if process.returncode:raise RuntimeError('VST3 host failed')
         for f0 in [90,120,150]:
             _,x=read_wav(inputs/f'baritone_{f0}.wav');_,y=read_wav(dest/f'baritone_{f0}.wav')
-            clean=x[3*rate:6*rate,0];filtered=y[3*rate+4096:6*rate+4096,0]
+            match=re.search(r'RENDER '+re.escape(f'baritone_{f0}.wav')+r' latency=(\d+)',process.stdout)
+            if not match:raise ValueError('Host did not report per-file latency')
+            delay=int(match.group(1))
+            clean=x[3*rate:6*rate,0];filtered=y[3*rate+delay:6*rate+delay,0]
+            if len(clean)!=len(filtered):raise ValueError('Incomplete aligned tail')
             reduction=residual_db(clean,rate,f0)-residual_db(filtered,rate,f0)
-            result.append({'f0Hz':f0,'biasDb':a.bias,'attenuationDb':attenuation,'interharmonicNoiseReduction800to6000Db':reduction,'finite':bool(np.isfinite(y).all())})
+            result.append({'f0Hz':f0,'biasDb':a.bias,'attenuationDb':attenuation,'reportedDelaySamples':delay,'interharmonicNoiseReduction800to6000Db':reduction,'finite':bool(np.isfinite(y).all())})
     (root/'results.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     print(json.dumps(result,indent=2))
     # Explicit minimum for this beta, not a claim of perceptual equivalence.

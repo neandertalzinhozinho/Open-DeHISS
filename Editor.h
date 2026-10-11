@@ -20,6 +20,7 @@ private:
     PurpleDialLook look;
     bool lastAuto=true;
     juce::Slider attenuation,lfBias,bias,threshold,mix,highEndCut;
+    juce::Label versionInfo;
     juce::ToggleButton bypass{"BYPASS"},automatic{"AUTO"};
     std::array<std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment>,6> sliders;
     std::array<std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment>,2> buttons;

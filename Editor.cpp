@@ -40,6 +40,12 @@ void PurpleDialLook::drawToggleButton(juce::Graphics& g,juce::ToggleButton& b,bo
 OpenDeHISSEditor::OpenDeHISSEditor(OpenHissProcessor& p):AudioProcessorEditor(p),processor(p)
 {
     setLookAndFeel(&look);setSize(550,426);
+    versionInfo.setComponentID("versionInfo");
+    versionInfo.setText(juce::String("Beta ")+OPEN_DEHISS_VERSION+"  |  Atualizado: "+OPEN_DEHISS_UPDATE_DATE,juce::dontSendNotification);
+    versionInfo.setFont(juce::Font(11.f));
+    versionInfo.setColour(juce::Label::textColourId,juce::Colour(0xffd0c1dd));
+    versionInfo.setJustificationType(juce::Justification::centred);
+    addAndMakeVisible(versionInfo);
     const char* ids[]={"attenuation","lowBias","bias","threshold","mix","highEndCut"};
     juce::Slider* controls[]={&attenuation,&lfBias,&bias,&threshold,&mix,&highEndCut};
     const char* names[]={"ATTENUATION","LF BIAS","BIAS","THRESHOLD","MIX %","HIGH END CUT"};
@@ -76,6 +82,7 @@ void OpenDeHISSEditor::resized()
     bypass.setBounds(44,331,95,30);automatic.setBounds(145,331,85,30);
     threshold.setBounds(40,366,185,22);mix.setBounds(375,366,146,22);
     highEndCut.setBounds(245,386,287,27);
+    versionInfo.setBounds(18,360,514,18);
 }
 void OpenDeHISSEditor::paint(juce::Graphics& g)
 {
