@@ -33,3 +33,6 @@ Valores dos tons são queda RMS total da mistura, dominada pelo tom, não mediç
 O critério parcial proposto de diferença na redução RMS ≤0,5dB falhou nos54checks avaliáveis (dois canais, excluídos silêncio, impulso e canal sem entrada). Isso comprova divergência nesses cenários; não é certificação do fabricante. Os resultados de impulso e demais métricas requerem análise própria. Na repetição do ruído principal, a diferença de redução foi menor0,001dB; não comprova repetibilidade para toda a matriz.
 
 O carregamento da referência não basta para validar o benchmark. Os primeiros renders offline não demonstraram atuação; a comparação válida usa pipeline cadenciado em tempo real, controle após preparação e sincronização do dispatcher, com atraso medido por arquivo. Detalhes de reprodução em [BENCHMARK.md](BENCHMARK.md). Testes do próprio beta passam, mas os resultados A/B demonstram que a equivalência não foi atingida.
+
+## Beta 0.4.0
+Resultados atuais, mudanças e limitações: [BETA-0.4.md](BETA-0.4.md). As seções acima registram versões anteriores; a latência atual é 4096 amostras a 48 kHz.

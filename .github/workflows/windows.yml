@@ -25,6 +25,8 @@ jobs:
         run: cmake --build build --config Release --parallel 2
       - name: Test DSP, GUI and compiled VST3
         run: ctest --test-dir build -C Release --output-on-failure
+      - name: Test residual hiss under synthetic baritone harmonics
+        run: python tools/benchmark/baritone_residual.py "build/OpenDeHISS_artefacts/Release/VST3/Open DeHISS.vst3" "build/OpenDeHISSReferenceHost_artefacts/Release/OpenDeHISSReferenceHost.exe" "baritone-validation" --bias 6
       - name: Package
         shell: pwsh
         run: |
@@ -36,3 +38,4 @@ jobs:
             Open-DeHISS-Windows-x64.zip
             build/editor-preview.png
             build/Testing/Temporary/LastTest.log
+            baritone-validation/results.json

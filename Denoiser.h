@@ -12,14 +12,17 @@ class HissChannel
 public:
     void prepare(double sampleRate)
     {
-        fs=sampleRate; order=10;
-        while ((1<<order) < sampleRate/48.828125 && order<13) ++order;
-        n=1<<order; hop=n/2; bins=n/2+1;
+        fs=sampleRate; order=12;
+        while ((1<<order) < sampleRate/11.71875 && order<13) ++order;
+        n=1<<order; hop=n/4; bins=n/2+1;
         fft=std::make_unique<juce::dsp::FFT>(order);
         input.assign(n,0); dry.assign(n,0); output.assign(4*n,0);
         work.assign(2*n,0); window.resize(n); noise.assign(bins,0); gain.assign(bins,1);
         histories.assign(bins*21,0); frames=0; historyPos=0; cursor=0; sinceFrame=0;
-        for(int i=0;i<n;++i) window[i]=float(std::sin(juce::MathConstants<double>::pi*i/n));
+        power.assign(bins,0); temporalEstimate.assign(bins,0); averagedPower.assign(bins,0);
+        // Hann/75% overlap reduces leakage from dense vocal harmonics into hiss
+        // bins. Sum of squared periodic Hann windows is 1.5.
+        for(int i=0;i<n;++i) window[i]=float(.5-.5*std::cos(2*juce::MathConstants<double>::pi*i/n));
     }
     int latency() const {return n;}
     float process(float sample,const HissSettings& s)
@@ -44,19 +47,34 @@ private:
         fft->performRealOnlyForwardTransform(work.data());
         const int used=int(std::min<uint64_t>(frames+1,21));
         const double manualPower=std::pow(10.0,s.threshold/10.0)*n*0.5;
-        const double timeGain=std::exp(-double(hop)/(fs*0.035));
+        const double averageAlpha=std::exp(-double(hop)/(fs*0.060));
         for(int k=0;k<bins;++k)
         {
             const double real=work[2*k], imag=work[2*k+1];
             const double p=real*real+imag*imag;
+            power[k]=p;
             histories[k*21+historyPos]=p;
             std::array<double,21> sorted{};
             std::copy_n(histories.begin()+k*21,used,sorted.begin());
             std::sort(sorted.begin(),sorted.begin()+used);
-            const double estimate=sorted[used/2]/std::log(2.0);
+            temporalEstimate[k]=sorted[used/2]/std::log(2.0);
+        }
+        for(int k=0;k<bins;++k)
+        {
+            // A sustained narrow component must not train its own noise floor.
+            // Use robust neighbouring temporal estimates, excluding the main lobe.
+            std::array<double,29> neighbours{};int count=0;
+            for(int j=std::max(0,k-14);j<=std::min(bins-1,k+14);++j)
+                if(std::abs(j-k)>2)neighbours[count++]=temporalEstimate[j];
+            std::sort(neighbours.begin(),neighbours.begin()+count);
+            const double spectralFloor=count?neighbours[count/4]*1.3:temporalEstimate[k];
+            const double estimate=std::min(temporalEstimate[k],spectralFloor);
             if(frames==0) noise[k]=estimate;
-            else {const double alpha=std::exp(-double(hop)/(fs*(estimate<noise[k]?0.15:3.0)));
+            else {const double alpha=std::exp(-double(hop)/(fs*(frames<21?0.020:(estimate<noise[k]?0.15:3.0))));
                   noise[k]=alpha*noise[k]+(1-alpha)*estimate;}
+            const double observed=power[k];
+            if(frames==0)averagedPower[k]=observed;
+            else averagedPower[k]=averageAlpha*averagedPower[k]+(1-averageAlpha)*observed;
             const double frequency=double(k)*fs/n;
             // Same noise estimator and suppression law, restricted to the high band.
             // A short transition ABOVE 15 kHz avoids a discontinuous spectral edge.
@@ -65,19 +83,26 @@ private:
             const double floorGain=std::pow(10.0,-effectiveReduction/20.0);
             const double shape=std::pow(10.0,(s.bias+s.lowBias*std::max(0.0,1.0-frequency/5000.0))/10.0);
             const double np=(s.automatic?noise[k]:manualPower)*shape;
-            // Independent beta baseline: Wiener-style spectral suppression, not recovered CEDAR code.
-            const double target=std::max(floorGain,std::sqrt(std::max(0.0,1.0-np/(p+1e-30))));
+            // Independent probability-like classifier. Averaging avoids treating
+            // random frame peaks in stationary hiss as useful signal.
+            const double ratio=averagedPower[k]/(np+1e-30);
+            const double confidence=std::clamp((ratio-4.0)/6.0,0.0,1.0);
+            // No unconditional tonal exemption: weak coherent residue is still
+            // attenuated, and positive Bias increases suppression under speech.
+            const double useful=confidence*confidence*(3-2*confidence);
+            const double target=floorGain+(1-floorGain)*useful;
+            const double timeGain=std::exp(-double(hop)/(fs*(target>gain[k]?0.005:0.035)));
             gain[k]=timeGain*gain[k]+(1-timeGain)*target;
             const double g=(effectiveReduction<=0 || s.bypass)?1.0:gain[k];
-            work[2*k]=float(real*g); work[2*k+1]=float(imag*g);
+            work[2*k]*=float(g); work[2*k+1]*=float(g);
         }
         fft->performRealOnlyInverseTransform(work.data());
-        for(int i=0;i<n;++i) output[(cursor+1+i)%output.size()]+=work[i]*window[i];
+        for(int i=0;i<n;++i) output[(cursor+1+i)%output.size()]+=work[i]*window[i]*(2.f/3.f);
         ++frames; historyPos=(historyPos+1)%21;
     }
     double fs=48000; int order=10,n=1024,hop=512,bins=513,sinceFrame=0,historyPos=0;
     uint64_t frames=0, cursor=0;
     std::unique_ptr<juce::dsp::FFT> fft;
     std::vector<float> input,dry,output,work,window;
-    std::vector<double> histories,noise,gain;
+    std::vector<double> histories,noise,gain,power,temporalEstimate,averagedPower;
 };

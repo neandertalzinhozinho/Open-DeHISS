@@ -22,7 +22,7 @@ int main(int argc,char** argv)
     std::cout<<"Default attenuation 0 dB confirmed; testing at -12 dB\n";
     attenuation->setValueNotifyingHost(0.7f);
     instance->setRateAndBufferSizeDetails(48000,257);instance->prepareToPlay(48000,257);
-    if(instance->getLatencySamples()!=1024){std::cerr<<"Wrong latency\n";return 5;}
+    if(instance->getLatencySamples()!=4096){std::cerr<<"Wrong latency\n";return 5;}
     juce::AudioBuffer<float> buffer(2,257);juce::MidiBuffer midi;
     std::mt19937 rng(20261011);std::normal_distribution<float> normal(0,0.0005623413f);
     double inPower=0,outPower=0;bool finite=true,rightSilent=true;
@@ -41,7 +41,7 @@ int main(int argc,char** argv)
     instance->releaseResources();instance->prepareToPlay(48000,257);
     double worst=0;
     for(int b=0;b<20;++b){buffer.clear();for(int i=0;i<257;++i)buffer.setSample(0,i,float(0.1*std::sin((b*257+i)*0.1)));
-        instance->processBlock(buffer,midi);for(int i=0;i<257;++i){const int t=b*257+i;const float expected=t<1024?0:float(0.1*std::sin((t-1024)*0.1));worst=std::max(worst,std::abs(double(buffer.getSample(0,i)-expected)));}}
+        instance->processBlock(buffer,midi);for(int i=0;i<257;++i){const int t=b*257+i;const float expected=t<4096?0:float(0.1*std::sin((t-4096)*0.1));worst=std::max(worst,std::abs(double(buffer.getSample(0,i)-expected)));}}
     std::cout<<"Actual VST3 bypass alignment error: "<<worst<<'\n';
     if(worst>0.000001)return 8;
     juce::AudioProcessorParameter *high=nullptr,*automatic=nullptr,*threshold=nullptr;
@@ -57,7 +57,7 @@ int main(int argc,char** argv)
     for(int b=0;b<400;++b){buffer.clear();for(int i=0;i<257;++i){const int t=b*257+i;
         buffer.setSample(0,i,float(0.0005*(std::sin(2*pi*1000*t/48000)+std::sin(2*pi*18000*t/48000))));}
         instance->processBlock(buffer,midi);
-        if(b>=200)for(int i=0;i<257;++i){const int t=b*257+i-1024;const double v=buffer.getSample(0,i);
+        if(b>=200)for(int i=0;i<257;++i){const int t=b*257+i-4096;const double v=buffer.getSample(0,i);
             lo+=v*std::sin(2*pi*1000*t/48000);hi+=v*std::sin(2*pi*18000*t/48000);++count;}}
     const double lowDb=-20*std::log10(std::abs(2*lo/count)/0.0005),highDb=-20*std::log10(std::abs(2*hi/count)/0.0005);
     std::cout<<"Actual VST3 High End Cut low-band loss dB: "<<lowDb<<"; high-band reduction dB: "<<highDb<<'\n';

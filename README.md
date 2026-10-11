@@ -10,7 +10,13 @@ Interface lilás com três knobs: Atenuação grande à direita, LF Bias e Bias 
 
 Copie a pasta inteira `Open DeHISS.vst3` para `C:\Program Files\Common Files\VST3\`. No FL Studio: Options → Manage plugins → Find installed plugins. Procure Open DeHISS. Comece em 0 dB e desça gradualmente para −6, −12… conforme o ruído. Duplo clique nos knobs restaura o padrão. Auto estima o ruído ao longo do tempo; em modo manual, ajuste Threshold. Mix fica disponível na lista de parâmetros do host.
 
-Latência reportada: 1024 amostras a 44,1/48 kHz; 2048 a 96 kHz. O plugin não altera configurações de áudio do Windows. Sem iLok, ativação ou comunicação de rede no código próprio.
+Latência reportada no beta 0.4: 4096 amostras a 44,1/48 kHz (92,9/85,3 ms); 8192 a 96 kHz (85,3 ms). A resolução maior separa melhor harmônicos próximos, mas aumenta o atraso para monitoramento ao vivo. O plugin não altera configurações de áudio do Windows. Sem iLok, ativação ou comunicação de rede no código próprio.
+
+## Supressão sob voz — beta 0.4.0
+
+Estimador temporal e espectral corrigido para não aprender imediatamente todo componente sustentado como ruído. Janela Hann com sobreposição de 75% reduz o vazamento de harmônicos para bins vizinhos. A decisão usa energia média acima do piso estimado; não existe uma proteção incondicional baseada apenas em coerência tonal.
+
+Para reduzir sobras durante a voz, aumente **Bias** gradualmente para +6 e, se necessário, +10 dB. Isso aumenta a estimativa de ruído e a supressão também em componentes fracos. Pode retirar detalhes da voz; Atenuação determina o limite máximo, não a redução garantida em cada faixa. Sons misturados no mesmo bin não podem ser perfeitamente separados por esta máscara espectral.
 
 ## High End Cut (0.3.0)
 
@@ -32,7 +38,7 @@ Saída: `build/OpenDeHISS_artefacts/Release/VST3/Open DeHISS.vst3`. GitHub Actio
 
 ## Escopo do beta
 
-DSP próprio: STFT com janela seno e overlap de 50%, estimativa mediana de ruído com acompanhamento assimétrico, ganho espectral tipo Wiener e suavização temporal. Não há equivalência comprovada ao CEDAR. Preservação perceptiva da voz, musical noise, automação sem cliques e desempenho prolongado ainda estão em avaliação. Sons sustentados podem entrar na estimativa automática de ruído.
+DSP próprio: STFT com janela Hann e overlap de 75%, estimativa mediana temporal e quantil espectral com acompanhamento assimétrico, classificação por razão sinal/piso e suavização temporal. Não há equivalência comprovada ao CEDAR. Preservação perceptiva da voz, musical noise, automação sem cliques e desempenho prolongado ainda estão em avaliação. Ruído tonal forte ou sobreposto aos harmônicos pode permanecer.
 
 Testes: transparência 0 dB, latência, overlap-add, bypass, Mix=0, silêncio, NaN/Inf, atenuação manual, redução automática, canais estéreo, persistência de parâmetros, blocos variáveis e renderização da interface. O host de teste separado carrega o VST3 compilado.
 

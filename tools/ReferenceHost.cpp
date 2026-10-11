@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
     std::thread watchdog([&] { for(int i=0;i<(argc>2?18000:600) && !complete;++i) Sleep(100); if(!complete) { std::cout << "TIMEOUT: probe deadline exceeded" << std::endl; ExitProcess(124); } });
     struct Completion { std::atomic<bool>& flag; std::thread& thread; ~Completion(){flag=true;thread.join();} } finish{complete,watchdog};
     juce::ScopedJuceInitialiser_GUI runtime;
-    if (argc != 2 && argc != 7 && argc != 8 && argc != 9) { std::cout << "bundle [inputDir outputDir attenuationDb autoBool thresholdDb [masterBypassNormalized [realtime]]]" << std::endl; return 2; }
+    if (argc != 2 && argc != 7 && argc != 8 && argc != 9 && argc != 10) { std::cout << "bundle [inputDir outputDir attenuationDb autoBool thresholdDb [masterBypassNormalized [realtime|offline [biasDb]]]]" << std::endl; return 2; }
     std::cout << "Scanning " << argv[1] << std::endl;
     juce::AudioPluginFormatManager manager;
 #if REFERENCE_WITH_EDITOR
@@ -80,7 +80,7 @@ int main(int argc, char** argv) {
             auto window=std::make_unique<ReferenceWindow>();
             if(auto* editor=instance->createEditorIfNeeded()){window->setContentOwned(editor,true);window->centreWithSize(editor->getWidth(),editor->getHeight());window->setVisible(true);std::cout << "Official editor opened" << std::endl;}
 #endif
-            const bool realtime=argc==9 && juce::String(argv[8])=="realtime";
+            const bool realtime=argc>=9 && juce::String(argv[8])=="realtime";
             instance->setNonRealtime(!realtime);
             instance->setRateAndBufferSizeDetails(reader->sampleRate,256);instance->prepareToPlay(reader->sampleRate,256);
             for(auto* p:instance->getParameters()) {
@@ -91,6 +91,7 @@ int main(int argc, char** argv) {
                 if(name=="Automatic Threshold" || name=="Automatico") p->setValueNotifyingHost(float(std::atoi(argv[5])));
                 if(name=="Threshold") p->setValueNotifyingHost(float((std::atof(argv[6])+99)/99));
                 if(name.startsWith("Noise floor")) p->setValueNotifyingHost(float((std::atof(argv[6])+90)/70));
+                if(argc==10 && (name=="Bias" || name=="Bias (dB)")) p->setValueNotifyingHost(float((std::atof(argv[9])+10)/20));
                 std::cout << "CONFIG " << name << " normalized=" << p->getValue() << " text=" << p->getText(p->getValue(),128) << std::endl;
             }
             // Flush JUCE's asynchronous controller parameter dispatcher before rendering.

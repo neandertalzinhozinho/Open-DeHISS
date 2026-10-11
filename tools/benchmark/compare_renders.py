@@ -32,15 +32,15 @@ def read_wav(path):
     else:raise ValueError((path,code,bits))
     return rate,x.reshape(-1,channels)
 
-def compare(base,profile):
+def compare(base,profile,open_prefix='open'):
     rows=[]
     _,noise=read_wav(base.parent/'AutoDehiss-test-stimuli'/'white_-35dBFS.wav')
     _,cn=read_wav(base/f'cedar-realtime-{profile}'/'white_-35dBFS.wav')
-    _,on=read_wav(base/f'open-{profile}'/'white_-35dBFS.wav')
+    _,on=read_wav(base/f'{open_prefix}-{profile}'/'white_-35dBFS.wav')
     cedar_delay=estimate_delay(noise[:,0],cn[:,0],32768)
     open_delay=estimate_delay(noise[:,0],on[:,0],32768)
     for path in sorted((base/f'cedar-realtime-{profile}').glob('*.wav')):
-        rate,c=read_wav(path);_,o=read_wav(base/f'open-{profile}'/path.name)
+        rate,c=read_wav(path);_,o=read_wav(base/f'{open_prefix}-{profile}'/path.name)
         _,x=read_wav(base.parent/'AutoDehiss-test-stimuli'/path.name)
         if x.shape[1]==1:x=np.repeat(x,2,axis=1)
         signal_present=bool(np.max(np.abs(x[:,0]))>0)
@@ -64,7 +64,7 @@ def compare(base,profile):
                 'differenceRmsDbfs':rms_db(d-b),'cedarDryMaxError':float(np.max(np.abs(c[:,ch]-x[:,ch]))),
                 'openDryMaxError':float(np.max(np.abs(o[:,ch]-x[:,ch]))),'bands':bands})
         if 'impulse' in path.name:
-            row['unalignedPeakSamples']={'input':int(np.argmax(abs(x[:,0]))),'cedar':int(np.argmax(abs(read_wav(path)[1][:,0]))),'open':int(np.argmax(abs(read_wav(base/f'open-{profile}'/path.name)[1][:,0])))}
+            row['unalignedPeakSamples']={'input':int(np.argmax(abs(x[:,0]))),'cedar':int(np.argmax(abs(read_wav(path)[1][:,0]))),'open':int(np.argmax(abs(read_wav(base/f'{open_prefix}-{profile}'/path.name)[1][:,0])))}
             row['impulseMetrics']={'inputPeak':float(np.max(np.abs(x[:,0]))),'cedarPeak':float(np.max(np.abs(c[:,0]))),
                 'openPeak':float(np.max(np.abs(o[:,0]))),'cedarEnergy':float(np.sum(c[:,0]**2)),'openEnergy':float(np.sum(o[:,0]**2))}
         if 'noise_step' in path.name:
@@ -72,7 +72,7 @@ def compare(base,profile):
                 'cedarDbfs':rms_db(c[pos:pos+rate//4,0]),'openDbfs':rms_db(o[pos:pos+rate//4,0])}
                 for pos in range(0,n,rate//4)]
         rows.append(row)
-    return {'profile':profile,'sampleRate':48000,'blockSize':256,'declaredLatencyCedar':16128,'declaredLatencyOpen':1024,
+    return {'profile':profile,'openPrefix':open_prefix,'sampleRate':48000,'blockSize':256,'declaredLatencyCedar':16128,
         'measuredDelayCedar':cedar_delay,'measuredDelayOpen':open_delay,
         'steadyAnalysisStartsSeconds':3,'highEndCut':0,'monoInputsDuplicatedToStereo':True,'results':rows}
 

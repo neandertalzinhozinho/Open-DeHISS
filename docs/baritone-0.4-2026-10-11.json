@@ -1,0 +1,44 @@
+[
+  {
+    "f0Hz": 90,
+    "biasDb": 6.0,
+    "attenuationDb": -12,
+    "interharmonicNoiseReduction800to6000Db": 5.850593338432503,
+    "finite": true
+  },
+  {
+    "f0Hz": 120,
+    "biasDb": 6.0,
+    "attenuationDb": -12,
+    "interharmonicNoiseReduction800to6000Db": 6.206274047433226,
+    "finite": true
+  },
+  {
+    "f0Hz": 150,
+    "biasDb": 6.0,
+    "attenuationDb": -12,
+    "interharmonicNoiseReduction800to6000Db": 6.551797851076174,
+    "finite": true
+  },
+  {
+    "f0Hz": 90,
+    "biasDb": 6.0,
+    "attenuationDb": -26,
+    "interharmonicNoiseReduction800to6000Db": 6.957073124203319,
+    "finite": true
+  },
+  {
+    "f0Hz": 120,
+    "biasDb": 6.0,
+    "attenuationDb": -26,
+    "interharmonicNoiseReduction800to6000Db": 7.356090548233809,
+    "finite": true
+  },
+  {
+    "f0Hz": 150,
+    "biasDb": 6.0,
+    "attenuationDb": -26,
+    "interharmonicNoiseReduction800to6000Db": 7.7649007621228066,
+    "finite": true
+  }
+]

@@ -27,7 +27,7 @@ int main()
     const int fs=48000;std::mt19937 rng(20261011);std::normal_distribution<float> normal(0,1);
     std::vector<float> noise(3*fs);for(auto& a:noise)a=normal(rng)*0.0005623413f;
     HissSettings s;s.automatic=false;s.threshold=-50;s.reduction=12;
-    auto y=render(noise,fs,s);const int latency=1024;
+    auto y=render(noise,fs,s);const int latency=4096;
     double reduction=20*std::log10(rms(noise,fs,3*fs)/rms(y,fs+latency,3*fs+latency));
     std::cout<<"Measured manual noise reduction dB: "<<reduction<<'\n';
     require(reduction>10 && reduction<13,"manual attenuation follows 12 dB floor");
@@ -35,6 +35,58 @@ int main()
     reduction=20*std::log10(rms(noise,fs,3*fs)/rms(y,fs+latency,3*fs+latency));
     std::cout<<"Measured auto noise reduction dB: "<<reduction<<'\n';
     require(reduction>2,"automatic estimator reduces stationary hiss");
+    // Regression from the reference benchmark: sustained useful tones must not
+    // become the automatically learned noise floor.
+    for(double rate:{44100.0,48000.0,96000.0}) {
+        HissSettings tonal;tonal.reduction=26;
+        HissChannel delayProbe;delayProbe.prepare(rate);const int delay=delayProbe.latency();
+        const auto amplitude=[rate](const std::vector<float>& v,int offset,double freq){
+            double re=0,im=0;const int count=int(rate*2);
+            for(int i=0;i<count;++i){const double phase=2*juce::MathConstants<double>::pi*freq*(i+int(rate))/rate;
+                re+=v[offset+int(rate)+i]*std::cos(phase);im+=v[offset+int(rate)+i]*std::sin(phase);}
+            return 2*std::hypot(re,im)/count;};
+        for(double freq:{1400.0,11000.0}) {
+            std::vector<float> toneNoise(static_cast<size_t>(rate*3));
+            for(int i=0;i<int(toneNoise.size());++i)toneNoise[i]=float(.05*std::sin(2*juce::MathConstants<double>::pi*freq*i/rate))+normal(rng)*.0005623413f;
+            const auto filtered=render(toneNoise,rate,tonal);
+            const double loss=20*std::log10(amplitude(toneNoise,0,freq)/amplitude(filtered,delay,freq));
+            std::cout<<"Auto sustained tone "<<rate<<" Hz, "<<freq<<" Hz loss: "<<loss<<" dB\n";
+            require(std::abs(loss)<.5,"automatic mode preserves sustained useful tones with hiss");
+        }
+        std::vector<float> vowel(static_cast<size_t>(rate*3));
+        for(int i=0;i<int(vowel.size());++i){double voiced=0;
+            for(int h=1;h<=12;++h)voiced+=.03/h*std::sin(2*juce::MathConstants<double>::pi*120*h*i/rate);
+            vowel[i]=float(voiced)+normal(rng)*.0005623413f;}
+        const auto filtered=render(vowel,rate,tonal);
+        for(double harmonic:{120.0,600.0,1440.0}) {
+            const double loss=20*std::log10(amplitude(vowel,0,harmonic)/amplitude(filtered,delay,harmonic));
+            std::cout<<"Synthetic vowel "<<rate<<" Hz, harmonic "<<harmonic<<" Hz loss: "<<loss<<" dB\n";
+            require(std::abs(loss)<1,"automatic mode preserves sustained synthetic vowel harmonics");
+        }
+    }
+    s.reduction=26;s.automatic=true;y=render(noise,fs,s);
+    reduction=20*std::log10(rms(noise,fs,3*fs)/rms(y,fs+latency,3*fs+latency));
+    std::cout<<"Auto stationary noise at -26 dB: "<<reduction<<" dB\n";
+    require(reduction>20 && reduction<27,"automatic suppression approaches selected amount on stationary hiss");
+    // Low-level tonal residue must not be exempt merely because it is coherent.
+    // Dense baritone harmonics surround these probes in the user's target band.
+    // Probes sit halfway between harmonics. A tone only 10 Hz from a strong
+    // harmonic is unresolved at this FFT size and is not claimed removable.
+    for(double residueFrequency:{1020.0,1860.0,4020.0}) {
+        std::vector<float> mixture(3*fs);
+        for(int i=0;i<int(mixture.size());++i){double voice=0;
+            for(int h=1;h<=50;++h)voice+=.015/h*std::sin(2*juce::MathConstants<double>::pi*120*h*i/fs);
+            mixture[i]=float(voice+.00015*std::sin(2*juce::MathConstants<double>::pi*residueFrequency*i/fs))+normal(rng)*.0005623413f;}
+        HissSettings aggressive;aggressive.reduction=26;aggressive.bias=10;
+        const auto filtered=render(mixture,fs,aggressive);
+        const auto probe=[&](const std::vector<float>& v,int offset){double re=0,im=0;
+            for(int i=fs;i<3*fs;++i){const double phase=2*juce::MathConstants<double>::pi*residueFrequency*i/fs;
+                re+=v[i+offset]*std::cos(phase);im+=v[i+offset]*std::sin(phase);}
+            return std::hypot(re,im);};
+        const double residueCut=20*std::log10(probe(mixture,0)/probe(filtered,latency));
+        std::cout<<"Baritone weak tonal residue "<<residueFrequency<<" Hz cut: "<<residueCut<<" dB\n";
+        require(residueCut>6,"weak coherent residue under baritone is suppressed, not automatically preserved");
+    }
     std::vector<float> silence(2*fs,0);y=render(silence,fs,s);
     require(std::all_of(y.begin(),y.end(),[](float v){return v==0 && std::isfinite(v);}),"silence remains finite zero");
     silence[17]=std::numeric_limits<float>::quiet_NaN();silence[42]=std::numeric_limits<float>::infinity();y=render(silence,fs,s);
@@ -51,7 +103,7 @@ int main()
     juce::MemoryBlock saved;processor.getStateInformation(saved);OpenHissProcessor restored;
     restored.setStateInformation(saved.getData(),int(saved.getSize()));
     require(std::abs(restored.state.getRawParameterValue("bias")->load()-5)<0.001,"parameter state survives save and restore");
-    require(processor.getLatencySamples()==1024,"48 kHz latency reported to host");
+    require(processor.getLatencySamples()==4096,"48 kHz latency reported to host");
     const auto partitioned=[&noise](int size){OpenHissProcessor p;p.prepareToPlay(48000,size);p.state.getParameter("attenuation")->setValueNotifyingHost(0.7f);juce::MidiBuffer m;
         std::vector<float> result;for(int offset=0;offset<24000;){const int count=std::min(size,24000-offset);juce::AudioBuffer<float> a(2,count);a.clear();
             for(int i=0;i<count;++i)a.setSample(0,i,noise[offset+i]);p.processBlock(a,m);
@@ -73,7 +125,7 @@ int main()
     }
     HissSettings aboveNyquist;aboveNyquist.reduction=0;aboveNyquist.highEndCut=40;
     std::vector<float> lowRateInput(30000,0.01f);auto lowRateOutput=render(lowRateInput,30000,aboveNyquist);
-    require(lowRateOutput[2000]==lowRateInput[976],"high cut is exact dry when Nyquist is at or below 15 kHz");
+    require(lowRateOutput[6000]==lowRateInput[1904],"high cut is exact dry when Nyquist is at or below 15 kHz");
     require(processor.state.getRawParameterValue("highEndCut")->load()==0,"High End Cut defaults off");
     processor.state.getParameter("highEndCut")->setValueNotifyingHost(0.4f);
     processor.getStateInformation(saved);restored.setStateInformation(saved.getData(),int(saved.getSize()));
