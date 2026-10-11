@@ -6,7 +6,7 @@
 #include <cmath>
 #include <memory>
 #include <vector>
-struct HissSettings { float reduction=12, bias=0, threshold=-65, lowBias=0, mix=1; bool automatic=true, bypass=false; };
+struct HissSettings { float reduction=12, highEndCut=0, bias=0, threshold=-65, lowBias=0, mix=1; bool automatic=true, bypass=false; };
 class HissChannel
 {
 public:
@@ -31,7 +31,8 @@ public:
         const float wet=output[outPos]; output[outPos]=0;
         if(++sinceFrame==hop){sinceFrame=0;frame(s);}
         ++cursor;
-        const float selected=(s.bypass || s.reduction<=0) ? delayed : delayed+s.mix*(wet-delayed);
+        const bool inactive=s.reduction<=0 && (s.highEndCut<=0 || fs*0.5<=15000);
+        const float selected=(s.bypass || inactive) ? delayed : delayed+s.mix*(wet-delayed);
         return std::isfinite(selected) ? selected : 0;
     }
 private:
@@ -42,7 +43,6 @@ private:
         for(int i=0;i<n;++i) work[i]=input[(start+i)%n]*window[i];
         fft->performRealOnlyForwardTransform(work.data());
         const int used=int(std::min<uint64_t>(frames+1,21));
-        const double floorGain=std::pow(10.0,-s.reduction/20.0);
         const double manualPower=std::pow(10.0,s.threshold/10.0)*n*0.5;
         const double timeGain=std::exp(-double(hop)/(fs*0.035));
         for(int k=0;k<bins;++k)
@@ -58,12 +58,17 @@ private:
             else {const double alpha=std::exp(-double(hop)/(fs*(estimate<noise[k]?0.15:3.0)));
                   noise[k]=alpha*noise[k]+(1-alpha)*estimate;}
             const double frequency=double(k)*fs/n;
+            // Same noise estimator and suppression law, restricted to the high band.
+            // A short transition ABOVE 15 kHz avoids a discontinuous spectral edge.
+            const double highWeight=std::clamp((frequency-15000.0)/500.0,0.0,1.0);
+            const double effectiveReduction=std::max(double(s.reduction),s.highEndCut*highWeight);
+            const double floorGain=std::pow(10.0,-effectiveReduction/20.0);
             const double shape=std::pow(10.0,(s.bias+s.lowBias*std::max(0.0,1.0-frequency/5000.0))/10.0);
             const double np=(s.automatic?noise[k]:manualPower)*shape;
             // Independent beta baseline: Wiener-style spectral suppression, not recovered CEDAR code.
             const double target=std::max(floorGain,std::sqrt(std::max(0.0,1.0-np/(p+1e-30))));
             gain[k]=timeGain*gain[k]+(1-timeGain)*target;
-            const double g=(s.reduction<=0 || s.bypass)?1.0:gain[k];
+            const double g=(effectiveReduction<=0 || s.bypass)?1.0:gain[k];
             work[2*k]=float(real*g); work[2*k+1]=float(imag*g);
         }
         fft->performRealOnlyInverseTransform(work.data());

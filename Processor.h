@@ -30,6 +30,6 @@ public:
 private:
     void processAudio(juce::AudioBuffer<float>&,bool forceBypass);
     std::array<HissChannel,2> channels;
-    std::array<std::atomic<float>*,7> params{};
+    std::array<std::atomic<float>*,8> params{};
     bool prepared=false;
 };

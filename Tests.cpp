@@ -57,17 +57,44 @@ int main()
             for(int i=0;i<count;++i)a.setSample(0,i,noise[offset+i]);p.processBlock(a,m);
             result.insert(result.end(),a.getReadPointer(0),a.getReadPointer(0)+count);offset+=count;}return result;};
     require(partitioned(64)==partitioned(257),"output independent of host block partition");
+    for(double rate:{44100.0,48000.0,96000.0})
+    {
+        HissChannel probe;probe.prepare(rate);const int delay=probe.latency();
+        HissSettings high;high.reduction=0;high.highEndCut=24;high.automatic=false;high.threshold=-20;
+        for(double freq:{1000.0,14000.0,18000.0,21000.0})
+        {
+            std::vector<float> tone(static_cast<size_t>(rate*2),0.f);
+            for(int i=0;i<int(tone.size());++i)tone[i]=float(0.0005*std::sin(2*juce::MathConstants<double>::pi*freq*i/rate));
+            auto filtered=render(tone,rate,high);
+            const double cut=20*std::log10(rms(tone,int(rate),int(2*rate))/rms(filtered,int(rate)+delay,int(2*rate)+delay));
+            std::cout<<"High End Cut "<<rate<<" Hz, tone "<<freq<<" Hz: "<<cut<<" dB\n";
+            require(freq<15000?std::abs(cut)<0.1:std::abs(cut-24)<0.5,"high-band suppression preserves low band and reaches selected floor");
+        }
+    }
+    HissSettings aboveNyquist;aboveNyquist.reduction=0;aboveNyquist.highEndCut=40;
+    std::vector<float> lowRateInput(30000,0.01f);auto lowRateOutput=render(lowRateInput,30000,aboveNyquist);
+    require(lowRateOutput[2000]==lowRateInput[976],"high cut is exact dry when Nyquist is at or below 15 kHz");
+    require(processor.state.getRawParameterValue("highEndCut")->load()==0,"High End Cut defaults off");
+    processor.state.getParameter("highEndCut")->setValueNotifyingHost(0.4f);
+    processor.getStateInformation(saved);restored.setStateInformation(saved.getData(),int(saved.getSize()));
+    require(std::abs(restored.state.getRawParameterValue("highEndCut")->load()+24)<0.001,"High End Cut survives state restore");
     OpenHissProcessor uiProcessor;
     std::unique_ptr<juce::AudioProcessorEditor> editor(uiProcessor.createEditor());
     const auto preview=editor->createComponentSnapshot(editor->getLocalBounds());
     juce::FileOutputStream previewFile(juce::File::getCurrentWorkingDirectory().getChildFile("editor-preview.png"));
+    previewFile.setPosition(0);previewFile.truncate();
     juce::PNGImageFormat png;
-    require(preview.isValid() && preview.getWidth()>0 && png.writeImageToStream(preview,previewFile),"editor instantiates and renders to PNG");
+    require(preview.isValid() && preview.getWidth()==550 && preview.getHeight()==426 && png.writeImageToStream(preview,previewFile),"editor instantiates and renders to PNG");
     auto* dial=dynamic_cast<juce::Slider*>(editor->findChildWithID("attenuation"));
     require(dial && dial->getValue()==0,"attenuation dial displays zero by default");
+    auto* highDial=dynamic_cast<juce::Slider*>(editor->findChildWithID("highEndCut"));
+    require(highDial && highDial->isVisible() && highDial->getValue()==0,"High End Cut control is visible and defaults zero");
+    highDial->setValue(-24,juce::sendNotificationSync);
+    require(std::abs(uiProcessor.state.getRawParameterValue("highEndCut")->load()+24)<0.001,"High End Cut GUI controls its DSP parameter");
     dial->setValue(-26,juce::sendNotificationSync);
     require(std::abs(uiProcessor.state.getRawParameterValue("attenuation")->load()+26)<0.001,"GUI dial updates the DSP attenuation parameter");
     juce::FileOutputStream activePreview(juce::File::getCurrentWorkingDirectory().getChildFile("editor-preview-26.png"));
+    activePreview.setPosition(0);activePreview.truncate();
     require(png.writeImageToStream(editor->createComponentSnapshot(editor->getLocalBounds()),activePreview),"active attenuation editor renders to PNG");
     uiProcessor.state.getParameter("auto")->setValueNotifyingHost(0);
     std::unique_ptr<juce::AudioProcessorEditor> manualEditor(uiProcessor.createEditor());

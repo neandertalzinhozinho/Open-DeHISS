@@ -12,6 +12,12 @@ Copie a pasta inteira `Open DeHISS.vst3` para `C:\Program Files\Common Files\VST
 
 Latência reportada: 1024 amostras a 44,1/48 kHz; 2048 a 96 kHz. O plugin não altera configurações de áudio do Windows. Sem iLok, ativação ou comunicação de rede no código próprio.
 
+## High End Cut (0.3.0)
+
+Controle independente de **0 a −40 dB**, padrão **0 (desligado)**, dedicado ao hiss acima de **15 kHz**. Use-o mesmo com Atenuação geral em 0 dB. Compartilha o estimador e a regra de supressão do dehiss; não acrescenta outra FFT ou latência. A transição ocorre de 15 a 15,5 kHz, com força completa acima de 15,5 kHz. Com Atenuação geral desligada, os bins até 15 kHz mantêm ganho unitário; pequenas diferenças próximas à borda são inerentes à análise por janelas.
+
+É uma supressão adaptativa de hiss, e não um filtro passa-baixas que apaga todo o áudio acima de 15 kHz: componentes classificados como sinal podem permanecer. Auto/Bias/Threshold também influenciam essa estimativa. Se ambos os controles estiverem ativos, aplica o maior limite de redução por bin, evitando empilhar dois dehiss. Bypass e Mix continuam valendo para todo o processamento.
+
 ## Build
 
 Requisitos: Visual Studio 2022 Build Tools com C++, Windows SDK e CMake ≥3.22. Use um checkout curto (por exemplo C:\OpenDeHISS). JUCE 8.0.15 é baixado automaticamente de um commit fixado com hash do ZIP validado. Para build offline, passe `-DJUCE_SOURCE_DIR=C:/caminho/JUCE`.

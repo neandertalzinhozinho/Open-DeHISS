@@ -43,7 +43,24 @@ int main(int argc,char** argv)
     for(int b=0;b<20;++b){buffer.clear();for(int i=0;i<257;++i)buffer.setSample(0,i,float(0.1*std::sin((b*257+i)*0.1)));
         instance->processBlock(buffer,midi);for(int i=0;i<257;++i){const int t=b*257+i;const float expected=t<1024?0:float(0.1*std::sin((t-1024)*0.1));worst=std::max(worst,std::abs(double(buffer.getSample(0,i)-expected)));}}
     std::cout<<"Actual VST3 bypass alignment error: "<<worst<<'\n';
-    instance->releaseResources();
     if(worst>0.000001)return 8;
+    juce::AudioProcessorParameter *high=nullptr,*automatic=nullptr,*threshold=nullptr;
+    for(auto* p:instance->getParameters()){
+        if(p->getName(128).containsIgnoreCase("High End Cut"))high=p;
+        if(p->getName(128).containsIgnoreCase("Automatico"))automatic=p;
+        if(p->getName(128).containsIgnoreCase("Noise floor"))threshold=p;}
+    if(!high || !automatic || !threshold || std::abs(high->getValue()-1)>0.00001)return 10;
+    bypass->setValueNotifyingHost(0);attenuation->setValueNotifyingHost(1);
+    automatic->setValueNotifyingHost(0);threshold->setValueNotifyingHost(1);high->setValueNotifyingHost(0.4f);
+    instance->releaseResources();instance->prepareToPlay(48000,257);
+    const double pi=juce::MathConstants<double>::pi;double lo=0,hi=0;int count=0;
+    for(int b=0;b<400;++b){buffer.clear();for(int i=0;i<257;++i){const int t=b*257+i;
+        buffer.setSample(0,i,float(0.0005*(std::sin(2*pi*1000*t/48000)+std::sin(2*pi*18000*t/48000))));}
+        instance->processBlock(buffer,midi);
+        if(b>=200)for(int i=0;i<257;++i){const int t=b*257+i-1024;const double v=buffer.getSample(0,i);
+            lo+=v*std::sin(2*pi*1000*t/48000);hi+=v*std::sin(2*pi*18000*t/48000);++count;}}
+    const double lowDb=-20*std::log10(std::abs(2*lo/count)/0.0005),highDb=-20*std::log10(std::abs(2*hi/count)/0.0005);
+    std::cout<<"Actual VST3 High End Cut low-band loss dB: "<<lowDb<<"; high-band reduction dB: "<<highDb<<'\n';
+    instance->releaseResources();if(std::abs(lowDb)>0.1 || std::abs(highDb-24)>0.5)return 11;
     std::cout<<"PASS actual compiled VST3 load, processing, latency and bypass\n";return 0;
 }

@@ -39,11 +39,11 @@ void PurpleDialLook::drawToggleButton(juce::Graphics& g,juce::ToggleButton& b,bo
 }
 OpenDeHISSEditor::OpenDeHISSEditor(OpenHissProcessor& p):AudioProcessorEditor(p),processor(p)
 {
-    setLookAndFeel(&look);setSize(550,375);
-    const char* ids[]={"attenuation","lowBias","bias","threshold","mix"};
-    juce::Slider* controls[]={&attenuation,&lfBias,&bias,&threshold,&mix};
-    const char* names[]={"ATTENUATION","LF BIAS","BIAS","THRESHOLD","MIX %"};
-    for(int i=0;i<5;++i){auto& s=*controls[i];s.setName(names[i]);s.setComponentID(ids[i]);
+    setLookAndFeel(&look);setSize(550,426);
+    const char* ids[]={"attenuation","lowBias","bias","threshold","mix","highEndCut"};
+    juce::Slider* controls[]={&attenuation,&lfBias,&bias,&threshold,&mix,&highEndCut};
+    const char* names[]={"ATTENUATION","LF BIAS","BIAS","THRESHOLD","MIX %","HIGH END CUT"};
+    for(int i=0;i<6;++i){auto& s=*controls[i];s.setName(names[i]);s.setComponentID(ids[i]);
         s.setSliderStyle(i<3?juce::Slider::RotaryVerticalDrag:juce::Slider::LinearHorizontal);
         s.setTextBoxStyle(i<3?juce::Slider::NoTextBox:juce::Slider::TextBoxRight,false,46,20);
         s.setColour(juce::Slider::thumbColourId,purple);s.setColour(juce::Slider::textBoxTextColourId,juce::Colour(0xffd9c5ee));
@@ -54,6 +54,8 @@ OpenDeHISSEditor::OpenDeHISSEditor(OpenHissProcessor& p):AudioProcessorEditor(p)
     lfBias.setRotaryParameters(juce::MathConstants<float>::pi*1.5f,juce::MathConstants<float>::pi*2.5f,true);
     bias.setRotaryParameters(juce::MathConstants<float>::pi*1.5f,juce::MathConstants<float>::pi*2.5f,true);
     threshold.setVisible(false);mix.setVisible(false);
+    highEndCut.setDoubleClickReturnValue(true,0);
+    highEndCut.setTooltip("Dehiss acima de 15 kHz. 0 dB desliga; valores negativos aumentam a reducao.");
     addAndMakeVisible(bypass);addAndMakeVisible(automatic);
     buttons[0]=std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(p.state,"bypass",bypass);
     buttons[1]=std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(p.state,"auto",automatic);
@@ -73,6 +75,7 @@ void OpenDeHISSEditor::resized()
     lfBias.setBounds(58,72,128,128);bias.setBounds(58,200,128,128);attenuation.setBounds(266,63,255,255);
     bypass.setBounds(44,331,95,30);automatic.setBounds(145,331,85,30);
     threshold.setBounds(40,366,185,22);mix.setBounds(375,366,146,22);
+    highEndCut.setBounds(245,386,287,27);
 }
 void OpenDeHISSEditor::paint(juce::Graphics& g)
 {
@@ -84,5 +87,8 @@ void OpenDeHISSEditor::paint(juce::Graphics& g)
         if(x==239)wave.startNewSubPath(float(x),y);else wave.lineTo(float(x),y);}g.setColour(purple.withAlpha(0.09f));g.strokePath(wave,juce::PathStrokeType(0.7f));}
     g.setColour(juce::Colour(0xfff1ddff));g.setFont(25.f);g.drawText("OPEN DeHISS",27,24,207,34,juce::Justification::centredLeft);
     g.setColour(juce::Colour(0xff9989a9));g.setFont(20.f);g.drawText("OPEN DEHISS",265,321,260,29,juce::Justification::centred);
-    g.setColour(juce::Colour(0xffb89ecb).withAlpha(0.5f));g.drawRoundedRectangle(1,1,548,373,4,1);
+    g.setColour(juce::Colour(0xff34283f));g.fillRoundedRectangle(12,379,526,38,6);
+    g.setColour(purple);g.setFont(13.f);g.drawText("HIGH END CUT",26,386,145,26,juce::Justification::centredLeft);
+    g.setColour(juce::Colour(0xffa99ab5));g.setFont(10.f);g.drawText("> 15 kHz",170,386,70,26,juce::Justification::centredLeft);
+    g.setColour(juce::Colour(0xffb89ecb).withAlpha(0.5f));g.drawRoundedRectangle(1,1,548,424,4,1);
 }
