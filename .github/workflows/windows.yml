@@ -1,0 +1,30 @@
+name: Windows VST3
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-test:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DOPEN_DEHISS_BUILD_HOST_CHECK=ON
+      - name: Build
+        run: cmake --build build --config Release --parallel 2
+      - name: Test DSP, GUI and compiled VST3
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Package
+        shell: pwsh
+        run: |
+          Compress-Archive -LiteralPath 'build/OpenDeHISS_artefacts/Release/VST3/Open DeHISS.vst3', 'README.md', 'LICENSE.txt' -DestinationPath 'Open-DeHISS-Windows-x64.zip'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Open-DeHISS-Windows-x64
+          path: |
+            Open-DeHISS-Windows-x64.zip
+            build/editor-preview.png
+            build/Testing/Temporary/LastTest.log
