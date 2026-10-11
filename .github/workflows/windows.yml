@@ -19,6 +19,7 @@ jobs:
           python -m pip install -r tools/benchmark/requirements.txt
           python tools/benchmark/test_audio_metrics.py
           python tools/benchmark/test_compare_renders.py
+          python tools/benchmark/test_voice_injection.py
       - name: Configure
         run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DOPEN_DEHISS_BUILD_HOST_CHECK=ON -DOPEN_DEHISS_BUILD_REFERENCE_HOST=ON
       - name: Build

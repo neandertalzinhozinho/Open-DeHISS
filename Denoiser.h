@@ -18,8 +18,8 @@ public:
         fft=std::make_unique<juce::dsp::FFT>(order);
         input.assign(n,0); dry.assign(n,0); output.assign(4*n,0);
         work.assign(2*n,0); window.resize(n); noise.assign(bins,0); gain.assign(bins,1);
-        histories.assign(bins*21,0); frames=0; historyPos=0; cursor=0; sinceFrame=0;
-        power.assign(bins,0); temporalEstimate.assign(bins,0); averagedPower.assign(bins,0);
+        histories.assign(bins*21,0); frames=0; historyPos=0; cursor=0; sinceFrame=0; rapidTrackingFrames=0;
+        power.assign(bins,0); temporalEstimate.assign(bins,0); averagedPower.assign(bins,0); frameEstimate.assign(bins,0);
         // Hann/75% overlap reduces leakage from dense vocal harmonics into hiss
         // bins. Sum of squared periodic Hann windows is 1.5.
         for(int i=0;i<n;++i) window[i]=float(.5-.5*std::cos(2*juce::MathConstants<double>::pi*i/n));
@@ -48,6 +48,7 @@ private:
         const int used=int(std::min<uint64_t>(frames+1,21));
         const double manualPower=std::pow(10.0,s.threshold/10.0)*n*0.5;
         const double averageAlpha=std::exp(-double(hop)/(fs*0.060));
+        int risingBins=0, examinedBins=0;
         for(int k=0;k<bins;++k)
         {
             const double real=work[2*k], imag=work[2*k+1];
@@ -69,8 +70,21 @@ private:
             std::sort(neighbours.begin(),neighbours.begin()+count);
             const double spectralFloor=count?neighbours[count/4]*1.3:temporalEstimate[k];
             const double estimate=std::min(temporalEstimate[k],spectralFloor);
+            frameEstimate[k]=estimate;
+            const double f=double(k)*fs/n;
+            if(f>=800 && f<=12000){++examinedBins;if(estimate>noise[k]*4 && noise[k]>1e-25)++risingBins;}
+        }
+        // A median over 21 frames rejects brief consonants. Only a persistent
+        // rise across most of the speech/high band accelerates floor tracking;
+        // individual harmonics keep the conservative upward time constant.
+        const bool broadbandRise=examinedBins>0 && risingBins>examinedBins*.65;
+        if(frames>=21 && broadbandRise)rapidTrackingFrames=int(std::ceil(fs*.8/hop));
+        else if(rapidTrackingFrames>0)--rapidTrackingFrames;
+        for(int k=0;k<bins;++k)
+        {
+            const double estimate=frameEstimate[k];
             if(frames==0) noise[k]=estimate;
-            else {const double alpha=std::exp(-double(hop)/(fs*(frames<21?0.020:(estimate<noise[k]?0.15:3.0))));
+            else {const double alpha=std::exp(-double(hop)/(fs*(frames<21?0.020:(estimate<noise[k]?0.15:(rapidTrackingFrames>0?0.15:3.0)))));
                   noise[k]=alpha*noise[k]+(1-alpha)*estimate;}
             const double observed=power[k];
             if(frames==0)averagedPower[k]=observed;
@@ -100,9 +114,9 @@ private:
         for(int i=0;i<n;++i) output[(cursor+1+i)%output.size()]+=work[i]*window[i]*(2.f/3.f);
         ++frames; historyPos=(historyPos+1)%21;
     }
-    double fs=48000; int order=10,n=1024,hop=512,bins=513,sinceFrame=0,historyPos=0;
+    double fs=48000; int order=10,n=1024,hop=512,bins=513,sinceFrame=0,historyPos=0,rapidTrackingFrames=0;
     uint64_t frames=0, cursor=0;
     std::unique_ptr<juce::dsp::FFT> fft;
     std::vector<float> input,dry,output,work,window;
-    std::vector<double> histories,noise,gain,power,temporalEstimate,averagedPower;
+    std::vector<double> histories,noise,gain,power,temporalEstimate,averagedPower,frameEstimate;
 };

@@ -36,3 +36,6 @@ O carregamento da referência não basta para validar o benchmark. Os primeiros 
 
 ## Beta 0.4.0
 Resultados atuais, mudanças e limitações: [BETA-0.4.md](BETA-0.4.md). As seções acima registram versões anteriores; a latência atual é 4096 amostras a 48 kHz.
+
+## Beta 0.5.0
+Resultados de adaptação e limites: [BETA-0.5.md](BETA-0.5.md). Comparação sintética agregada em benchmark-0.5-2026-10-11.json.

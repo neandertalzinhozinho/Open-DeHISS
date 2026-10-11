@@ -18,6 +18,10 @@ Estimador temporal e espectral corrigido para não aprender imediatamente todo c
 
 Para reduzir sobras durante a voz, aumente **Bias** gradualmente para +6 e, se necessário, +10 dB. Isso aumenta a estimativa de ruído e a supressão também em componentes fracos. Pode retirar detalhes da voz; Atenuação determina o limite máximo, não a redução garantida em cada faixa. Sons misturados no mesmo bin não podem ser perfeitamente separados por esta máscara espectral.
 
+## Adaptação a aumentos de ruído — beta 0.5.0
+
+Quando a estimativa de ruído sobe persistentemente em mais de 65% dos bins entre 800 Hz e 12 kHz, o estimador acelera o acompanhamento por uma janela de 0,8 s. O histórico temporal continua rejeitando eventos curtos. Em três taxas de amostragem, um salto de hiss de20 dB recebeu cerca de24 dB de redução após1 s. Ainda há vazamento durante os primeiros aproximadamente0,5 s; não é equivalência ao CEDAR. Latência, interface e controles permanecem como no beta0.4. Consulte [evidências do beta0.5](docs/BETA-0.5.md).
+
 ## High End Cut (0.3.0)
 
 Controle independente de **0 a −40 dB**, padrão **0 (desligado)**, dedicado ao hiss acima de **15 kHz**. Use-o mesmo com Atenuação geral em 0 dB. Compartilha o estimador e a regra de supressão do dehiss; não acrescenta outra FFT ou latência. A transição ocorre de 15 a 15,5 kHz, com força completa acima de 15,5 kHz. Com Atenuação geral desligada, os bins até 15 kHz mantêm ganho unitário; pequenas diferenças próximas à borda são inerentes à análise por janelas.

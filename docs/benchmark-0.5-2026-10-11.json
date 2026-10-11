@@ -1,0 +1,3962 @@
+[
+  {
+    "profile": "auto--12",
+    "openPrefix": "open-v0.5-candidate",
+    "sampleRate": 48000,
+    "blockSize": 256,
+    "declaredLatencyCedar": 16128,
+    "measuredDelayCedar": 16128,
+    "measuredDelayOpen": 4096,
+    "steadyAnalysisStartsSeconds": 3,
+    "highEndCut": 0,
+    "monoInputsDuplicatedToStereo": true,
+    "results": [
+      {
+        "file": "isolated_impulse.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.3684733211994171,
+            "openDryMaxError": 2.9206275939941406e-05,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.3684733211994171,
+            "openDryMaxError": 2.9206275939941406e-05,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          }
+        ],
+        "unalignedPeakSamples": {
+          "input": 96000,
+          "cedar": 112128,
+          "open": 100096
+        },
+        "impulseMetrics": {
+          "inputPeak": 0.5,
+          "cedarPeak": 0.13152667880058289,
+          "openPeak": 0.49997079372406006,
+          "cedarEnergy": 0.017340472496957613,
+          "openEnergy": 0.2499707945770667
+        }
+      },
+      {
+        "file": "noise_step_-65_to_-45.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -46.74560051009142,
+            "cedarRmsDbfs": -57.9267731191362,
+            "openRmsDbfs": -56.04668268554343,
+            "cedarReductionDb": 11.18117260904478,
+            "openReductionDb": 9.30108217545201,
+            "differenceRmsDbfs": -62.23338310504297,
+            "cedarDryMaxError": 0.01941505679860711,
+            "openDryMaxError": 0.019558630883693695,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -71.66124157505256,
+                "openDbfs": -70.85319604428531,
+                "openMinusCedarDb": 0.8080455307672452
+              },
+              "800-2000": {
+                "cedarDbfs": -70.41460156675755,
+                "openDbfs": -69.15551694982734,
+                "openMinusCedarDb": 1.2590846169302097
+              },
+              "2000-5000": {
+                "cedarDbfs": -66.96468154918347,
+                "openDbfs": -65.09924110610407,
+                "openMinusCedarDb": 1.8654404430793932
+              },
+              "5000-8000": {
+                "cedarDbfs": -67.31456270571104,
+                "openDbfs": -65.00943732664055,
+                "openMinusCedarDb": 2.305125379070489
+              },
+              "8000-12000": {
+                "cedarDbfs": -66.02777896335127,
+                "openDbfs": -63.85666603515092,
+                "openMinusCedarDb": 2.171112928200344
+              },
+              "12000-15000": {
+                "cedarDbfs": -67.07131400326679,
+                "openDbfs": -64.99501663543653,
+                "openMinusCedarDb": 2.0762973678302643
+              },
+              "15000-24000": {
+                "cedarDbfs": -62.08888670316472,
+                "openDbfs": -60.33072367333857,
+                "openMinusCedarDb": 1.7581630298261501
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -46.74560051009142,
+            "cedarRmsDbfs": -57.9267731191362,
+            "openRmsDbfs": -56.04668268554343,
+            "cedarReductionDb": 11.18117260904478,
+            "openReductionDb": 9.30108217545201,
+            "differenceRmsDbfs": -62.23338310504297,
+            "cedarDryMaxError": 0.01941505679860711,
+            "openDryMaxError": 0.019558630883693695,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -71.66124157505256,
+                "openDbfs": -70.85319604428531,
+                "openMinusCedarDb": 0.8080455307672452
+              },
+              "800-2000": {
+                "cedarDbfs": -70.41460156675755,
+                "openDbfs": -69.15551694982734,
+                "openMinusCedarDb": 1.2590846169302097
+              },
+              "2000-5000": {
+                "cedarDbfs": -66.96468154918347,
+                "openDbfs": -65.09924110610407,
+                "openMinusCedarDb": 1.8654404430793932
+              },
+              "5000-8000": {
+                "cedarDbfs": -67.31456270571104,
+                "openDbfs": -65.00943732664055,
+                "openMinusCedarDb": 2.305125379070489
+              },
+              "8000-12000": {
+                "cedarDbfs": -66.02777896335127,
+                "openDbfs": -63.85666603515092,
+                "openMinusCedarDb": 2.171112928200344
+              },
+              "12000-15000": {
+                "cedarDbfs": -67.07131400326679,
+                "openDbfs": -64.99501663543653,
+                "openMinusCedarDb": 2.0762973678302643
+              },
+              "15000-24000": {
+                "cedarDbfs": -62.08888670316472,
+                "openDbfs": -60.33072367333857,
+                "openMinusCedarDb": 1.7581630298261501
+              }
+            }
+          }
+        ],
+        "noiseStepCurve": [
+          {
+            "startSeconds": 0.0,
+            "inputDbfs": -64.96140995170066,
+            "cedarDbfs": -64.96329952835755,
+            "openDbfs": -74.62494582849413
+          },
+          {
+            "startSeconds": 0.25,
+            "inputDbfs": -64.95912717232967,
+            "cedarDbfs": -65.0154804620191,
+            "openDbfs": -76.81263512708139
+          },
+          {
+            "startSeconds": 0.5,
+            "inputDbfs": -65.05268134632493,
+            "cedarDbfs": -73.8931616014631,
+            "openDbfs": -76.79920287601884
+          },
+          {
+            "startSeconds": 0.75,
+            "inputDbfs": -64.96646310055381,
+            "cedarDbfs": -74.16249232743345,
+            "openDbfs": -76.65330428520234
+          },
+          {
+            "startSeconds": 1.0,
+            "inputDbfs": -65.07288150138253,
+            "cedarDbfs": -76.63886181482357,
+            "openDbfs": -76.84126055628579
+          },
+          {
+            "startSeconds": 1.25,
+            "inputDbfs": -64.97759740683644,
+            "cedarDbfs": -76.56129963723815,
+            "openDbfs": -76.67500365861105
+          },
+          {
+            "startSeconds": 1.5,
+            "inputDbfs": -64.96878930995041,
+            "cedarDbfs": -76.54802579375422,
+            "openDbfs": -76.7445330108835
+          },
+          {
+            "startSeconds": 1.75,
+            "inputDbfs": -64.95805281133946,
+            "cedarDbfs": -76.53565494918864,
+            "openDbfs": -76.6831929376547
+          },
+          {
+            "startSeconds": 2.0,
+            "inputDbfs": -65.04193807135555,
+            "cedarDbfs": -76.62585669212496,
+            "openDbfs": -76.7664966608341
+          },
+          {
+            "startSeconds": 2.25,
+            "inputDbfs": -64.97704127987213,
+            "cedarDbfs": -76.56223294774301,
+            "openDbfs": -76.80090936084301
+          },
+          {
+            "startSeconds": 2.5,
+            "inputDbfs": -65.05711886222643,
+            "cedarDbfs": -76.65022579674522,
+            "openDbfs": -76.87880470880388
+          },
+          {
+            "startSeconds": 2.75,
+            "inputDbfs": -64.86209907570414,
+            "cedarDbfs": -76.4463045898552,
+            "openDbfs": -76.63416005153684
+          },
+          {
+            "startSeconds": 3.0,
+            "inputDbfs": -65.03764017081448,
+            "cedarDbfs": -76.62770310090103,
+            "openDbfs": -76.76583482884338
+          },
+          {
+            "startSeconds": 3.25,
+            "inputDbfs": -65.08004754316292,
+            "cedarDbfs": -76.66133553466706,
+            "openDbfs": -76.89052876781327
+          },
+          {
+            "startSeconds": 3.5,
+            "inputDbfs": -64.93075536800308,
+            "cedarDbfs": -76.51980070754676,
+            "openDbfs": -76.69883227790122
+          },
+          {
+            "startSeconds": 3.75,
+            "inputDbfs": -64.98788333840594,
+            "cedarDbfs": -76.57842879157268,
+            "openDbfs": -76.73264410598834
+          },
+          {
+            "startSeconds": 4.0,
+            "inputDbfs": -65.0622685959535,
+            "cedarDbfs": -76.64935199300368,
+            "openDbfs": -76.81889066123202
+          },
+          {
+            "startSeconds": 4.25,
+            "inputDbfs": -65.02698604743266,
+            "cedarDbfs": -76.60040109832015,
+            "openDbfs": -76.78756915472236
+          },
+          {
+            "startSeconds": 4.5,
+            "inputDbfs": -64.98464942015673,
+            "cedarDbfs": -76.56975368065508,
+            "openDbfs": -76.84726286774705
+          },
+          {
+            "startSeconds": 4.75,
+            "inputDbfs": -64.87909534349298,
+            "cedarDbfs": -76.46765363761601,
+            "openDbfs": -76.55782395342237
+          },
+          {
+            "startSeconds": 5.0,
+            "inputDbfs": -64.96000298709427,
+            "cedarDbfs": -76.54761139866972,
+            "openDbfs": -76.73751570234545
+          },
+          {
+            "startSeconds": 5.25,
+            "inputDbfs": -65.08309536063896,
+            "cedarDbfs": -76.66981486830582,
+            "openDbfs": -76.85825826868478
+          },
+          {
+            "startSeconds": 5.5,
+            "inputDbfs": -64.99226060408135,
+            "cedarDbfs": -76.58018572186943,
+            "openDbfs": -76.74717389192124
+          },
+          {
+            "startSeconds": 5.75,
+            "inputDbfs": -64.97647519953759,
+            "cedarDbfs": -76.29914729013726,
+            "openDbfs": -73.91019400394282
+          },
+          {
+            "startSeconds": 6.0,
+            "inputDbfs": -44.93419711370956,
+            "cedarDbfs": -53.341201975403294,
+            "openDbfs": -44.957026663261445
+          },
+          {
+            "startSeconds": 6.25,
+            "inputDbfs": -45.072760404397194,
+            "cedarDbfs": -56.66162426536131,
+            "openDbfs": -49.52071391524655
+          },
+          {
+            "startSeconds": 6.5,
+            "inputDbfs": -45.01656026406238,
+            "cedarDbfs": -56.60536723709005,
+            "openDbfs": -56.72426466457538
+          },
+          {
+            "startSeconds": 6.75,
+            "inputDbfs": -45.02728646393007,
+            "cedarDbfs": -56.613147300294784,
+            "openDbfs": -56.96618030768556
+          },
+          {
+            "startSeconds": 7.0,
+            "inputDbfs": -45.00135480172208,
+            "cedarDbfs": -56.58966669178456,
+            "openDbfs": -56.90478942734386
+          },
+          {
+            "startSeconds": 7.25,
+            "inputDbfs": -45.03423430151433,
+            "cedarDbfs": -56.62012039914535,
+            "openDbfs": -56.94256311738901
+          },
+          {
+            "startSeconds": 7.5,
+            "inputDbfs": -44.96607440444271,
+            "cedarDbfs": -56.55152931496727,
+            "openDbfs": -56.81336157928832
+          },
+          {
+            "startSeconds": 7.75,
+            "inputDbfs": -44.94932052218968,
+            "cedarDbfs": -56.53506548147696,
+            "openDbfs": -56.70135497412657
+          },
+          {
+            "startSeconds": 8.0,
+            "inputDbfs": -45.09857372885078,
+            "cedarDbfs": -56.68788681465885,
+            "openDbfs": -56.97833602293376
+          },
+          {
+            "startSeconds": 8.25,
+            "inputDbfs": -44.94351739429674,
+            "cedarDbfs": -56.52473960172258,
+            "openDbfs": -56.662100980750374
+          },
+          {
+            "startSeconds": 8.5,
+            "inputDbfs": -45.04454547538921,
+            "cedarDbfs": -56.63504882755489,
+            "openDbfs": -56.87889145223824
+          },
+          {
+            "startSeconds": 8.75,
+            "inputDbfs": -44.96581466660422,
+            "cedarDbfs": -56.55732632903673,
+            "openDbfs": -56.79146566729199
+          },
+          {
+            "startSeconds": 9.0,
+            "inputDbfs": -44.92636890275307,
+            "cedarDbfs": -56.50233440546016,
+            "openDbfs": -56.68877153736706
+          },
+          {
+            "startSeconds": 9.25,
+            "inputDbfs": -45.03961344577678,
+            "cedarDbfs": -56.626058846825885,
+            "openDbfs": -56.87488016827422
+          },
+          {
+            "startSeconds": 9.5,
+            "inputDbfs": -44.945189579124836,
+            "cedarDbfs": -56.53252990378209,
+            "openDbfs": -56.73193281176427
+          },
+          {
+            "startSeconds": 9.75,
+            "inputDbfs": -45.1162530238303,
+            "cedarDbfs": -56.7028066596685,
+            "openDbfs": -56.933898352625185
+          },
+          {
+            "startSeconds": 10.0,
+            "inputDbfs": -44.99836365592578,
+            "cedarDbfs": -56.58193264764553,
+            "openDbfs": -56.70469131562832
+          },
+          {
+            "startSeconds": 10.25,
+            "inputDbfs": -44.92599057514162,
+            "cedarDbfs": -56.52252991392963,
+            "openDbfs": -56.58706329434135
+          },
+          {
+            "startSeconds": 10.5,
+            "inputDbfs": -44.95975651591572,
+            "cedarDbfs": -56.54145348791832,
+            "openDbfs": -56.75958535654363
+          },
+          {
+            "startSeconds": 10.75,
+            "inputDbfs": -45.085193203252025,
+            "cedarDbfs": -56.67817550225902,
+            "openDbfs": -56.87897338155268
+          },
+          {
+            "startSeconds": 11.0,
+            "inputDbfs": -45.02185905222553,
+            "cedarDbfs": -56.60641583331439,
+            "openDbfs": -56.674149339879406
+          },
+          {
+            "startSeconds": 11.25,
+            "inputDbfs": -44.99570656375332,
+            "cedarDbfs": -56.58535248707785,
+            "openDbfs": -56.74288034581298
+          },
+          {
+            "startSeconds": 11.5,
+            "inputDbfs": -45.01342031413707,
+            "cedarDbfs": -56.59079075102365,
+            "openDbfs": -56.60448003705951
+          },
+          {
+            "startSeconds": 11.75,
+            "inputDbfs": -45.07988398372889,
+            "cedarDbfs": -53.08121453551632,
+            "openDbfs": -56.83914612290742
+          }
+        ]
+      },
+      {
+        "file": "silence.wav",
+        "measuredDelayCedar": null,
+        "measuredDelayOpen": null,
+        "silenceDelayFallback": true,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.0,
+            "openDryMaxError": 0.0,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.0,
+            "openDryMaxError": 0.0,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "stereo_antiphase.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -76.44804421791059,
+            "openRmsDbfs": -76.74358627572306,
+            "cedarReductionDb": 11.44389100890048,
+            "openReductionDb": 11.739433066712948,
+            "differenceRmsDbfs": -91.63738469476846,
+            "cedarDryMaxError": 0.003285951737780124,
+            "openDryMaxError": 0.001998700201511383,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -90.0152064420781,
+                "openDbfs": -91.40648926530295,
+                "openMinusCedarDb": -1.3912828232248557
+              },
+              "800-2000": {
+                "cedarDbfs": -88.69612687888525,
+                "openDbfs": -89.77811835009464,
+                "openMinusCedarDb": -1.0819914712093919
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.33970286574531,
+                "openDbfs": -85.75794724536308,
+                "openMinusCedarDb": -0.41824437961777505
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84471518226184,
+                "openDbfs": -85.85792482887824,
+                "openMinusCedarDb": -0.013209646616402893
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.59132438895126,
+                "openDbfs": -84.52120436166149,
+                "openMinusCedarDb": 0.07012002728977507
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.65594104451291,
+                "openDbfs": -85.70684695279881,
+                "openMinusCedarDb": -0.05090590828589825
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.67476993639049,
+                "openDbfs": -81.0278078285888,
+                "openMinusCedarDb": -0.3530378921983157
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -76.44804155961052,
+            "openRmsDbfs": -76.74358627572306,
+            "cedarReductionDb": 11.443888350600403,
+            "openReductionDb": 11.739433066712948,
+            "differenceRmsDbfs": -91.6373823736567,
+            "cedarDryMaxError": 0.003285951737780124,
+            "openDryMaxError": 0.001998700201511383,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -90.0152042652279,
+                "openDbfs": -91.40648926530295,
+                "openMinusCedarDb": -1.391285000075058
+              },
+              "800-2000": {
+                "cedarDbfs": -88.6961243252882,
+                "openDbfs": -89.77811835009464,
+                "openMinusCedarDb": -1.0819940248064484
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.33970024002456,
+                "openDbfs": -85.75794724536308,
+                "openMinusCedarDb": -0.41824700533852877
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84471241580172,
+                "openDbfs": -85.85792482887824,
+                "openMinusCedarDb": -0.013212413076516327
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.59132177525505,
+                "openDbfs": -84.52120436166149,
+                "openMinusCedarDb": 0.07011741359356449
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.65593895789625,
+                "openDbfs": -85.70684695279881,
+                "openMinusCedarDb": -0.05090799490255904
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.67476701611952,
+                "openDbfs": -81.0278078285888,
+                "openMinusCedarDb": -0.3530408124692883
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "stereo_correlated.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -76.44038343221796,
+            "openRmsDbfs": -76.74358627572306,
+            "cedarReductionDb": 11.436230223207843,
+            "openReductionDb": 11.739433066712948,
+            "differenceRmsDbfs": -91.49236800425919,
+            "cedarDryMaxError": 0.003285951737780124,
+            "openDryMaxError": 0.001998700201511383,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -90.01371103285868,
+                "openDbfs": -91.40648926530295,
+                "openMinusCedarDb": -1.3927782324442717
+              },
+              "800-2000": {
+                "cedarDbfs": -88.69438154993249,
+                "openDbfs": -89.77811835009464,
+                "openMinusCedarDb": -1.083736800162157
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.33451356771577,
+                "openDbfs": -85.75794724536308,
+                "openMinusCedarDb": -0.42343367764731
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84001486269278,
+                "openDbfs": -85.85792482887824,
+                "openMinusCedarDb": -0.017909966185456483
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.58739978941067,
+                "openDbfs": -84.52120436166149,
+                "openMinusCedarDb": 0.06619542774917875
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.65658223084714,
+                "openDbfs": -85.70684695279881,
+                "openMinusCedarDb": -0.050264721951677416
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.6595440375234,
+                "openDbfs": -81.0278078285888,
+                "openMinusCedarDb": -0.3682637910654023
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -76.44038343221796,
+            "openRmsDbfs": -76.74358627572306,
+            "cedarReductionDb": 11.436230223207843,
+            "openReductionDb": 11.739433066712948,
+            "differenceRmsDbfs": -91.49236800425919,
+            "cedarDryMaxError": 0.003285951737780124,
+            "openDryMaxError": 0.001998700201511383,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -90.01371103285868,
+                "openDbfs": -91.40648926530295,
+                "openMinusCedarDb": -1.3927782324442717
+              },
+              "800-2000": {
+                "cedarDbfs": -88.69438154993249,
+                "openDbfs": -89.77811835009464,
+                "openMinusCedarDb": -1.083736800162157
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.33451356771577,
+                "openDbfs": -85.75794724536308,
+                "openMinusCedarDb": -0.42343367764731
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84001486269278,
+                "openDbfs": -85.85792482887824,
+                "openMinusCedarDb": -0.017909966185456483
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.58739978941067,
+                "openDbfs": -84.52120436166149,
+                "openMinusCedarDb": 0.06619542774917875
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.65658223084714,
+                "openDbfs": -85.70684695279881,
+                "openMinusCedarDb": -0.050264721951677416
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.6595440375234,
+                "openDbfs": -81.0278078285888,
+                "openMinusCedarDb": -0.3682637910654023
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "stereo_noise_left_only.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -76.44804421791059,
+            "openRmsDbfs": -76.74358627572306,
+            "cedarReductionDb": 11.44389100890048,
+            "openReductionDb": 11.739433066712948,
+            "differenceRmsDbfs": -91.63738469476846,
+            "cedarDryMaxError": 0.003285951737780124,
+            "openDryMaxError": 0.001998700201511383,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -90.0152064420781,
+                "openDbfs": -91.40648926530295,
+                "openMinusCedarDb": -1.3912828232248557
+              },
+              "800-2000": {
+                "cedarDbfs": -88.69612687888525,
+                "openDbfs": -89.77811835009464,
+                "openMinusCedarDb": -1.0819914712093919
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.33970286574531,
+                "openDbfs": -85.75794724536308,
+                "openMinusCedarDb": -0.41824437961777505
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84471518226184,
+                "openDbfs": -85.85792482887824,
+                "openMinusCedarDb": -0.013209646616402893
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.59132438895126,
+                "openDbfs": -84.52120436166149,
+                "openMinusCedarDb": 0.07012002728977507
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.65594104451291,
+                "openDbfs": -85.70684695279881,
+                "openMinusCedarDb": -0.05090590828589825
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.67476993639049,
+                "openDbfs": -81.0278078285888,
+                "openMinusCedarDb": -0.3530378921983157
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.0,
+            "openDryMaxError": 0.0,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_100Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.02976143151764,
+            "cedarRmsDbfs": -29.246146717118062,
+            "openRmsDbfs": -29.03081671003004,
+            "cedarReductionDb": 0.21638528560042047,
+            "openReductionDb": 0.0010552785123998376,
+            "differenceRmsDbfs": -59.88123267272249,
+            "cedarDryMaxError": 0.10198633372783661,
+            "openDryMaxError": 0.008164886385202408,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -29.246233417031277,
+                "openDbfs": -29.030887802981105,
+                "openMinusCedarDb": 0.21534561405017172
+              },
+              "800-2000": {
+                "cedarDbfs": -88.65368817134208,
+                "openDbfs": -89.71898111444803,
+                "openMinusCedarDb": -1.0652929431059448
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.33062028861477,
+                "openDbfs": -85.74541703461726,
+                "openMinusCedarDb": -0.4147967460024944
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84555888268625,
+                "openDbfs": -85.85626639104657,
+                "openMinusCedarDb": -0.010707508360326301
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.59561295606939,
+                "openDbfs": -84.52027382430792,
+                "openMinusCedarDb": 0.07533913176146712
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.66821275505563,
+                "openDbfs": -85.70601870855594,
+                "openMinusCedarDb": -0.03780595350031035
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.67724643352074,
+                "openDbfs": -81.02781235854393,
+                "openMinusCedarDb": -0.35056592502319006
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.02976143151764,
+            "cedarRmsDbfs": -29.246146717118062,
+            "openRmsDbfs": -29.03081671003004,
+            "cedarReductionDb": 0.21638528560042047,
+            "openReductionDb": 0.0010552785123998376,
+            "differenceRmsDbfs": -59.88123267272249,
+            "cedarDryMaxError": 0.10198633372783661,
+            "openDryMaxError": 0.008164886385202408,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -29.246233417031277,
+                "openDbfs": -29.030887802981105,
+                "openMinusCedarDb": 0.21534561405017172
+              },
+              "800-2000": {
+                "cedarDbfs": -88.65368817134208,
+                "openDbfs": -89.71898111444803,
+                "openMinusCedarDb": -1.0652929431059448
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.33062028861477,
+                "openDbfs": -85.74541703461726,
+                "openMinusCedarDb": -0.4147967460024944
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84555888268625,
+                "openDbfs": -85.85626639104657,
+                "openMinusCedarDb": -0.010707508360326301
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.59561295606939,
+                "openDbfs": -84.52027382430792,
+                "openMinusCedarDb": 0.07533913176146712
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.66821275505563,
+                "openDbfs": -85.70601870855594,
+                "openMinusCedarDb": -0.03780595350031035
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.67724643352074,
+                "openDbfs": -81.02781235854393,
+                "openMinusCedarDb": -0.35056592502319006
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_11000Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.029370106847793,
+            "cedarRmsDbfs": -29.152465500716787,
+            "openRmsDbfs": -29.030414983903952,
+            "cedarReductionDb": 0.1230953938689936,
+            "openReductionDb": 0.001044877056159521,
+            "differenceRmsDbfs": -63.845763174433486,
+            "cedarDryMaxError": 0.08914759382605553,
+            "openDryMaxError": 0.013700578361749649,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.99298488612743,
+                "openDbfs": -91.35109014252741,
+                "openMinusCedarDb": -1.3581052563999805
+              },
+              "800-2000": {
+                "cedarDbfs": -88.67264365430644,
+                "openDbfs": -89.71848099393974,
+                "openMinusCedarDb": -1.0458373396332945
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.31283784730617,
+                "openDbfs": -85.68820585930567,
+                "openMinusCedarDb": -0.3753680119994982
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.76484736205849,
+                "openDbfs": -85.64607109617177,
+                "openMinusCedarDb": 0.11877626588672285
+              },
+              "8000-12000": {
+                "cedarDbfs": -29.152534787135295,
+                "openDbfs": -29.030478246428334,
+                "openMinusCedarDb": 0.1220565407069607
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.4361394601473,
+                "openDbfs": -85.3118659003767,
+                "openMinusCedarDb": 0.12427355977060017
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.68037831159836,
+                "openDbfs": -80.96099503128157,
+                "openMinusCedarDb": -0.2806167196832092
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.029370106847793,
+            "cedarRmsDbfs": -29.152465500716787,
+            "openRmsDbfs": -29.030414983903952,
+            "cedarReductionDb": 0.1230953938689936,
+            "openReductionDb": 0.001044877056159521,
+            "differenceRmsDbfs": -63.845763174433486,
+            "cedarDryMaxError": 0.08914759382605553,
+            "openDryMaxError": 0.013700578361749649,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.99298488612743,
+                "openDbfs": -91.35109014252741,
+                "openMinusCedarDb": -1.3581052563999805
+              },
+              "800-2000": {
+                "cedarDbfs": -88.67264365430644,
+                "openDbfs": -89.71848099393974,
+                "openMinusCedarDb": -1.0458373396332945
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.31283784730617,
+                "openDbfs": -85.68820585930567,
+                "openMinusCedarDb": -0.3753680119994982
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.76484736205849,
+                "openDbfs": -85.64607109617177,
+                "openMinusCedarDb": 0.11877626588672285
+              },
+              "8000-12000": {
+                "cedarDbfs": -29.152534787135295,
+                "openDbfs": -29.030478246428334,
+                "openMinusCedarDb": 0.1220565407069607
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.4361394601473,
+                "openDbfs": -85.3118659003767,
+                "openMinusCedarDb": 0.12427355977060017
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.68037831159836,
+                "openDbfs": -80.96099503128157,
+                "openMinusCedarDb": -0.2806167196832092
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_1400Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.02991790030682,
+            "cedarRmsDbfs": -29.097539879350496,
+            "openRmsDbfs": -29.03095688602044,
+            "cedarReductionDb": 0.0676219790436754,
+            "openReductionDb": 0.0010389857136203773,
+            "differenceRmsDbfs": -65.59020520350856,
+            "cedarDryMaxError": 0.10196410119533539,
+            "openDryMaxError": 0.012318313121795654,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.74615643744073,
+                "openDbfs": -91.28721173368959,
+                "openMinusCedarDb": -1.5410552962488566
+              },
+              "800-2000": {
+                "cedarDbfs": -29.097615020616885,
+                "openDbfs": -29.03102720613465,
+                "openMinusCedarDb": 0.0665878144822365
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.30887494895579,
+                "openDbfs": -85.61771910115198,
+                "openMinusCedarDb": -0.3088441521961869
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.8411143407247,
+                "openDbfs": -85.84433767982473,
+                "openMinusCedarDb": -0.003223339100031808
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.61131816335921,
+                "openDbfs": -84.51519741145525,
+                "openMinusCedarDb": 0.09612075190396752
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.69615472678873,
+                "openDbfs": -85.70290379096299,
+                "openMinusCedarDb": -0.006749064174258024
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.70333308300405,
+                "openDbfs": -81.02635899766835,
+                "openMinusCedarDb": -0.3230259146642993
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.02991790030682,
+            "cedarRmsDbfs": -29.097539879350496,
+            "openRmsDbfs": -29.03095688602044,
+            "cedarReductionDb": 0.0676219790436754,
+            "openReductionDb": 0.0010389857136203773,
+            "differenceRmsDbfs": -65.59020520350856,
+            "cedarDryMaxError": 0.10196410119533539,
+            "openDryMaxError": 0.012318313121795654,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.74615643744073,
+                "openDbfs": -91.28721173368959,
+                "openMinusCedarDb": -1.5410552962488566
+              },
+              "800-2000": {
+                "cedarDbfs": -29.097615020616885,
+                "openDbfs": -29.03102720613465,
+                "openMinusCedarDb": 0.0665878144822365
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.30887494895579,
+                "openDbfs": -85.61771910115198,
+                "openMinusCedarDb": -0.3088441521961869
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.8411143407247,
+                "openDbfs": -85.84433767982473,
+                "openMinusCedarDb": -0.003223339100031808
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.61131816335921,
+                "openDbfs": -84.51519741145525,
+                "openMinusCedarDb": 0.09612075190396752
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.69615472678873,
+                "openDbfs": -85.70290379096299,
+                "openMinusCedarDb": -0.006749064174258024
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.70333308300405,
+                "openDbfs": -81.02635899766835,
+                "openMinusCedarDb": -0.3230259146642993
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_4900Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.029566348532718,
+            "cedarRmsDbfs": -29.152543413604842,
+            "openRmsDbfs": -29.030606542184465,
+            "cedarReductionDb": 0.12297706507212425,
+            "openReductionDb": 0.0010401936517467902,
+            "differenceRmsDbfs": -64.27762984808908,
+            "cedarDryMaxError": 0.05163038522005081,
+            "openDryMaxError": 0.012208748608827591,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.99971412155114,
+                "openDbfs": -91.10015300639498,
+                "openMinusCedarDb": -1.1004388848438396
+              },
+              "800-2000": {
+                "cedarDbfs": -88.6726883339953,
+                "openDbfs": -89.40648066612631,
+                "openMinusCedarDb": -0.7337923321310171
+              },
+              "2000-5000": {
+                "cedarDbfs": -29.15262056419055,
+                "openDbfs": -29.030672104827936,
+                "openMinusCedarDb": 0.12194845936261345
+              },
+              "5000-8000": {
+                "cedarDbfs": -83.39687560864051,
+                "openDbfs": -85.57007973336826,
+                "openMinusCedarDb": -2.1732041247277465
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.61003216692464,
+                "openDbfs": -84.48214529343078,
+                "openMinusCedarDb": 0.12788687349386407
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.69836365267341,
+                "openDbfs": -85.70325391133012,
+                "openMinusCedarDb": -0.004890258656715218
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.71585794477375,
+                "openDbfs": -81.02739584592116,
+                "openMinusCedarDb": -0.31153790114741753
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.029566348532718,
+            "cedarRmsDbfs": -29.152543413604842,
+            "openRmsDbfs": -29.030606542184465,
+            "cedarReductionDb": 0.12297706507212425,
+            "openReductionDb": 0.0010401936517467902,
+            "differenceRmsDbfs": -64.27762984808908,
+            "cedarDryMaxError": 0.05163038522005081,
+            "openDryMaxError": 0.012208748608827591,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.99971412155114,
+                "openDbfs": -91.10015300639498,
+                "openMinusCedarDb": -1.1004388848438396
+              },
+              "800-2000": {
+                "cedarDbfs": -88.6726883339953,
+                "openDbfs": -89.40648066612631,
+                "openMinusCedarDb": -0.7337923321310171
+              },
+              "2000-5000": {
+                "cedarDbfs": -29.15262056419055,
+                "openDbfs": -29.030672104827936,
+                "openMinusCedarDb": 0.12194845936261345
+              },
+              "5000-8000": {
+                "cedarDbfs": -83.39687560864051,
+                "openDbfs": -85.57007973336826,
+                "openMinusCedarDb": -2.1732041247277465
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.61003216692464,
+                "openDbfs": -84.48214529343078,
+                "openMinusCedarDb": 0.12788687349386407
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.69836365267341,
+                "openDbfs": -85.70325391133012,
+                "openMinusCedarDb": -0.004890258656715218
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.71585794477375,
+                "openDbfs": -81.02739584592116,
+                "openMinusCedarDb": -0.31153790114741753
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_5100Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.029913497815627,
+            "cedarRmsDbfs": -29.139294019759355,
+            "openRmsDbfs": -29.03095127263642,
+            "cedarReductionDb": 0.10938052194372716,
+            "openReductionDb": 0.0010377748207908155,
+            "differenceRmsDbfs": -64.89596599549816,
+            "cedarDryMaxError": 0.06164498068392277,
+            "openDryMaxError": 0.012532949447631836,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.99858538011928,
+                "openDbfs": -91.10427156924746,
+                "openMinusCedarDb": -1.1056861891281784
+              },
+              "800-2000": {
+                "cedarDbfs": -88.66948427729157,
+                "openDbfs": -89.40956678325442,
+                "openMinusCedarDb": -0.740082505962846
+              },
+              "2000-5000": {
+                "cedarDbfs": -83.5653925980241,
+                "openDbfs": -85.50378471953898,
+                "openMinusCedarDb": -1.9383921215148803
+              },
+              "5000-8000": {
+                "cedarDbfs": -29.13937026408842,
+                "openDbfs": -29.031017015278792,
+                "openMinusCedarDb": 0.10835324880962816
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.61055407165311,
+                "openDbfs": -84.47194999448284,
+                "openMinusCedarDb": 0.138604077170271
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.70668276508442,
+                "openDbfs": -85.70249991898845,
+                "openMinusCedarDb": 0.0041828460959720815
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.72097666963039,
+                "openDbfs": -81.02718620957552,
+                "openMinusCedarDb": -0.30620953994512945
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.029913497815627,
+            "cedarRmsDbfs": -29.139294019759355,
+            "openRmsDbfs": -29.03095127263642,
+            "cedarReductionDb": 0.10938052194372716,
+            "openReductionDb": 0.0010377748207908155,
+            "differenceRmsDbfs": -64.89596599549816,
+            "cedarDryMaxError": 0.06164498068392277,
+            "openDryMaxError": 0.012532949447631836,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.99858538011928,
+                "openDbfs": -91.10427156924746,
+                "openMinusCedarDb": -1.1056861891281784
+              },
+              "800-2000": {
+                "cedarDbfs": -88.66948427729157,
+                "openDbfs": -89.40956678325442,
+                "openMinusCedarDb": -0.740082505962846
+              },
+              "2000-5000": {
+                "cedarDbfs": -83.5653925980241,
+                "openDbfs": -85.50378471953898,
+                "openMinusCedarDb": -1.9383921215148803
+              },
+              "5000-8000": {
+                "cedarDbfs": -29.13937026408842,
+                "openDbfs": -29.031017015278792,
+                "openMinusCedarDb": 0.10835324880962816
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.61055407165311,
+                "openDbfs": -84.47194999448284,
+                "openMinusCedarDb": 0.138604077170271
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.70668276508442,
+                "openDbfs": -85.70249991898845,
+                "openMinusCedarDb": 0.0041828460959720815
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.72097666963039,
+                "openDbfs": -81.02718620957552,
+                "openMinusCedarDb": -0.30620953994512945
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_800Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.029605447525242,
+            "cedarRmsDbfs": -29.27479613817351,
+            "openRmsDbfs": -29.030640642299964,
+            "cedarReductionDb": 0.24519069064826837,
+            "openReductionDb": 0.00103519477472247,
+            "differenceRmsDbfs": -59.30920161483399,
+            "cedarDryMaxError": 0.07716302573680878,
+            "openDryMaxError": 0.0124896802008152,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -69.76213785255668,
+                "openDbfs": -87.90433005303917,
+                "openMinusCedarDb": -18.142192200482498
+              },
+              "800-2000": {
+                "cedarDbfs": -29.275258808684562,
+                "openDbfs": -29.03071387111822,
+                "openMinusCedarDb": 0.2445449375663422
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.32191832621973,
+                "openDbfs": -85.66969838591478,
+                "openMinusCedarDb": -0.34778005969505443
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84225312890808,
+                "openDbfs": -85.84931674804943,
+                "openMinusCedarDb": -0.007063619141348454
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.6073608686643,
+                "openDbfs": -84.51684078375928,
+                "openMinusCedarDb": 0.09052008490502317
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.68653332705624,
+                "openDbfs": -85.70376307498164,
+                "openMinusCedarDb": -0.017229747925398442
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.69597156405999,
+                "openDbfs": -81.02683278417844,
+                "openMinusCedarDb": -0.3308612201184502
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.029605447525242,
+            "cedarRmsDbfs": -29.27479613817351,
+            "openRmsDbfs": -29.030640642299964,
+            "cedarReductionDb": 0.24519069064826837,
+            "openReductionDb": 0.00103519477472247,
+            "differenceRmsDbfs": -59.30920161483399,
+            "cedarDryMaxError": 0.07716302573680878,
+            "openDryMaxError": 0.0124896802008152,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -69.76213785255668,
+                "openDbfs": -87.90433005303917,
+                "openMinusCedarDb": -18.142192200482498
+              },
+              "800-2000": {
+                "cedarDbfs": -29.275258808684562,
+                "openDbfs": -29.03071387111822,
+                "openMinusCedarDb": 0.2445449375663422
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.32191832621973,
+                "openDbfs": -85.66969838591478,
+                "openMinusCedarDb": -0.34778005969505443
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84225312890808,
+                "openDbfs": -85.84931674804943,
+                "openMinusCedarDb": -0.007063619141348454
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.6073608686643,
+                "openDbfs": -84.51684078375928,
+                "openMinusCedarDb": 0.09052008490502317
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.68653332705624,
+                "openDbfs": -85.70376307498164,
+                "openMinusCedarDb": -0.017229747925398442
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.69597156405999,
+                "openDbfs": -81.02683278417844,
+                "openMinusCedarDb": -0.3308612201184502
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "white_-35dBFS.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -35.00415320909867,
+            "cedarRmsDbfs": -46.4413513315484,
+            "openRmsDbfs": -46.74358627321797,
+            "cedarReductionDb": 11.437198122449729,
+            "openReductionDb": 11.739433064119304,
+            "differenceRmsDbfs": -61.5038976169249,
+            "cedarDryMaxError": 0.10391091741621494,
+            "openDryMaxError": 0.06320445239543915,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -60.0135970630297,
+                "openDbfs": -61.40648925451441,
+                "openMinusCedarDb": -1.3928921914847123
+              },
+              "800-2000": {
+                "cedarDbfs": -58.69410322261865,
+                "openDbfs": -59.778118351895856,
+                "openMinusCedarDb": -1.084015129277205
+              },
+              "2000-5000": {
+                "cedarDbfs": -55.33511770508294,
+                "openDbfs": -55.75794719499268,
+                "openMinusCedarDb": -0.4228294899097378
+              },
+              "5000-8000": {
+                "cedarDbfs": -55.83664187179713,
+                "openDbfs": -55.85792481309514,
+                "openMinusCedarDb": -0.021282941298011337
+              },
+              "8000-12000": {
+                "cedarDbfs": -54.58142541406641,
+                "openDbfs": -54.52120437248115,
+                "openMinusCedarDb": 0.060221041585258206
+              },
+              "12000-15000": {
+                "cedarDbfs": -55.65129059188727,
+                "openDbfs": -55.70684696131772,
+                "openMinusCedarDb": -0.05555636943045528
+              },
+              "15000-24000": {
+                "cedarDbfs": -50.66708037852898,
+                "openDbfs": -51.02780783583802,
+                "openMinusCedarDb": -0.3607274573090393
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -35.00415320909867,
+            "cedarRmsDbfs": -46.4413513315484,
+            "openRmsDbfs": -46.74358627321797,
+            "cedarReductionDb": 11.437198122449729,
+            "openReductionDb": 11.739433064119304,
+            "differenceRmsDbfs": -61.5038976169249,
+            "cedarDryMaxError": 0.10391091741621494,
+            "openDryMaxError": 0.06320445239543915,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -60.0135970630297,
+                "openDbfs": -61.40648925451441,
+                "openMinusCedarDb": -1.3928921914847123
+              },
+              "800-2000": {
+                "cedarDbfs": -58.69410322261865,
+                "openDbfs": -59.778118351895856,
+                "openMinusCedarDb": -1.084015129277205
+              },
+              "2000-5000": {
+                "cedarDbfs": -55.33511770508294,
+                "openDbfs": -55.75794719499268,
+                "openMinusCedarDb": -0.4228294899097378
+              },
+              "5000-8000": {
+                "cedarDbfs": -55.83664187179713,
+                "openDbfs": -55.85792481309514,
+                "openMinusCedarDb": -0.021282941298011337
+              },
+              "8000-12000": {
+                "cedarDbfs": -54.58142541406641,
+                "openDbfs": -54.52120437248115,
+                "openMinusCedarDb": 0.060221041585258206
+              },
+              "12000-15000": {
+                "cedarDbfs": -55.65129059188727,
+                "openDbfs": -55.70684696131772,
+                "openMinusCedarDb": -0.05555636943045528
+              },
+              "15000-24000": {
+                "cedarDbfs": -50.66708037852898,
+                "openDbfs": -51.02780783583802,
+                "openMinusCedarDb": -0.3607274573090393
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "white_-50dBFS.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -50.00415320883489,
+            "cedarRmsDbfs": -61.45796871825418,
+            "openRmsDbfs": -61.74358626901757,
+            "cedarReductionDb": 11.453815509419286,
+            "openReductionDb": 11.739433060182677,
+            "differenceRmsDbfs": -76.83412001079763,
+            "cedarDryMaxError": 0.01847826549783349,
+            "openDryMaxError": 0.011239518411457539,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -75.01651158507076,
+                "openDbfs": -76.40648926689784,
+                "openMinusCedarDb": -1.3899776818270766
+              },
+              "800-2000": {
+                "cedarDbfs": -73.6972052763699,
+                "openDbfs": -74.77811839279673,
+                "openMinusCedarDb": -1.080913116426828
+              },
+              "2000-5000": {
+                "cedarDbfs": -70.3414214938733,
+                "openDbfs": -70.75794721727966,
+                "openMinusCedarDb": -0.41652572340636596
+              },
+              "5000-8000": {
+                "cedarDbfs": -70.85577822981958,
+                "openDbfs": -70.85792479637864,
+                "openMinusCedarDb": -0.002146566559062535
+              },
+              "8000-12000": {
+                "cedarDbfs": -69.60797588836098,
+                "openDbfs": -69.52120436513412,
+                "openMinusCedarDb": 0.086771523226858
+              },
+              "12000-15000": {
+                "cedarDbfs": -70.6735190850653,
+                "openDbfs": -70.70684696987453,
+                "openMinusCedarDb": -0.033327884809239094
+              },
+              "15000-24000": {
+                "cedarDbfs": -65.68442584920166,
+                "openDbfs": -66.02780781558629,
+                "openMinusCedarDb": -0.3433819663846265
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -50.00415320883489,
+            "cedarRmsDbfs": -61.45796871825418,
+            "openRmsDbfs": -61.74358626901757,
+            "cedarReductionDb": 11.453815509419286,
+            "openReductionDb": 11.739433060182677,
+            "differenceRmsDbfs": -76.83412001079763,
+            "cedarDryMaxError": 0.01847826549783349,
+            "openDryMaxError": 0.011239518411457539,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -75.01651158507076,
+                "openDbfs": -76.40648926689784,
+                "openMinusCedarDb": -1.3899776818270766
+              },
+              "800-2000": {
+                "cedarDbfs": -73.6972052763699,
+                "openDbfs": -74.77811839279673,
+                "openMinusCedarDb": -1.080913116426828
+              },
+              "2000-5000": {
+                "cedarDbfs": -70.3414214938733,
+                "openDbfs": -70.75794721727966,
+                "openMinusCedarDb": -0.41652572340636596
+              },
+              "5000-8000": {
+                "cedarDbfs": -70.85577822981958,
+                "openDbfs": -70.85792479637864,
+                "openMinusCedarDb": -0.002146566559062535
+              },
+              "8000-12000": {
+                "cedarDbfs": -69.60797588836098,
+                "openDbfs": -69.52120436513412,
+                "openMinusCedarDb": 0.086771523226858
+              },
+              "12000-15000": {
+                "cedarDbfs": -70.6735190850653,
+                "openDbfs": -70.70684696987453,
+                "openMinusCedarDb": -0.033327884809239094
+              },
+              "15000-24000": {
+                "cedarDbfs": -65.68442584920166,
+                "openDbfs": -66.02780781558629,
+                "openMinusCedarDb": -0.3433819663846265
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "white_-65dBFS.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -76.4403834342914,
+            "openRmsDbfs": -76.74358627572306,
+            "cedarReductionDb": 11.436230225281292,
+            "openReductionDb": 11.739433066712948,
+            "differenceRmsDbfs": -91.49236800939127,
+            "cedarDryMaxError": 0.003285951737780124,
+            "openDryMaxError": 0.001998700201511383,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -90.01371103313568,
+                "openDbfs": -91.40648926530295,
+                "openMinusCedarDb": -1.3927782321672737
+              },
+              "800-2000": {
+                "cedarDbfs": -88.69438155051883,
+                "openDbfs": -89.77811835009464,
+                "openMinusCedarDb": -1.0837367995758171
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.33451356780235,
+                "openDbfs": -85.75794724536308,
+                "openMinusCedarDb": -0.42343367756073746
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84001486255556,
+                "openDbfs": -85.85792482887824,
+                "openMinusCedarDb": -0.017909966322676496
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.5873997889613,
+                "openDbfs": -84.52120436166149,
+                "openMinusCedarDb": 0.06619542729981731
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.6565822309585,
+                "openDbfs": -85.70684695279881,
+                "openMinusCedarDb": -0.05026472184030695
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.6595440430354,
+                "openDbfs": -81.0278078285888,
+                "openMinusCedarDb": -0.36826378555340966
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -76.4403834342914,
+            "openRmsDbfs": -76.74358627572306,
+            "cedarReductionDb": 11.436230225281292,
+            "openReductionDb": 11.739433066712948,
+            "differenceRmsDbfs": -91.49236800939127,
+            "cedarDryMaxError": 0.003285951737780124,
+            "openDryMaxError": 0.001998700201511383,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -90.01371103313568,
+                "openDbfs": -91.40648926530295,
+                "openMinusCedarDb": -1.3927782321672737
+              },
+              "800-2000": {
+                "cedarDbfs": -88.69438155051883,
+                "openDbfs": -89.77811835009464,
+                "openMinusCedarDb": -1.0837367995758171
+              },
+              "2000-5000": {
+                "cedarDbfs": -85.33451356780235,
+                "openDbfs": -85.75794724536308,
+                "openMinusCedarDb": -0.42343367756073746
+              },
+              "5000-8000": {
+                "cedarDbfs": -85.84001486255556,
+                "openDbfs": -85.85792482887824,
+                "openMinusCedarDb": -0.017909966322676496
+              },
+              "8000-12000": {
+                "cedarDbfs": -84.5873997889613,
+                "openDbfs": -84.52120436166149,
+                "openMinusCedarDb": 0.06619542729981731
+              },
+              "12000-15000": {
+                "cedarDbfs": -85.6565822309585,
+                "openDbfs": -85.70684695279881,
+                "openMinusCedarDb": -0.05026472184030695
+              },
+              "15000-24000": {
+                "cedarDbfs": -80.6595440430354,
+                "openDbfs": -81.0278078285888,
+                "openMinusCedarDb": -0.36826378555340966
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "white_-80dBFS.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -80.00415320950536,
+            "cedarRmsDbfs": -91.44038345264744,
+            "openRmsDbfs": -91.74358627464082,
+            "cedarReductionDb": 11.436230243142077,
+            "openReductionDb": 11.739433065135458,
+            "differenceRmsDbfs": -106.49236794086706,
+            "cedarDryMaxError": 0.0005843340477440506,
+            "openDryMaxError": 0.0003554247668944299,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -105.01371103610865,
+                "openDbfs": -106.4064892509039,
+                "openMinusCedarDb": -1.392778214795257
+              },
+              "800-2000": {
+                "cedarDbfs": -103.69438155040174,
+                "openDbfs": -104.77811839041406,
+                "openMinusCedarDb": -1.083736840012321
+              },
+              "2000-5000": {
+                "cedarDbfs": -100.33451356760374,
+                "openDbfs": -100.75794720654412,
+                "openMinusCedarDb": -0.4234336389403808
+              },
+              "5000-8000": {
+                "cedarDbfs": -100.84001486664917,
+                "openDbfs": -100.85792481078839,
+                "openMinusCedarDb": -0.017909944139219647
+              },
+              "8000-12000": {
+                "cedarDbfs": -99.58739978816769,
+                "openDbfs": -99.52120438305293,
+                "openMinusCedarDb": 0.06619540511475464
+              },
+              "12000-15000": {
+                "cedarDbfs": -100.65658222630957,
+                "openDbfs": -100.706846970783,
+                "openMinusCedarDb": -0.05026474447343787
+              },
+              "15000-24000": {
+                "cedarDbfs": -95.65954409171701,
+                "openDbfs": -96.02780782433263,
+                "openMinusCedarDb": -0.36826373261561685
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -80.00415320950536,
+            "cedarRmsDbfs": -91.44038345264744,
+            "openRmsDbfs": -91.74358627464082,
+            "cedarReductionDb": 11.436230243142077,
+            "openReductionDb": 11.739433065135458,
+            "differenceRmsDbfs": -106.49236794086706,
+            "cedarDryMaxError": 0.0005843340477440506,
+            "openDryMaxError": 0.0003554247668944299,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -105.01371103610865,
+                "openDbfs": -106.4064892509039,
+                "openMinusCedarDb": -1.392778214795257
+              },
+              "800-2000": {
+                "cedarDbfs": -103.69438155040174,
+                "openDbfs": -104.77811839041406,
+                "openMinusCedarDb": -1.083736840012321
+              },
+              "2000-5000": {
+                "cedarDbfs": -100.33451356760374,
+                "openDbfs": -100.75794720654412,
+                "openMinusCedarDb": -0.4234336389403808
+              },
+              "5000-8000": {
+                "cedarDbfs": -100.84001486664917,
+                "openDbfs": -100.85792481078839,
+                "openMinusCedarDb": -0.017909944139219647
+              },
+              "8000-12000": {
+                "cedarDbfs": -99.58739978816769,
+                "openDbfs": -99.52120438305293,
+                "openMinusCedarDb": 0.06619540511475464
+              },
+              "12000-15000": {
+                "cedarDbfs": -100.65658222630957,
+                "openDbfs": -100.706846970783,
+                "openMinusCedarDb": -0.05026474447343787
+              },
+              "15000-24000": {
+                "cedarDbfs": -95.65954409171701,
+                "openDbfs": -96.02780782433263,
+                "openMinusCedarDb": -0.36826373261561685
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "profile": "auto--26",
+    "openPrefix": "open-v0.5-candidate",
+    "sampleRate": 48000,
+    "blockSize": 256,
+    "declaredLatencyCedar": 16128,
+    "measuredDelayCedar": 1024,
+    "measuredDelayOpen": 4096,
+    "steadyAnalysisStartsSeconds": 3,
+    "highEndCut": 0,
+    "monoInputsDuplicatedToStereo": true,
+    "results": [
+      {
+        "file": "isolated_impulse.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.004341691732406616,
+            "openDryMaxError": 3.707408905029297e-05,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.004341691732406616,
+            "openDryMaxError": 3.707408905029297e-05,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          }
+        ],
+        "unalignedPeakSamples": {
+          "input": 96000,
+          "cedar": 112128,
+          "open": 100096
+        },
+        "impulseMetrics": {
+          "inputPeak": 0.5,
+          "cedarPeak": 0.4956583082675934,
+          "openPeak": 0.4999629259109497,
+          "cedarEnergy": 0.245791466958647,
+          "openEnergy": 0.24996292728543795
+        }
+      },
+      {
+        "file": "noise_step_-65_to_-45.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -46.74560051009142,
+            "cedarRmsDbfs": -67.21078684115662,
+            "openRmsDbfs": -59.132219909583014,
+            "cedarReductionDb": 20.465186331065198,
+            "openReductionDb": 12.386619399491593,
+            "differenceRmsDbfs": -60.089704952270644,
+            "cedarDryMaxError": 0.02480260271113366,
+            "openDryMaxError": 0.024810489267110825,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -84.38211904312341,
+                "openDbfs": -74.05459004850296,
+                "openMinusCedarDb": 10.327528994620451
+              },
+              "800-2000": {
+                "cedarDbfs": -82.65453311492267,
+                "openDbfs": -72.23527408449124,
+                "openMinusCedarDb": 10.419259030431434
+              },
+              "2000-5000": {
+                "cedarDbfs": -78.27270573274829,
+                "openDbfs": -68.2194079365119,
+                "openMinusCedarDb": 10.053297796236393
+              },
+              "5000-8000": {
+                "cedarDbfs": -76.75060878120613,
+                "openDbfs": -67.96415749150017,
+                "openMinusCedarDb": 8.786451289705951
+              },
+              "8000-12000": {
+                "cedarDbfs": -74.8366567007473,
+                "openDbfs": -66.98449506734681,
+                "openMinusCedarDb": 7.852161633400485
+              },
+              "12000-15000": {
+                "cedarDbfs": -75.520629073351,
+                "openDbfs": -68.02926723276113,
+                "openMinusCedarDb": 7.4913618405898745
+              },
+              "15000-24000": {
+                "cedarDbfs": -70.75676428270029,
+                "openDbfs": -63.43725265638739,
+                "openMinusCedarDb": 7.319511626312895
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -46.74560051009142,
+            "cedarRmsDbfs": -67.21078684115662,
+            "openRmsDbfs": -59.132219909583014,
+            "cedarReductionDb": 20.465186331065198,
+            "openReductionDb": 12.386619399491593,
+            "differenceRmsDbfs": -60.089704952270644,
+            "cedarDryMaxError": 0.02480260271113366,
+            "openDryMaxError": 0.024810489267110825,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -84.38211904312341,
+                "openDbfs": -74.05459004850296,
+                "openMinusCedarDb": 10.327528994620451
+              },
+              "800-2000": {
+                "cedarDbfs": -82.65453311492267,
+                "openDbfs": -72.23527408449124,
+                "openMinusCedarDb": 10.419259030431434
+              },
+              "2000-5000": {
+                "cedarDbfs": -78.27270573274829,
+                "openDbfs": -68.2194079365119,
+                "openMinusCedarDb": 10.053297796236393
+              },
+              "5000-8000": {
+                "cedarDbfs": -76.75060878120613,
+                "openDbfs": -67.96415749150017,
+                "openMinusCedarDb": 8.786451289705951
+              },
+              "8000-12000": {
+                "cedarDbfs": -74.8366567007473,
+                "openDbfs": -66.98449506734681,
+                "openMinusCedarDb": 7.852161633400485
+              },
+              "12000-15000": {
+                "cedarDbfs": -75.520629073351,
+                "openDbfs": -68.02926723276113,
+                "openMinusCedarDb": 7.4913618405898745
+              },
+              "15000-24000": {
+                "cedarDbfs": -70.75676428270029,
+                "openDbfs": -63.43725265638739,
+                "openMinusCedarDb": 7.319511626312895
+              }
+            }
+          }
+        ],
+        "noiseStepCurve": [
+          {
+            "startSeconds": 0.0,
+            "inputDbfs": -64.96140995170066,
+            "cedarDbfs": -64.96329952835755,
+            "openDbfs": -79.7777055950116
+          },
+          {
+            "startSeconds": 0.25,
+            "inputDbfs": -64.95912717232967,
+            "cedarDbfs": -65.0154804620191,
+            "openDbfs": -89.26351665680838
+          },
+          {
+            "startSeconds": 0.5,
+            "inputDbfs": -65.05268134632493,
+            "cedarDbfs": -73.73140511505139,
+            "openDbfs": -88.27392260970288
+          },
+          {
+            "startSeconds": 0.75,
+            "inputDbfs": -64.96646310055381,
+            "cedarDbfs": -76.40419208496837,
+            "openDbfs": -87.44227099050602
+          },
+          {
+            "startSeconds": 1.0,
+            "inputDbfs": -65.07288150138253,
+            "cedarDbfs": -90.54003276019152,
+            "openDbfs": -88.5947909789175
+          },
+          {
+            "startSeconds": 1.25,
+            "inputDbfs": -64.97759740683644,
+            "cedarDbfs": -90.56130653625954,
+            "openDbfs": -87.73083580126001
+          },
+          {
+            "startSeconds": 1.5,
+            "inputDbfs": -64.96878930995041,
+            "cedarDbfs": -90.54680959236566,
+            "openDbfs": -88.71947935896898
+          },
+          {
+            "startSeconds": 1.75,
+            "inputDbfs": -64.95805281133946,
+            "cedarDbfs": -90.53214747341013,
+            "openDbfs": -88.00528214120678
+          },
+          {
+            "startSeconds": 2.0,
+            "inputDbfs": -65.04193807135555,
+            "cedarDbfs": -90.62380081180548,
+            "openDbfs": -88.10663666244707
+          },
+          {
+            "startSeconds": 2.25,
+            "inputDbfs": -64.97704127987213,
+            "cedarDbfs": -90.56010255469225,
+            "openDbfs": -89.16429520812464
+          },
+          {
+            "startSeconds": 2.5,
+            "inputDbfs": -65.05711886222643,
+            "cedarDbfs": -90.64390643835026,
+            "openDbfs": -89.28278891882204
+          },
+          {
+            "startSeconds": 2.75,
+            "inputDbfs": -64.86209907570414,
+            "cedarDbfs": -90.40851194334275,
+            "openDbfs": -88.72025317774758
+          },
+          {
+            "startSeconds": 3.0,
+            "inputDbfs": -65.03764017081448,
+            "cedarDbfs": -90.61259776022011,
+            "openDbfs": -88.37692483742725
+          },
+          {
+            "startSeconds": 3.25,
+            "inputDbfs": -65.08004754316292,
+            "cedarDbfs": -90.66110770800911,
+            "openDbfs": -89.15225620820453
+          },
+          {
+            "startSeconds": 3.5,
+            "inputDbfs": -64.93075536800308,
+            "cedarDbfs": -90.519364000685,
+            "openDbfs": -88.7071351545466
+          },
+          {
+            "startSeconds": 3.75,
+            "inputDbfs": -64.98788333840594,
+            "cedarDbfs": -90.57732454598954,
+            "openDbfs": -88.3314688953871
+          },
+          {
+            "startSeconds": 4.0,
+            "inputDbfs": -65.0622685959535,
+            "cedarDbfs": -90.6492716316214,
+            "openDbfs": -88.63347986945323
+          },
+          {
+            "startSeconds": 4.25,
+            "inputDbfs": -65.02698604743266,
+            "cedarDbfs": -90.59556872246388,
+            "openDbfs": -88.58455785428261
+          },
+          {
+            "startSeconds": 4.5,
+            "inputDbfs": -64.98464942015673,
+            "cedarDbfs": -90.56729166457276,
+            "openDbfs": -89.59571241746004
+          },
+          {
+            "startSeconds": 4.75,
+            "inputDbfs": -64.87909534349298,
+            "cedarDbfs": -90.46738591871855,
+            "openDbfs": -87.69697740234955
+          },
+          {
+            "startSeconds": 5.0,
+            "inputDbfs": -64.96000298709427,
+            "cedarDbfs": -90.54338192302816,
+            "openDbfs": -88.69797464169041
+          },
+          {
+            "startSeconds": 5.25,
+            "inputDbfs": -65.08309536063896,
+            "cedarDbfs": -90.66903680340587,
+            "openDbfs": -88.72252095659236
+          },
+          {
+            "startSeconds": 5.5,
+            "inputDbfs": -64.99226060408135,
+            "cedarDbfs": -90.57994632541696,
+            "openDbfs": -88.3203807761013
+          },
+          {
+            "startSeconds": 5.75,
+            "inputDbfs": -64.97647519953759,
+            "cedarDbfs": -88.44539351454856,
+            "openDbfs": -76.62997234917653
+          },
+          {
+            "startSeconds": 6.0,
+            "inputDbfs": -44.93419711370956,
+            "cedarDbfs": -56.47835529434742,
+            "openDbfs": -44.96277556056615
+          },
+          {
+            "startSeconds": 6.25,
+            "inputDbfs": -45.072760404397194,
+            "cedarDbfs": -70.65987115950753,
+            "openDbfs": -50.4688592797315
+          },
+          {
+            "startSeconds": 6.5,
+            "inputDbfs": -45.01656026406238,
+            "cedarDbfs": -70.60391346684268,
+            "openDbfs": -67.86180054623436
+          },
+          {
+            "startSeconds": 6.75,
+            "inputDbfs": -45.02728646393007,
+            "cedarDbfs": -70.61228335976953,
+            "openDbfs": -70.32908155147788
+          },
+          {
+            "startSeconds": 7.0,
+            "inputDbfs": -45.00135480172208,
+            "cedarDbfs": -70.57617089557309,
+            "openDbfs": -69.88479994307339
+          },
+          {
+            "startSeconds": 7.25,
+            "inputDbfs": -45.03423430151433,
+            "cedarDbfs": -70.59798409895508,
+            "openDbfs": -70.08067158340883
+          },
+          {
+            "startSeconds": 7.5,
+            "inputDbfs": -44.96607440444271,
+            "cedarDbfs": -70.54546683986247,
+            "openDbfs": -69.31951135100088
+          },
+          {
+            "startSeconds": 7.75,
+            "inputDbfs": -44.94932052218968,
+            "cedarDbfs": -70.53422958732176,
+            "openDbfs": -68.16351521942723
+          },
+          {
+            "startSeconds": 8.0,
+            "inputDbfs": -45.09857372885078,
+            "cedarDbfs": -70.68716555707866,
+            "openDbfs": -69.8243473067401
+          },
+          {
+            "startSeconds": 8.25,
+            "inputDbfs": -44.94351739429674,
+            "cedarDbfs": -70.52448783599309,
+            "openDbfs": -67.66162299952178
+          },
+          {
+            "startSeconds": 8.5,
+            "inputDbfs": -45.04454547538921,
+            "cedarDbfs": -70.63222050138438,
+            "openDbfs": -69.18839386816317
+          },
+          {
+            "startSeconds": 8.75,
+            "inputDbfs": -44.96581466660422,
+            "cedarDbfs": -70.51970875992818,
+            "openDbfs": -69.18507154049392
+          },
+          {
+            "startSeconds": 9.0,
+            "inputDbfs": -44.92636890275307,
+            "cedarDbfs": -70.40303443131955,
+            "openDbfs": -68.37316774603742
+          },
+          {
+            "startSeconds": 9.25,
+            "inputDbfs": -45.03961344577678,
+            "cedarDbfs": -70.61909471091808,
+            "openDbfs": -69.3466958840439
+          },
+          {
+            "startSeconds": 9.5,
+            "inputDbfs": -44.945189579124836,
+            "cedarDbfs": -70.53249933324278,
+            "openDbfs": -68.67986781516237
+          },
+          {
+            "startSeconds": 9.75,
+            "inputDbfs": -45.1162530238303,
+            "cedarDbfs": -70.70188273496994,
+            "openDbfs": -69.18277793300408
+          },
+          {
+            "startSeconds": 10.0,
+            "inputDbfs": -44.99836365592578,
+            "cedarDbfs": -70.5810602174302,
+            "openDbfs": -67.85007139060733
+          },
+          {
+            "startSeconds": 10.25,
+            "inputDbfs": -44.92599057514162,
+            "cedarDbfs": -70.52252789094558,
+            "openDbfs": -67.40053142927478
+          },
+          {
+            "startSeconds": 10.5,
+            "inputDbfs": -44.95975651591572,
+            "cedarDbfs": -70.5409229335138,
+            "openDbfs": -68.853266565375
+          },
+          {
+            "startSeconds": 10.75,
+            "inputDbfs": -45.085193203252025,
+            "cedarDbfs": -70.67279996655171,
+            "openDbfs": -68.91452263068291
+          },
+          {
+            "startSeconds": 11.0,
+            "inputDbfs": -45.02185905222553,
+            "cedarDbfs": -70.59201912606068,
+            "openDbfs": -67.43880427148264
+          },
+          {
+            "startSeconds": 11.25,
+            "inputDbfs": -44.99570656375332,
+            "cedarDbfs": -70.58518444786614,
+            "openDbfs": -68.32930108995436
+          },
+          {
+            "startSeconds": 11.5,
+            "inputDbfs": -45.01342031413707,
+            "cedarDbfs": -70.5906439013524,
+            "openDbfs": -66.6667291666629
+          },
+          {
+            "startSeconds": 11.75,
+            "inputDbfs": -45.07988398372889,
+            "cedarDbfs": -55.75441994968452,
+            "openDbfs": -68.3828394883104
+          }
+        ]
+      },
+      {
+        "file": "silence.wav",
+        "measuredDelayCedar": null,
+        "measuredDelayOpen": null,
+        "silenceDelayFallback": true,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.0,
+            "openDryMaxError": 0.0,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.0,
+            "openDryMaxError": 0.0,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "stereo_antiphase.wav",
+        "measuredDelayCedar": 1024,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -90.57650356379001,
+            "openRmsDbfs": -88.27106589279467,
+            "cedarReductionDb": 25.5723503547799,
+            "openReductionDb": 23.266912683784554,
+            "differenceRmsDbfs": -86.26631952094179,
+            "cedarDryMaxError": 0.002726323048591439,
+            "openDryMaxError": 0.002535388804972172,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -104.04381227162239,
+                "openDbfs": -101.99191379098876,
+                "openMinusCedarDb": 2.051898480633625
+              },
+              "800-2000": {
+                "cedarDbfs": -102.72657344383396,
+                "openDbfs": -101.22878778223777,
+                "openMinusCedarDb": 1.4977856615961826
+              },
+              "2000-5000": {
+                "cedarDbfs": -99.40129284444038,
+                "openDbfs": -97.27133853431286,
+                "openMinusCedarDb": 2.1299543101275162
+              },
+              "5000-8000": {
+                "cedarDbfs": -99.96407669178686,
+                "openDbfs": -97.90903293692045,
+                "openMinusCedarDb": 2.0550437548664036
+              },
+              "8000-12000": {
+                "cedarDbfs": -98.74648712055159,
+                "openDbfs": -96.16193297915699,
+                "openMinusCedarDb": 2.584554141394605
+              },
+              "12000-15000": {
+                "cedarDbfs": -99.87220832960244,
+                "openDbfs": -96.75485726559049,
+                "openMinusCedarDb": 3.117351064011956
+              },
+              "15000-24000": {
+                "cedarDbfs": -94.81875081397877,
+                "openDbfs": -92.67744680751152,
+                "openMinusCedarDb": 2.1413040064672515
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -90.57650356379001,
+            "openRmsDbfs": -88.27106589279467,
+            "cedarReductionDb": 25.5723503547799,
+            "openReductionDb": 23.266912683784554,
+            "differenceRmsDbfs": -86.26631952094179,
+            "cedarDryMaxError": 0.002726323048591439,
+            "openDryMaxError": 0.002535388804972172,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -104.04381227162239,
+                "openDbfs": -101.99191379098876,
+                "openMinusCedarDb": 2.051898480633625
+              },
+              "800-2000": {
+                "cedarDbfs": -102.72657344383396,
+                "openDbfs": -101.22878778223777,
+                "openMinusCedarDb": 1.4977856615961826
+              },
+              "2000-5000": {
+                "cedarDbfs": -99.40129284444038,
+                "openDbfs": -97.27133853431286,
+                "openMinusCedarDb": 2.1299543101275162
+              },
+              "5000-8000": {
+                "cedarDbfs": -99.96407669178686,
+                "openDbfs": -97.90903293692045,
+                "openMinusCedarDb": 2.0550437548664036
+              },
+              "8000-12000": {
+                "cedarDbfs": -98.74648712055159,
+                "openDbfs": -96.16193297915699,
+                "openMinusCedarDb": 2.584554141394605
+              },
+              "12000-15000": {
+                "cedarDbfs": -99.87220832960244,
+                "openDbfs": -96.75485726559049,
+                "openMinusCedarDb": 3.117351064011956
+              },
+              "15000-24000": {
+                "cedarDbfs": -94.81875081397877,
+                "openDbfs": -92.67744680751152,
+                "openMinusCedarDb": 2.1413040064672515
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "stereo_correlated.wav",
+        "measuredDelayCedar": 1024,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -90.57650400234459,
+            "openRmsDbfs": -88.27106589279467,
+            "cedarReductionDb": 25.57235079333448,
+            "openReductionDb": 23.266912683784554,
+            "differenceRmsDbfs": -86.26631968755383,
+            "cedarDryMaxError": 0.002726323048591439,
+            "openDryMaxError": 0.002535388804972172,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -104.04381227118478,
+                "openDbfs": -101.99191379098876,
+                "openMinusCedarDb": 2.051898480196016
+              },
+              "800-2000": {
+                "cedarDbfs": -102.72657344479903,
+                "openDbfs": -101.22878778223777,
+                "openMinusCedarDb": 1.497785662561256
+              },
+              "2000-5000": {
+                "cedarDbfs": -99.40129284449452,
+                "openDbfs": -97.27133853431286,
+                "openMinusCedarDb": 2.1299543101816596
+              },
+              "5000-8000": {
+                "cedarDbfs": -99.96407669284443,
+                "openDbfs": -97.90903293692045,
+                "openMinusCedarDb": 2.0550437559239754
+              },
+              "8000-12000": {
+                "cedarDbfs": -98.74648712085629,
+                "openDbfs": -96.16193297915699,
+                "openMinusCedarDb": 2.5845541416993
+              },
+              "12000-15000": {
+                "cedarDbfs": -99.87220833074366,
+                "openDbfs": -96.75485726559049,
+                "openMinusCedarDb": 3.117351065153173
+              },
+              "15000-24000": {
+                "cedarDbfs": -94.81875197787673,
+                "openDbfs": -92.67744680751152,
+                "openMinusCedarDb": 2.1413051703652144
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -90.57650400234459,
+            "openRmsDbfs": -88.27106589279467,
+            "cedarReductionDb": 25.57235079333448,
+            "openReductionDb": 23.266912683784554,
+            "differenceRmsDbfs": -86.26631968755383,
+            "cedarDryMaxError": 0.002726323048591439,
+            "openDryMaxError": 0.002535388804972172,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -104.04381227118478,
+                "openDbfs": -101.99191379098876,
+                "openMinusCedarDb": 2.051898480196016
+              },
+              "800-2000": {
+                "cedarDbfs": -102.72657344479903,
+                "openDbfs": -101.22878778223777,
+                "openMinusCedarDb": 1.497785662561256
+              },
+              "2000-5000": {
+                "cedarDbfs": -99.40129284449452,
+                "openDbfs": -97.27133853431286,
+                "openMinusCedarDb": 2.1299543101816596
+              },
+              "5000-8000": {
+                "cedarDbfs": -99.96407669284443,
+                "openDbfs": -97.90903293692045,
+                "openMinusCedarDb": 2.0550437559239754
+              },
+              "8000-12000": {
+                "cedarDbfs": -98.74648712085629,
+                "openDbfs": -96.16193297915699,
+                "openMinusCedarDb": 2.5845541416993
+              },
+              "12000-15000": {
+                "cedarDbfs": -99.87220833074366,
+                "openDbfs": -96.75485726559049,
+                "openMinusCedarDb": 3.117351065153173
+              },
+              "15000-24000": {
+                "cedarDbfs": -94.81875197787673,
+                "openDbfs": -92.67744680751152,
+                "openMinusCedarDb": 2.1413051703652144
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "stereo_noise_left_only.wav",
+        "measuredDelayCedar": 1024,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -90.57650356379001,
+            "openRmsDbfs": -88.27106589279467,
+            "cedarReductionDb": 25.5723503547799,
+            "openReductionDb": 23.266912683784554,
+            "differenceRmsDbfs": -86.26631952094179,
+            "cedarDryMaxError": 0.002726323048591439,
+            "openDryMaxError": 0.002535388804972172,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -104.04381227162239,
+                "openDbfs": -101.99191379098876,
+                "openMinusCedarDb": 2.051898480633625
+              },
+              "800-2000": {
+                "cedarDbfs": -102.72657344383396,
+                "openDbfs": -101.22878778223777,
+                "openMinusCedarDb": 1.4977856615961826
+              },
+              "2000-5000": {
+                "cedarDbfs": -99.40129284444038,
+                "openDbfs": -97.27133853431286,
+                "openMinusCedarDb": 2.1299543101275162
+              },
+              "5000-8000": {
+                "cedarDbfs": -99.96407669178686,
+                "openDbfs": -97.90903293692045,
+                "openMinusCedarDb": 2.0550437548664036
+              },
+              "8000-12000": {
+                "cedarDbfs": -98.74648712055159,
+                "openDbfs": -96.16193297915699,
+                "openMinusCedarDb": 2.584554141394605
+              },
+              "12000-15000": {
+                "cedarDbfs": -99.87220832960244,
+                "openDbfs": -96.75485726559049,
+                "openMinusCedarDb": 3.117351064011956
+              },
+              "15000-24000": {
+                "cedarDbfs": -94.81875081397877,
+                "openDbfs": -92.67744680751152,
+                "openMinusCedarDb": 2.1413040064672515
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -300.0,
+            "cedarRmsDbfs": -300.0,
+            "openRmsDbfs": -300.0,
+            "cedarReductionDb": 0.0,
+            "openReductionDb": 0.0,
+            "differenceRmsDbfs": -300.0,
+            "cedarDryMaxError": 0.0,
+            "openDryMaxError": 0.0,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "800-2000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "2000-5000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "5000-8000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "8000-12000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "12000-15000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              },
+              "15000-24000": {
+                "cedarDbfs": -300.0,
+                "openDbfs": -300.0,
+                "openMinusCedarDb": 0.0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_100Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.02976143151764,
+            "cedarRmsDbfs": -29.32516397179937,
+            "openRmsDbfs": -29.03089461486259,
+            "cedarReductionDb": 0.29540254028172797,
+            "openReductionDb": 0.001133183344947497,
+            "differenceRmsDbfs": -57.24511482779946,
+            "cedarDryMaxError": 0.10198633372783661,
+            "openDryMaxError": 0.010357316583395004,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -29.325182634973444,
+                "openDbfs": -29.0308996954251,
+                "openMinusCedarDb": 0.2942829395483457
+              },
+              "800-2000": {
+                "cedarDbfs": -100.82009217317591,
+                "openDbfs": -100.02172555003979,
+                "openMinusCedarDb": 0.7983666231361184
+              },
+              "2000-5000": {
+                "cedarDbfs": -98.02285629712605,
+                "openDbfs": -97.06375898442629,
+                "openMinusCedarDb": 0.9590973126997682
+              },
+              "5000-8000": {
+                "cedarDbfs": -97.91278959685597,
+                "openDbfs": -97.85149438223597,
+                "openMinusCedarDb": 0.06129521462000298
+              },
+              "8000-12000": {
+                "cedarDbfs": -96.18869906218471,
+                "openDbfs": -96.13884878200719,
+                "openMinusCedarDb": 0.04985028017752313
+              },
+              "12000-15000": {
+                "cedarDbfs": -96.61612781810774,
+                "openDbfs": -96.74253850436205,
+                "openMinusCedarDb": -0.12641068625430307
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.09499730195178,
+                "openDbfs": -92.66915068897156,
+                "openMinusCedarDb": -0.574153387019777
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.02976143151764,
+            "cedarRmsDbfs": -29.32516397179937,
+            "openRmsDbfs": -29.03089461486259,
+            "cedarReductionDb": 0.29540254028172797,
+            "openReductionDb": 0.001133183344947497,
+            "differenceRmsDbfs": -57.24511482779946,
+            "cedarDryMaxError": 0.10198633372783661,
+            "openDryMaxError": 0.010357316583395004,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -29.325182634973444,
+                "openDbfs": -29.0308996954251,
+                "openMinusCedarDb": 0.2942829395483457
+              },
+              "800-2000": {
+                "cedarDbfs": -100.82009217317591,
+                "openDbfs": -100.02172555003979,
+                "openMinusCedarDb": 0.7983666231361184
+              },
+              "2000-5000": {
+                "cedarDbfs": -98.02285629712605,
+                "openDbfs": -97.06375898442629,
+                "openMinusCedarDb": 0.9590973126997682
+              },
+              "5000-8000": {
+                "cedarDbfs": -97.91278959685597,
+                "openDbfs": -97.85149438223597,
+                "openMinusCedarDb": 0.06129521462000298
+              },
+              "8000-12000": {
+                "cedarDbfs": -96.18869906218471,
+                "openDbfs": -96.13884878200719,
+                "openMinusCedarDb": 0.04985028017752313
+              },
+              "12000-15000": {
+                "cedarDbfs": -96.61612781810774,
+                "openDbfs": -96.74253850436205,
+                "openMinusCedarDb": -0.12641068625430307
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.09499730195178,
+                "openDbfs": -92.66915068897156,
+                "openMinusCedarDb": -0.574153387019777
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_11000Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.029370106847793,
+            "cedarRmsDbfs": -29.18559256611179,
+            "openRmsDbfs": -29.030489741642892,
+            "cedarReductionDb": 0.15622245926399714,
+            "openReductionDb": 0.0011196347950992447,
+            "differenceRmsDbfs": -61.77073625278361,
+            "cedarDryMaxError": 0.08914759382605553,
+            "openDryMaxError": 0.017379434779286385,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -102.7504022643285,
+                "openDbfs": -101.09598413318837,
+                "openMinusCedarDb": 1.6544181311401331
+              },
+              "800-2000": {
+                "cedarDbfs": -101.16380736690344,
+                "openDbfs": -100.08794847453332,
+                "openMinusCedarDb": 1.0758588923701211
+              },
+              "2000-5000": {
+                "cedarDbfs": -97.27584070039639,
+                "openDbfs": -95.8595863103711,
+                "openMinusCedarDb": 1.416254390025287
+              },
+              "5000-8000": {
+                "cedarDbfs": -96.08451814684018,
+                "openDbfs": -94.58349848705234,
+                "openMinusCedarDb": 1.5010196597878434
+              },
+              "8000-12000": {
+                "cedarDbfs": -29.18559872710602,
+                "openDbfs": -29.03049697859164,
+                "openMinusCedarDb": 0.15510174851437952
+              },
+              "12000-15000": {
+                "cedarDbfs": -93.16707909877793,
+                "openDbfs": -92.44217863092354,
+                "openMinusCedarDb": 0.7249004678543969
+              },
+              "15000-24000": {
+                "cedarDbfs": -91.77652267969479,
+                "openDbfs": -91.41717576282964,
+                "openMinusCedarDb": 0.3593469168651495
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.029370106847793,
+            "cedarRmsDbfs": -29.18559256611179,
+            "openRmsDbfs": -29.030489741642892,
+            "cedarReductionDb": 0.15622245926399714,
+            "openReductionDb": 0.0011196347950992447,
+            "differenceRmsDbfs": -61.77073625278361,
+            "cedarDryMaxError": 0.08914759382605553,
+            "openDryMaxError": 0.017379434779286385,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -102.7504022643285,
+                "openDbfs": -101.09598413318837,
+                "openMinusCedarDb": 1.6544181311401331
+              },
+              "800-2000": {
+                "cedarDbfs": -101.16380736690344,
+                "openDbfs": -100.08794847453332,
+                "openMinusCedarDb": 1.0758588923701211
+              },
+              "2000-5000": {
+                "cedarDbfs": -97.27584070039639,
+                "openDbfs": -95.8595863103711,
+                "openMinusCedarDb": 1.416254390025287
+              },
+              "5000-8000": {
+                "cedarDbfs": -96.08451814684018,
+                "openDbfs": -94.58349848705234,
+                "openMinusCedarDb": 1.5010196597878434
+              },
+              "8000-12000": {
+                "cedarDbfs": -29.18559872710602,
+                "openDbfs": -29.03049697859164,
+                "openMinusCedarDb": 0.15510174851437952
+              },
+              "12000-15000": {
+                "cedarDbfs": -93.16707909877793,
+                "openDbfs": -92.44217863092354,
+                "openMinusCedarDb": 0.7249004678543969
+              },
+              "15000-24000": {
+                "cedarDbfs": -91.77652267969479,
+                "openDbfs": -91.41717576282964,
+                "openMinusCedarDb": 0.3593469168651495
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_1400Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.02991790030682,
+            "cedarRmsDbfs": -29.119447275708815,
+            "openRmsDbfs": -29.031030612683445,
+            "cedarReductionDb": 0.08952937540199457,
+            "openReductionDb": 0.0011127123766243585,
+            "differenceRmsDbfs": -63.60541954814561,
+            "cedarDryMaxError": 0.10196410119533539,
+            "openDryMaxError": 0.015626009553670883,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -96.7871539017448,
+                "openDbfs": -100.78546112152239,
+                "openMinusCedarDb": -3.998307219777587
+              },
+              "800-2000": {
+                "cedarDbfs": -29.119452997869416,
+                "openDbfs": -29.031036113205527,
+                "openMinusCedarDb": 0.0884168846638893
+              },
+              "2000-5000": {
+                "cedarDbfs": -97.03944463741297,
+                "openDbfs": -95.21598604774442,
+                "openMinusCedarDb": 1.8234585896685473
+              },
+              "5000-8000": {
+                "cedarDbfs": -97.6464473024731,
+                "openDbfs": -97.48607440546544,
+                "openMinusCedarDb": 0.16037289700766166
+              },
+              "8000-12000": {
+                "cedarDbfs": -96.12077655034895,
+                "openDbfs": -96.01206722999514,
+                "openMinusCedarDb": 0.10870932035381031
+              },
+              "12000-15000": {
+                "cedarDbfs": -96.85287730560047,
+                "openDbfs": -96.67997995337976,
+                "openMinusCedarDb": 0.17289735222071556
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.37804043389701,
+                "openDbfs": -92.62299639994845,
+                "openMinusCedarDb": -0.24495596605143533
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.02991790030682,
+            "cedarRmsDbfs": -29.119447275708815,
+            "openRmsDbfs": -29.031030612683445,
+            "cedarReductionDb": 0.08952937540199457,
+            "openReductionDb": 0.0011127123766243585,
+            "differenceRmsDbfs": -63.60541954814561,
+            "cedarDryMaxError": 0.10196410119533539,
+            "openDryMaxError": 0.015626009553670883,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -96.7871539017448,
+                "openDbfs": -100.78546112152239,
+                "openMinusCedarDb": -3.998307219777587
+              },
+              "800-2000": {
+                "cedarDbfs": -29.119452997869416,
+                "openDbfs": -29.031036113205527,
+                "openMinusCedarDb": 0.0884168846638893
+              },
+              "2000-5000": {
+                "cedarDbfs": -97.03944463741297,
+                "openDbfs": -95.21598604774442,
+                "openMinusCedarDb": 1.8234585896685473
+              },
+              "5000-8000": {
+                "cedarDbfs": -97.6464473024731,
+                "openDbfs": -97.48607440546544,
+                "openMinusCedarDb": 0.16037289700766166
+              },
+              "8000-12000": {
+                "cedarDbfs": -96.12077655034895,
+                "openDbfs": -96.01206722999514,
+                "openMinusCedarDb": 0.10870932035381031
+              },
+              "12000-15000": {
+                "cedarDbfs": -96.85287730560047,
+                "openDbfs": -96.67997995337976,
+                "openMinusCedarDb": 0.17289735222071556
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.37804043389701,
+                "openDbfs": -92.62299639994845,
+                "openMinusCedarDb": -0.24495596605143533
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_4900Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.029566348532718,
+            "cedarRmsDbfs": -29.187375730538093,
+            "openRmsDbfs": -29.03068021070186,
+            "cedarReductionDb": 0.1578093820053752,
+            "openReductionDb": 0.0011138621691415551,
+            "differenceRmsDbfs": -62.05508881742108,
+            "cedarDryMaxError": 0.05163038522005081,
+            "openDryMaxError": 0.01548701897263527,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -102.64830644532394,
+                "openDbfs": -98.61244684645656,
+                "openMinusCedarDb": 4.0358595988673756
+              },
+              "800-2000": {
+                "cedarDbfs": -100.89390884607225,
+                "openDbfs": -96.9623254915834,
+                "openMinusCedarDb": 3.9315833544888505
+              },
+              "2000-5000": {
+                "cedarDbfs": -29.187387818040087,
+                "openDbfs": -29.030686429433075,
+                "openMinusCedarDb": 0.15670138860701144
+              },
+              "5000-8000": {
+                "cedarDbfs": -86.51197105704836,
+                "openDbfs": -94.05321595496744,
+                "openMinusCedarDb": -7.541244897919086
+              },
+              "8000-12000": {
+                "cedarDbfs": -96.13753583765077,
+                "openDbfs": -95.36826582169205,
+                "openMinusCedarDb": 0.7692700159587247
+              },
+              "12000-15000": {
+                "cedarDbfs": -97.05153138911203,
+                "openDbfs": -96.66443797977622,
+                "openMinusCedarDb": 0.3870934093358045
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.63181829620228,
+                "openDbfs": -92.66710281044868,
+                "openMinusCedarDb": -0.03528451424639911
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.029566348532718,
+            "cedarRmsDbfs": -29.187375730538093,
+            "openRmsDbfs": -29.03068021070186,
+            "cedarReductionDb": 0.1578093820053752,
+            "openReductionDb": 0.0011138621691415551,
+            "differenceRmsDbfs": -62.05508881742108,
+            "cedarDryMaxError": 0.05163038522005081,
+            "openDryMaxError": 0.01548701897263527,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -102.64830644532394,
+                "openDbfs": -98.61244684645656,
+                "openMinusCedarDb": 4.0358595988673756
+              },
+              "800-2000": {
+                "cedarDbfs": -100.89390884607225,
+                "openDbfs": -96.9623254915834,
+                "openMinusCedarDb": 3.9315833544888505
+              },
+              "2000-5000": {
+                "cedarDbfs": -29.187387818040087,
+                "openDbfs": -29.030686429433075,
+                "openMinusCedarDb": 0.15670138860701144
+              },
+              "5000-8000": {
+                "cedarDbfs": -86.51197105704836,
+                "openDbfs": -94.05321595496744,
+                "openMinusCedarDb": -7.541244897919086
+              },
+              "8000-12000": {
+                "cedarDbfs": -96.13753583765077,
+                "openDbfs": -95.36826582169205,
+                "openMinusCedarDb": 0.7692700159587247
+              },
+              "12000-15000": {
+                "cedarDbfs": -97.05153138911203,
+                "openDbfs": -96.66443797977622,
+                "openMinusCedarDb": 0.3870934093358045
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.63181829620228,
+                "openDbfs": -92.66710281044868,
+                "openMinusCedarDb": -0.03528451424639911
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_5100Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.029913497815627,
+            "cedarRmsDbfs": -29.17261603524691,
+            "openRmsDbfs": -29.0310243018765,
+            "cedarReductionDb": 0.14270253743128336,
+            "openReductionDb": 0.0011108040608718284,
+            "differenceRmsDbfs": -61.68102813291236,
+            "cedarDryMaxError": 0.06164498068392277,
+            "openDryMaxError": 0.01589827984571457,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -99.95755104206141,
+                "openDbfs": -98.60946949066869,
+                "openMinusCedarDb": 1.348081551392724
+              },
+              "800-2000": {
+                "cedarDbfs": -97.9508916535884,
+                "openDbfs": -96.94618589557453,
+                "openMinusCedarDb": 1.0047057580138699
+              },
+              "2000-5000": {
+                "cedarDbfs": -82.94272963442724,
+                "openDbfs": -94.04366394611053,
+                "openMinusCedarDb": -11.10093431168329
+              },
+              "5000-8000": {
+                "cedarDbfs": -29.172639056996616,
+                "openDbfs": -29.031030573962656,
+                "openMinusCedarDb": 0.14160848303395923
+              },
+              "8000-12000": {
+                "cedarDbfs": -95.48832982607689,
+                "openDbfs": -95.18709360348304,
+                "openMinusCedarDb": 0.3012362225938574
+              },
+              "12000-15000": {
+                "cedarDbfs": -96.77284935509223,
+                "openDbfs": -96.6481488331364,
+                "openMinusCedarDb": 0.12470052195583037
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.38055918132291,
+                "openDbfs": -92.66433319952657,
+                "openMinusCedarDb": -0.28377401820365833
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.029913497815627,
+            "cedarRmsDbfs": -29.17261603524691,
+            "openRmsDbfs": -29.0310243018765,
+            "cedarReductionDb": 0.14270253743128336,
+            "openReductionDb": 0.0011108040608718284,
+            "differenceRmsDbfs": -61.68102813291236,
+            "cedarDryMaxError": 0.06164498068392277,
+            "openDryMaxError": 0.01589827984571457,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -99.95755104206141,
+                "openDbfs": -98.60946949066869,
+                "openMinusCedarDb": 1.348081551392724
+              },
+              "800-2000": {
+                "cedarDbfs": -97.9508916535884,
+                "openDbfs": -96.94618589557453,
+                "openMinusCedarDb": 1.0047057580138699
+              },
+              "2000-5000": {
+                "cedarDbfs": -82.94272963442724,
+                "openDbfs": -94.04366394611053,
+                "openMinusCedarDb": -11.10093431168329
+              },
+              "5000-8000": {
+                "cedarDbfs": -29.172639056996616,
+                "openDbfs": -29.031030573962656,
+                "openMinusCedarDb": 0.14160848303395923
+              },
+              "8000-12000": {
+                "cedarDbfs": -95.48832982607689,
+                "openDbfs": -95.18709360348304,
+                "openMinusCedarDb": 0.3012362225938574
+              },
+              "12000-15000": {
+                "cedarDbfs": -96.77284935509223,
+                "openDbfs": -96.6481488331364,
+                "openMinusCedarDb": 0.12470052195583037
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.38055918132291,
+                "openDbfs": -92.66433319952657,
+                "openMinusCedarDb": -0.28377401820365833
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "tone_800Hz_plus_hiss.wav",
+        "measuredDelayCedar": 16128,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "residual correlation after tone notch in central segment",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -29.029605447525242,
+            "cedarRmsDbfs": -29.362217768586852,
+            "openRmsDbfs": -29.030713334606453,
+            "cedarReductionDb": 0.3326123210616103,
+            "openReductionDb": 0.001107887081211345,
+            "differenceRmsDbfs": -56.65375970557289,
+            "cedarDryMaxError": 0.07716302573680878,
+            "openDryMaxError": 0.015843387693166733,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -67.03107440398612,
+                "openDbfs": -89.96443032490076,
+                "openMinusCedarDb": -22.933355920914636
+              },
+              "800-2000": {
+                "cedarDbfs": -29.362965945521914,
+                "openDbfs": -29.03072187711071,
+                "openMinusCedarDb": 0.33224406841120313
+              },
+              "2000-5000": {
+                "cedarDbfs": -97.67964964120864,
+                "openDbfs": -95.81090907503523,
+                "openMinusCedarDb": 1.8687405661734147
+              },
+              "5000-8000": {
+                "cedarDbfs": -97.67716908362604,
+                "openDbfs": -97.63150542546543,
+                "openMinusCedarDb": 0.045663658160606246
+              },
+              "8000-12000": {
+                "cedarDbfs": -96.14503618599835,
+                "openDbfs": -96.05351465585446,
+                "openMinusCedarDb": 0.09152153014389341
+              },
+              "12000-15000": {
+                "cedarDbfs": -96.8281867943398,
+                "openDbfs": -96.69874191458264,
+                "openMinusCedarDb": 0.12944487975715901
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.22851449570453,
+                "openDbfs": -92.63652995365236,
+                "openMinusCedarDb": -0.4080154579478261
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -29.029605447525242,
+            "cedarRmsDbfs": -29.362217768586852,
+            "openRmsDbfs": -29.030713334606453,
+            "cedarReductionDb": 0.3326123210616103,
+            "openReductionDb": 0.001107887081211345,
+            "differenceRmsDbfs": -56.65375970557289,
+            "cedarDryMaxError": 0.07716302573680878,
+            "openDryMaxError": 0.015843387693166733,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -67.03107440398612,
+                "openDbfs": -89.96443032490076,
+                "openMinusCedarDb": -22.933355920914636
+              },
+              "800-2000": {
+                "cedarDbfs": -29.362965945521914,
+                "openDbfs": -29.03072187711071,
+                "openMinusCedarDb": 0.33224406841120313
+              },
+              "2000-5000": {
+                "cedarDbfs": -97.67964964120864,
+                "openDbfs": -95.81090907503523,
+                "openMinusCedarDb": 1.8687405661734147
+              },
+              "5000-8000": {
+                "cedarDbfs": -97.67716908362604,
+                "openDbfs": -97.63150542546543,
+                "openMinusCedarDb": 0.045663658160606246
+              },
+              "8000-12000": {
+                "cedarDbfs": -96.14503618599835,
+                "openDbfs": -96.05351465585446,
+                "openMinusCedarDb": 0.09152153014389341
+              },
+              "12000-15000": {
+                "cedarDbfs": -96.8281867943398,
+                "openDbfs": -96.69874191458264,
+                "openMinusCedarDb": 0.12944487975715901
+              },
+              "15000-24000": {
+                "cedarDbfs": -92.22851449570453,
+                "openDbfs": -92.63652995365236,
+                "openMinusCedarDb": -0.4080154579478261
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "white_-35dBFS.wav",
+        "measuredDelayCedar": 1024,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -35.00415320909867,
+            "cedarRmsDbfs": -60.57902588013346,
+            "openRmsDbfs": -58.27106587663352,
+            "cedarReductionDb": 25.57487267103479,
+            "openReductionDb": 23.266912667534854,
+            "differenceRmsDbfs": -56.267404797193095,
+            "cedarDryMaxError": 0.08621002206928097,
+            "openDryMaxError": 0.08017604053020477,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -74.04381245695194,
+                "openDbfs": -71.99191379951982,
+                "openMinusCedarDb": 2.051898657432119
+              },
+              "800-2000": {
+                "cedarDbfs": -72.72657387394875,
+                "openDbfs": -71.22878791250318,
+                "openMinusCedarDb": 1.4977859614455724
+              },
+              "2000-5000": {
+                "cedarDbfs": -69.40129282077712,
+                "openDbfs": -67.27133812265606,
+                "openMinusCedarDb": 2.129954698121054
+              },
+              "5000-8000": {
+                "cedarDbfs": -69.96407682289482,
+                "openDbfs": -67.90903271234247,
+                "openMinusCedarDb": 2.055044110552359
+              },
+              "8000-12000": {
+                "cedarDbfs": -68.74646653359147,
+                "openDbfs": -66.16193310022614,
+                "openMinusCedarDb": 2.584533433365337
+              },
+              "12000-15000": {
+                "cedarDbfs": -69.87205097632776,
+                "openDbfs": -66.75485735272586,
+                "openMinusCedarDb": 3.1171936236018922
+              },
+              "15000-24000": {
+                "cedarDbfs": -64.8255117059133,
+                "openDbfs": -62.67744686165567,
+                "openMinusCedarDb": 2.1480648442576324
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -35.00415320909867,
+            "cedarRmsDbfs": -60.57902588013346,
+            "openRmsDbfs": -58.27106587663352,
+            "cedarReductionDb": 25.57487267103479,
+            "openReductionDb": 23.266912667534854,
+            "differenceRmsDbfs": -56.267404797193095,
+            "cedarDryMaxError": 0.08621002206928097,
+            "openDryMaxError": 0.08017604053020477,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -74.04381245695194,
+                "openDbfs": -71.99191379951982,
+                "openMinusCedarDb": 2.051898657432119
+              },
+              "800-2000": {
+                "cedarDbfs": -72.72657387394875,
+                "openDbfs": -71.22878791250318,
+                "openMinusCedarDb": 1.4977859614455724
+              },
+              "2000-5000": {
+                "cedarDbfs": -69.40129282077712,
+                "openDbfs": -67.27133812265606,
+                "openMinusCedarDb": 2.129954698121054
+              },
+              "5000-8000": {
+                "cedarDbfs": -69.96407682289482,
+                "openDbfs": -67.90903271234247,
+                "openMinusCedarDb": 2.055044110552359
+              },
+              "8000-12000": {
+                "cedarDbfs": -68.74646653359147,
+                "openDbfs": -66.16193310022614,
+                "openMinusCedarDb": 2.584533433365337
+              },
+              "12000-15000": {
+                "cedarDbfs": -69.87205097632776,
+                "openDbfs": -66.75485735272586,
+                "openMinusCedarDb": 3.1171936236018922
+              },
+              "15000-24000": {
+                "cedarDbfs": -64.8255117059133,
+                "openDbfs": -62.67744686165567,
+                "openMinusCedarDb": 2.1480648442576324
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "white_-50dBFS.wav",
+        "measuredDelayCedar": 1024,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -50.00415320883489,
+            "cedarRmsDbfs": -75.5760356607779,
+            "openRmsDbfs": -73.27106585659928,
+            "cedarReductionDb": 25.57188245194301,
+            "openReductionDb": 23.266912647764386,
+            "differenceRmsDbfs": -71.26642677292699,
+            "cedarDryMaxError": 0.015329358036979102,
+            "openDryMaxError": 0.014257539063692093,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.0438128470733,
+                "openDbfs": -86.9919139802216,
+                "openMinusCedarDb": 2.051898866851701
+              },
+              "800-2000": {
+                "cedarDbfs": -87.7265747614117,
+                "openDbfs": -86.22878839583619,
+                "openMinusCedarDb": 1.4977863655755073
+              },
+              "2000-5000": {
+                "cedarDbfs": -84.40129276167924,
+                "openDbfs": -82.27133837152478,
+                "openMinusCedarDb": 2.1299543901544666
+              },
+              "5000-8000": {
+                "cedarDbfs": -84.96407710941106,
+                "openDbfs": -82.90903265412025,
+                "openMinusCedarDb": 2.055044455290812
+              },
+              "8000-12000": {
+                "cedarDbfs": -83.74644740601903,
+                "openDbfs": -81.16193287537769,
+                "openMinusCedarDb": 2.584514530641343
+              },
+              "12000-15000": {
+                "cedarDbfs": -84.87132320069935,
+                "openDbfs": -81.75485735263292,
+                "openMinusCedarDb": 3.116465848066426
+              },
+              "15000-24000": {
+                "cedarDbfs": -79.81780065595936,
+                "openDbfs": -77.6774467353971,
+                "openMinusCedarDb": 2.140353920562262
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -50.00415320883489,
+            "cedarRmsDbfs": -75.5760356607779,
+            "openRmsDbfs": -73.27106585659928,
+            "cedarReductionDb": 25.57188245194301,
+            "openReductionDb": 23.266912647764386,
+            "differenceRmsDbfs": -71.26642677292699,
+            "cedarDryMaxError": 0.015329358036979102,
+            "openDryMaxError": 0.014257539063692093,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -89.0438128470733,
+                "openDbfs": -86.9919139802216,
+                "openMinusCedarDb": 2.051898866851701
+              },
+              "800-2000": {
+                "cedarDbfs": -87.7265747614117,
+                "openDbfs": -86.22878839583619,
+                "openMinusCedarDb": 1.4977863655755073
+              },
+              "2000-5000": {
+                "cedarDbfs": -84.40129276167924,
+                "openDbfs": -82.27133837152478,
+                "openMinusCedarDb": 2.1299543901544666
+              },
+              "5000-8000": {
+                "cedarDbfs": -84.96407710941106,
+                "openDbfs": -82.90903265412025,
+                "openMinusCedarDb": 2.055044455290812
+              },
+              "8000-12000": {
+                "cedarDbfs": -83.74644740601903,
+                "openDbfs": -81.16193287537769,
+                "openMinusCedarDb": 2.584514530641343
+              },
+              "12000-15000": {
+                "cedarDbfs": -84.87132320069935,
+                "openDbfs": -81.75485735263292,
+                "openMinusCedarDb": 3.116465848066426
+              },
+              "15000-24000": {
+                "cedarDbfs": -79.81780065595936,
+                "openDbfs": -77.6774467353971,
+                "openMinusCedarDb": 2.140353920562262
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "white_-65dBFS.wav",
+        "measuredDelayCedar": 1024,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -90.5779328014618,
+            "openRmsDbfs": -88.27106589279467,
+            "cedarReductionDb": 25.573779592451686,
+            "openReductionDb": 23.266912683784554,
+            "differenceRmsDbfs": -86.26687554772913,
+            "cedarDryMaxError": 0.0027264033460596693,
+            "openDryMaxError": 0.002535388804972172,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -104.04381257773836,
+                "openDbfs": -101.99191379098876,
+                "openMinusCedarDb": 2.0518987867496037
+              },
+              "800-2000": {
+                "cedarDbfs": -102.72657413012688,
+                "openDbfs": -101.22878778223777,
+                "openMinusCedarDb": 1.4977863478891038
+              },
+              "2000-5000": {
+                "cedarDbfs": -99.40129279459211,
+                "openDbfs": -97.27133853431286,
+                "openMinusCedarDb": 2.1299542602792485
+              },
+              "5000-8000": {
+                "cedarDbfs": -99.96407690937467,
+                "openDbfs": -97.90903293692045,
+                "openMinusCedarDb": 2.0550439724542144
+              },
+              "8000-12000": {
+                "cedarDbfs": -98.74648349077923,
+                "openDbfs": -96.16193297915699,
+                "openMinusCedarDb": 2.58455051162224
+              },
+              "12000-15000": {
+                "cedarDbfs": -99.87203000799325,
+                "openDbfs": -96.75485726559049,
+                "openMinusCedarDb": 3.117172742402758
+              },
+              "15000-24000": {
+                "cedarDbfs": -94.8226050120731,
+                "openDbfs": -92.67744680751152,
+                "openMinusCedarDb": 2.1451582045615822
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -65.00415320901011,
+            "cedarRmsDbfs": -90.5779328014618,
+            "openRmsDbfs": -88.27106589279467,
+            "cedarReductionDb": 25.573779592451686,
+            "openReductionDb": 23.266912683784554,
+            "differenceRmsDbfs": -86.26687554772913,
+            "cedarDryMaxError": 0.0027264033460596693,
+            "openDryMaxError": 0.002535388804972172,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -104.04381257773836,
+                "openDbfs": -101.99191379098876,
+                "openMinusCedarDb": 2.0518987867496037
+              },
+              "800-2000": {
+                "cedarDbfs": -102.72657413012688,
+                "openDbfs": -101.22878778223777,
+                "openMinusCedarDb": 1.4977863478891038
+              },
+              "2000-5000": {
+                "cedarDbfs": -99.40129279459211,
+                "openDbfs": -97.27133853431286,
+                "openMinusCedarDb": 2.1299542602792485
+              },
+              "5000-8000": {
+                "cedarDbfs": -99.96407690937467,
+                "openDbfs": -97.90903293692045,
+                "openMinusCedarDb": 2.0550439724542144
+              },
+              "8000-12000": {
+                "cedarDbfs": -98.74648349077923,
+                "openDbfs": -96.16193297915699,
+                "openMinusCedarDb": 2.58455051162224
+              },
+              "12000-15000": {
+                "cedarDbfs": -99.87203000799325,
+                "openDbfs": -96.75485726559049,
+                "openMinusCedarDb": 3.117172742402758
+              },
+              "15000-24000": {
+                "cedarDbfs": -94.8226050120731,
+                "openDbfs": -92.67744680751152,
+                "openMinusCedarDb": 2.1451582045615822
+              }
+            }
+          }
+        ]
+      },
+      {
+        "file": "white_-80dBFS.wav",
+        "measuredDelayCedar": 1024,
+        "measuredDelayOpen": 4096,
+        "silenceDelayFallback": false,
+        "delayMethod": "broadband correlation",
+        "finite": true,
+        "channels": [
+          {
+            "inputRmsDbfs": -80.00415320950536,
+            "cedarRmsDbfs": -105.5779328002383,
+            "openRmsDbfs": -103.27106582980157,
+            "cedarReductionDb": 25.57377959073294,
+            "openReductionDb": 23.26691262029621,
+            "differenceRmsDbfs": -101.26687550734036,
+            "cedarDryMaxError": 0.0004848306942903946,
+            "openDryMaxError": 0.0004508629790507257,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -119.04381257595993,
+                "openDbfs": -116.99191345558334,
+                "openMinusCedarDb": 2.0518991203765893
+              },
+              "800-2000": {
+                "cedarDbfs": -117.7265741277334,
+                "openDbfs": -116.22878827828953,
+                "openMinusCedarDb": 1.497785849443872
+              },
+              "2000-5000": {
+                "cedarDbfs": -114.40129279366182,
+                "openDbfs": -112.27133812317601,
+                "openMinusCedarDb": 2.129954670485816
+              },
+              "5000-8000": {
+                "cedarDbfs": -114.9640769123649,
+                "openDbfs": -112.90903268205113,
+                "openMinusCedarDb": 2.0550442303137686
+              },
+              "8000-12000": {
+                "cedarDbfs": -113.74648348979755,
+                "openDbfs": -111.16193309232702,
+                "openMinusCedarDb": 2.5845503974705366
+              },
+              "12000-15000": {
+                "cedarDbfs": -114.87203000544474,
+                "openDbfs": -111.75485732728946,
+                "openMinusCedarDb": 3.117172678155285
+              },
+              "15000-24000": {
+                "cedarDbfs": -109.8226050100298,
+                "openDbfs": -107.67744675131732,
+                "openMinusCedarDb": 2.1451582587124847
+              }
+            }
+          },
+          {
+            "inputRmsDbfs": -80.00415320950536,
+            "cedarRmsDbfs": -105.5779328002383,
+            "openRmsDbfs": -103.27106582980157,
+            "cedarReductionDb": 25.57377959073294,
+            "openReductionDb": 23.26691262029621,
+            "differenceRmsDbfs": -101.26687550734036,
+            "cedarDryMaxError": 0.0004848306942903946,
+            "openDryMaxError": 0.0004508629790507257,
+            "bands": {
+              "20-800": {
+                "cedarDbfs": -119.04381257595993,
+                "openDbfs": -116.99191345558334,
+                "openMinusCedarDb": 2.0518991203765893
+              },
+              "800-2000": {
+                "cedarDbfs": -117.7265741277334,
+                "openDbfs": -116.22878827828953,
+                "openMinusCedarDb": 1.497785849443872
+              },
+              "2000-5000": {
+                "cedarDbfs": -114.40129279366182,
+                "openDbfs": -112.27133812317601,
+                "openMinusCedarDb": 2.129954670485816
+              },
+              "5000-8000": {
+                "cedarDbfs": -114.9640769123649,
+                "openDbfs": -112.90903268205113,
+                "openMinusCedarDb": 2.0550442303137686
+              },
+              "8000-12000": {
+                "cedarDbfs": -113.74648348979755,
+                "openDbfs": -111.16193309232702,
+                "openMinusCedarDb": 2.5845503974705366
+              },
+              "12000-15000": {
+                "cedarDbfs": -114.87203000544474,
+                "openDbfs": -111.75485732728946,
+                "openMinusCedarDb": 3.117172678155285
+              },
+              "15000-24000": {
+                "cedarDbfs": -109.8226050100298,
+                "openDbfs": -107.67744675131732,
+                "openMinusCedarDb": 2.1451582587124847
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

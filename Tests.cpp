@@ -68,6 +68,23 @@ int main()
     reduction=20*std::log10(rms(noise,fs,3*fs)/rms(y,fs+latency,3*fs+latency));
     std::cout<<"Auto stationary noise at -26 dB: "<<reduction<<" dB\n";
     require(reduction>20 && reduction<27,"automatic suppression approaches selected amount on stationary hiss");
+    for(double rate:{44100.0,48000.0,96000.0}) {
+        HissChannel probe;probe.prepare(rate);const int delay=probe.latency();
+        HissSettings tracking;tracking.reduction=26;
+        std::vector<float> step(static_cast<size_t>(rate*5));
+        for(int i=0;i<int(step.size());++i)step[i]=normal(rng)*(i<int(2*rate)?.0005623413f:.005623413f);
+        const auto filtered=render(step,rate,tracking);
+        const double cut=20*std::log10(rms(step,int(3*rate),int(4*rate))/rms(filtered,int(3*rate)+delay,int(4*rate)+delay));
+        std::cout<<"Broadband +20 dB step "<<rate<<" Hz, reduction after 1 second: "<<cut<<" dB\n";
+        require(cut>18,"persistent broadband noise rise is suppressed within one second");
+        // A short broadband consonant must not cause accelerated noise learning.
+        std::vector<float> burst(static_cast<size_t>(rate*3));
+        for(int i=0;i<int(burst.size());++i)burst[i]=normal(rng)*(i>=int(rate)&&i<int(1.12*rate)?.02f:.0005623413f);
+        const auto voiced=render(burst,rate,tracking);
+        const double loss=20*std::log10(rms(burst,int(rate),int(1.12*rate))/rms(voiced,int(rate)+delay,int(1.12*rate)+delay));
+        std::cout<<"Short broadband consonant "<<rate<<" Hz loss: "<<loss<<" dB\n";
+        require(loss<3,"brief broadband speech onset is not learned as persistent noise");
+    }
     // Low-level tonal residue must not be exempt merely because it is coherent.
     // Dense baritone harmonics surround these probes in the user's target band.
     // Probes sit halfway between harmonics. A tone only 10 Hz from a strong
