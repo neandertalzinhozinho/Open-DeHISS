@@ -36,6 +36,8 @@ DSP próprio: STFT com janela seno e overlap de 50%, estimativa mediana de ruíd
 
 Testes: transparência 0 dB, latência, overlap-add, bypass, Mix=0, silêncio, NaN/Inf, atenuação manual, redução automática, canais estéreo, persistência de parâmetros, blocos variáveis e renderização da interface. O host de teste separado carrega o VST3 compilado.
 
+Comparação A/B e host de referência: [instruções do benchmark](docs/BENCHMARK.md). A rodada inicial demonstrou diferenças grandes na redução automática e na preservação de tons sustentados; consulte [validação](docs/VALIDATION.md). Os testes de estabilidade do beta não comprovam equivalência da qualidade do processamento.
+
 ## Licença
 
 Código próprio AGPL-3.0-or-later (LICENSE.txt). JUCE utilizado sob AGPLv3; suas licenças e avisos de dependências acompanham o código baixado. Não há dependência de licença paga.

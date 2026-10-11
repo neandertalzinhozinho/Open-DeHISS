@@ -1,0 +1,386 @@
+[
+  {
+    "profile": "auto--12",
+    "file": "isolated_impulse.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.0,
+      "openReductionDb": 0.0,
+      "inputRmsDbfs": -300.0
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "noise_step_-65_to_-45.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 11.18117260904478,
+      "openReductionDb": 4.114827846907112,
+      "inputRmsDbfs": -46.74560051009142
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "silence.wav",
+    "finite": true,
+    "delayCedar": null,
+    "delayOpen": null,
+    "left": {
+      "cedarReductionDb": 0.0,
+      "openReductionDb": 0.0,
+      "inputRmsDbfs": -300.0
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "stereo_antiphase.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 11.44389100890048,
+      "openReductionDb": 5.740289175974382,
+      "inputRmsDbfs": -65.00415320901011
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "stereo_correlated.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 11.436230223207843,
+      "openReductionDb": 5.740289175974382,
+      "inputRmsDbfs": -65.00415320901011
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "stereo_noise_left_only.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 11.44389100890048,
+      "openReductionDb": 5.740289175974382,
+      "inputRmsDbfs": -65.00415320901011
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "tone_100Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.21638528560042047,
+      "openReductionDb": 11.978188402873258,
+      "inputRmsDbfs": -29.02976143151764
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "tone_11000Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.1230953938689936,
+      "openReductionDb": 11.995037870767767,
+      "inputRmsDbfs": -29.029370106847793
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "tone_1400Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.0676219790436754,
+      "openReductionDb": 11.995394384939075,
+      "inputRmsDbfs": -29.02991790030682
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "tone_4900Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.12297706507212425,
+      "openReductionDb": 11.994871437815036,
+      "inputRmsDbfs": -29.029566348532718
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "tone_5100Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.10938052194372716,
+      "openReductionDb": 11.995185382227362,
+      "inputRmsDbfs": -29.029913497815627
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "tone_800Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.24519069064826837,
+      "openReductionDb": 11.995588703554716,
+      "inputRmsDbfs": -29.029605447525242
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "white_-35dBFS.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 11.437198122449729,
+      "openReductionDb": 5.740289166420673,
+      "inputRmsDbfs": -35.00415320909867
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "white_-50dBFS.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 11.453815509419286,
+      "openReductionDb": 5.740289182859215,
+      "inputRmsDbfs": -50.00415320883489
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "white_-65dBFS.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 11.436230225281292,
+      "openReductionDb": 5.740289175974382,
+      "inputRmsDbfs": -65.00415320901011
+    }
+  },
+  {
+    "profile": "auto--12",
+    "file": "white_-80dBFS.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 11.436230243142077,
+      "openReductionDb": 5.740289170867115,
+      "inputRmsDbfs": -80.00415320950536
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "isolated_impulse.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.0,
+      "openReductionDb": 0.0,
+      "inputRmsDbfs": -300.0
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "noise_step_-65_to_-45.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 20.465186331065198,
+      "openReductionDb": 4.879126257995239,
+      "inputRmsDbfs": -46.74560051009142
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "silence.wav",
+    "finite": true,
+    "delayCedar": null,
+    "delayOpen": null,
+    "left": {
+      "cedarReductionDb": 0.0,
+      "openReductionDb": 0.0,
+      "inputRmsDbfs": -300.0
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "stereo_antiphase.wav",
+    "finite": true,
+    "delayCedar": 1024,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 25.5723503547799,
+      "openReductionDb": 7.168116410632493,
+      "inputRmsDbfs": -65.00415320901011
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "stereo_correlated.wav",
+    "finite": true,
+    "delayCedar": 1024,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 25.57235079333448,
+      "openReductionDb": 7.168116410632493,
+      "inputRmsDbfs": -65.00415320901011
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "stereo_noise_left_only.wav",
+    "finite": true,
+    "delayCedar": 1024,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 25.5723503547799,
+      "openReductionDb": 7.168116410632493,
+      "inputRmsDbfs": -65.00415320901011
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "tone_100Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.29540254028172797,
+      "openReductionDb": 25.579932963711762,
+      "inputRmsDbfs": -29.02976143151764
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "tone_11000Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.15622245926399714,
+      "openReductionDb": 25.903186062051944,
+      "inputRmsDbfs": -29.029370106847793
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "tone_1400Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.08952937540199457,
+      "openReductionDb": 25.907107880600527,
+      "inputRmsDbfs": -29.02991790030682
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "tone_4900Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.1578093820053752,
+      "openReductionDb": 25.899366090593645,
+      "inputRmsDbfs": -29.029566348532718
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "tone_5100Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.14270253743128336,
+      "openReductionDb": 25.904971045774893,
+      "inputRmsDbfs": -29.029913497815627
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "tone_800Hz_plus_hiss.wav",
+    "finite": true,
+    "delayCedar": 16128,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 0.3326123210616103,
+      "openReductionDb": 25.9085892748667,
+      "inputRmsDbfs": -29.029605447525242
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "white_-35dBFS.wav",
+    "finite": true,
+    "delayCedar": 1024,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 25.57487267103479,
+      "openReductionDb": 7.168116409432805,
+      "inputRmsDbfs": -35.00415320909867
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "white_-50dBFS.wav",
+    "finite": true,
+    "delayCedar": 1024,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 25.57188245194301,
+      "openReductionDb": 7.1681164219912645,
+      "inputRmsDbfs": -50.00415320883489
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "white_-65dBFS.wav",
+    "finite": true,
+    "delayCedar": 1024,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 25.573779592451686,
+      "openReductionDb": 7.168116410632493,
+      "inputRmsDbfs": -65.00415320901011
+    }
+  },
+  {
+    "profile": "auto--26",
+    "file": "white_-80dBFS.wav",
+    "finite": true,
+    "delayCedar": 1024,
+    "delayOpen": 1024,
+    "left": {
+      "cedarReductionDb": 25.57377959073294,
+      "openReductionDb": 7.168116408688434,
+      "inputRmsDbfs": -80.00415320950536
+    }
+  }
+]

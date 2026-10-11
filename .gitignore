@@ -1,4 +1,7 @@
 /build*/
+/outputs/
+__pycache__/
+*.pyc
 *.user
 *.suo
 editor-preview.png
