@@ -2,6 +2,8 @@
 
 Plugin VST3 Windows x64 para redução de hiss, open source AGPLv3, em desenvolvimento beta.
 
+![Interface lilás](docs/interface.png)
+
 Interface lilás com três knobs: Atenuação grande à direita, LF Bias e Bias à esquerda, Auto e Bypass embaixo. Com Auto desligado, Bias passa a Threshold. Gráficos próprios; nenhum recurso ou código do CEDAR é distribuído. Atenuação padrão **0 dB**, ajustável até **−40 dB**.
 
 ## Uso
