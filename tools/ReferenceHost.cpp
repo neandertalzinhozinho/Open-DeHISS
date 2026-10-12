@@ -70,7 +70,9 @@ int main(int argc, char** argv) {
             const auto destination=outputDir.getChildFile(file.getFileName());
             if(destination.exists()) { std::cout << "Refusing overwrite: " << destination.getFullPathName() << std::endl; return 6; }
             std::unique_ptr<juce::AudioFormatReader> reader(audio.createReaderFor(file)); if(!reader) return 7;
-            if(reader->sampleRate!=48000) return 8;
+            if(!std::isfinite(reader->sampleRate) || reader->sampleRate<8000 || reader->sampleRate>384000) {
+                std::cerr << "Unsupported WAV sample rate: " << reader->sampleRate << std::endl; return 8;
+            }
             callbackDone=false;
             manager.createPluginInstanceAsync(*descriptions[0],reader->sampleRate,256,
                 [&](std::unique_ptr<juce::AudioPluginInstance> loaded,const juce::String& problem){instance=std::move(loaded);error=problem;callbackDone=true;});
