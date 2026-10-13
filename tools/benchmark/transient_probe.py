@@ -15,6 +15,7 @@ def run(root):
     rng=np.random.default_rng(20261013)
     noise=rng.normal(size=n);noise*=10**(-65/20)/np.sqrt(np.mean(noise**2))
     baseline,delay=render_experimental(noise,fs)
+    write_wav(root/'noise-only.wav',noise[:,None],fs)
     rows=[]
     for kind,duration in [('fricative120ms',.12),('broadband20ms',.02),('baritone250ms',.25)]:
         length=int(fs*duration);time=np.arange(length)/fs

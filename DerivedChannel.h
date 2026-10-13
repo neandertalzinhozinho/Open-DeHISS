@@ -12,7 +12,7 @@ public:
         n=1<<order;hop=n/2;bins=n/2+1;
         ahead=std::max(0,int(std::floor((.096*fs-n)/hop)));slots=ahead+1;delay=n+ahead*hop;
         fft=std::make_unique<juce::dsp::FFT>(order);synthesis.prepare(order);
-        input.assign(n,0);dry.assign(delay,0);output.assign(delay+n,0);work.assign(2*n,0);
+        input.assign(n,0.0f);dry.assign(delay,0.0f);output.assign(delay+n,0.0f);work.assign(2*n,0.0f);
         spectra.assign(slots*bins,{});energyZ.resize(bins);energy.resize(bins);qHistory.assign(slots*bins,0);
         pending.resize(slots*bins);fast.resize(bins);slow.resize(bins);fastSmooth.resize(bins);slowSmooth.resize(bins);curve.resize(bins);block.resize(hop);
         usedBins=std::min(int(n*24000/fs),n/2);noise.prepare(usedBins);
@@ -32,14 +32,14 @@ public:
     }
 private:
     void frame(const HissSettings& s){
-        std::fill(work.begin(),work.end(),0);for(int j=0;j<n;++j)work[j]=input[(cursor+j)%n];
+        std::fill(work.begin(),work.end(),0.0f);for(int j=0;j<n;++j)work[j]=input[(cursor+j)%n];
         fft->performRealOnlyForwardTransform(work.data());const int slot=int(frames%slots);
         auto* z=spectra.data()+slot*bins;
         for(int k=0;k<bins;++k){z[k]={work[2*k],work[2*k+1]};energyZ[k]=std::complex<double>(z[k]);}
         openhiss_derived::curvature(energyZ.data(),energy.data(),bins);noise.push(energy.data());
         double estimate=noise.median();const double current=noise.median(1);
         rising=current>4*std::max(estimate,1e-100)?rising+1:0;
-        if(rising>=int(std::ceil(.05*fs/hop)))hold=21;
+        if(rising>=int(std::ceil(.04*fs/hop)))hold=21;
         if(hold>0){estimate=std::max(estimate,noise.median(3));--hold;}
         // Independent manual dBFS calibration: median complex curvature energy
         // of white noise is ln(2)*1.5*N*inputVariance (unnormalized FFT).

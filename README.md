@@ -18,6 +18,10 @@ Estimador temporal e espectral corrigido para não aprender imediatamente todo c
 
 Para reduzir sobras durante a voz, aumente **Bias** gradualmente para +6 e, se necessário, +10 dB. Isso aumenta a estimativa de ruído e a supressão também em componentes fracos. Pode retirar detalhes da voz; Atenuação determina o limite máximo, não a redução garantida em cada faixa. Sons misturados no mesmo bin não podem ser perfeitamente separados por esta máscara espectral.
 
+## Beta 0.8.0
+
+O detector de subida do ruído reage em 40 ms, mantendo a latência interna máxima de 96 ms. A validação licenciada aprovou 27 de 28 casos ativos no critério RMS (96,43%) e melhorou o erro temporal da transição sem exceder 0,5 dB de perda adicional nos três eventos sintéticos. Consulte [resultados e limitações](docs/BETA-0.8.md).
+
 ## Beta 0.7.0
 
 Novo motor independente derivado das equações auditadas, com dois caminhos paralelos para ruído variável e resíduos entre harmônicos. A candidata passou nos 28 casos do critério RMS e nos seis casos de barítono, com atraso interno de até 96 ms. Consulte [mudanças, critérios e limitações](docs/BETA-0.7.md). Não é uma alegação de equivalência perceptiva integral ao CEDAR.

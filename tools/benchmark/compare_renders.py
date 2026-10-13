@@ -1,5 +1,5 @@
 """Read-only measurements of deterministic reference and beta renders."""
-import json,struct,sys
+import argparse,json,struct
 from pathlib import Path
 import numpy as np
 from audio_metrics import rms_db,band_db,estimate_delay
@@ -77,9 +77,14 @@ def compare(base,profile,open_prefix='open'):
         'steadyAnalysisStartsSeconds':3,'highEndCut':0,'monoInputsDuplicatedToStereo':True,'results':rows}
 
 if __name__=='__main__':
-    base=Path('outputs/equivalence-renders');profiles=sys.argv[1:] or ['auto-0','auto--12','auto--26','manual--26']
-    result=[compare(base,p) for p in profiles]
-    out=Path('outputs/equivalence-comparison.json');out.write_text(json.dumps(result,indent=2),encoding='utf-8')
+    parser=argparse.ArgumentParser()
+    parser.add_argument('profiles',nargs='*',default=['auto-0','auto--12','auto--26','manual--26'])
+    parser.add_argument('--open-prefix',default='open')
+    parser.add_argument('--output',type=Path,default=Path('outputs/equivalence-comparison.json'))
+    args=parser.parse_args()
+    base=Path('outputs/equivalence-renders')
+    result=[compare(base,p,args.open_prefix) for p in args.profiles]
+    args.output.write_text(json.dumps(result,indent=2),encoding='utf-8')
     for profile in result:
         print(profile['profile'],len(profile['results']),'cases')
         for row in profile['results']:

@@ -5,6 +5,18 @@ from recovered_kernel import BoundedTemporal,effective_curve,synthesize_transiti
 from recovered_kernel import render_experimental
 
 class KernelTests(unittest.TestCase):
+    def test_soft_noise_takeover_interpolates_first_detection_frame(self):
+        fs=48000
+        rng=np.random.default_rng(20261012)
+        x=np.r_[rng.normal(0,10**(-65/20),6*fs),rng.normal(0,10**(-45/20),2*fs)]
+        outputs=[]
+        for blend in [0,.1,1]:
+            y,_=render_experimental(x,fs,rapid_noise=True,rapid_persistence=.03,
+                                    rapid_first_blend=blend,slow_tau=.125,fast_width=1500)
+            outputs.append(np.sqrt(np.mean(y[6*fs:6*fs+fs//4]**2)))
+        self.assertGreater(outputs[0],outputs[1])
+        self.assertGreater(outputs[1],outputs[2])
+
     def test_affine_spectrum_has_zero_interior_curvature(self):
         z=np.arange(33)*(1+2j)+3;np.testing.assert_allclose(curvature_energy(z)[1:-1],0)
     def test_noise_is_global_upper_median(self):

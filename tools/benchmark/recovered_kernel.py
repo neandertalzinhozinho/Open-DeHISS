@@ -96,7 +96,7 @@ def synthesize_transition(spectrum,previous_curve,new_curve):
     ramp=np.arange(hop)/hop
     return (1-ramp)*old+ramp*new
 
-def render_experimental(signal,fs,attenuation=-26,bias=0,lf_bias=0,slow_tau=.25,fast_width=3000,rapid_noise=False):
+def render_experimental(signal,fs,attenuation=-26,bias=0,lf_bias=0,slow_tau=.25,fast_width=3000,rapid_noise=False,rapid_persistence=.05,rapid_first_blend=1.):
     """Offline prototype of bounded derived equations, not shipped VST3 DSP.
 
     Causal global median and shortened anticipation intentionally differ from
@@ -123,9 +123,12 @@ def render_experimental(signal,fs,attenuation=-26,bias=0,lf_bias=0,slow_tau=.25,
             # the global median. Require a persistent broadband median rise.
             current=global_noise([e[:limit]])
             rising=rising+1 if current>4*max(noise,1e-100) else 0
-            if rising>=int(np.ceil(.05*fs/hop)):hold=21
+            rise_trigger=max(1,int(np.ceil(rapid_persistence*fs/hop)))
+            if rising>=rise_trigger:hold=21
             if hold>0:
-                noise=max(noise,global_noise(history[-3:]));hold-=1
+                recent=global_noise(history[-3:])
+                confidence=rapid_first_blend if rising==rise_trigger else 1.
+                noise=max(noise,noise+confidence*(recent-noise));hold-=1
         q=ratio(e,noise,n,fs,bias,lf_bias)
         t=1-2/(q+1)
         spectra.append(z);transformed.append(t)
