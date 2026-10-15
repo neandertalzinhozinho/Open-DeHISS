@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Open DeHISS · Escuta comparativa</title>
+<style>
+:root{color-scheme:dark;font:16px/1.55 system-ui,sans-serif;background:#100d18;color:#f2eef9}*{box-sizing:border-box}body{margin:0;padding:36px 20px}main{max-width:820px;margin:auto}h1{font-size:clamp(1.8rem,5vw,2.6rem);line-height:1.15;margin:10px 0 18px}h2{font-size:1.25rem}p{color:#c9c2d5}.eyebrow{letter-spacing:.14em;color:#c1a5ff;font-size:.8rem}section{background:#1b1527;border:1px solid #493759;border-radius:18px;padding:26px;margin:22px 0}.row{display:flex;gap:16px;flex-wrap:wrap}.audio{flex:1;min-width:210px;border:1px solid #524263;border-radius:12px;padding:20px}.audio h2{margin:0 0 12px}button,input{font:inherit;border-radius:8px;border:1px solid #8563a9;padding:11px 16px}button{background:#8055b8;color:white;cursor:pointer}button.secondary{background:transparent}button:disabled{opacity:.42;cursor:not-allowed}button:hover:enabled{background:#9669cc}button:focus-visible,input:focus-visible{outline:3px solid #dfc5ff;outline-offset:3px}input{background:#100d18;color:#fff;max-width:100%}input[type=number]{width:130px;font-size:1.35rem}label{display:block;margin:14px 0 7px}progress{width:100%;height:10px;accent-color:#bb91ff}.muted,small{color:#bbb0cb}.badge{display:inline-block;border-radius:20px;padding:5px 12px;background:#352446;color:#e4cfff;font-size:.84rem}.status{min-height:26px;color:#d6c2f1;font-size:.9rem}.error{color:#ffb8c4}footer{font-size:.8rem;color:#a69bb7;overflow-wrap:anywhere}[hidden]{display:none!important}.actions{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+</style>
+<main>
+<div class="eyebrow">OPEN DEHISS / ESTUDO DE ESCUTA</div>
+<h1>Quanto os sons se parecem?</h1>
+<span id="studyStatus" class="badge"></span>
+<p>Ouça A e B até o fim, usando os mesmos fones e um volume confortável e fixo. Avalie a <strong>similaridade do som</strong>, incluindo voz, ruído e artefatos: 0 = completamente diferentes; 100 = indistinguíveis. Não avalie sua preferência.</p>
+<p class="muted">Você pode repetir cada áudio. As duas sessões devem ser feitas com uma pausa entre elas. Os registros ficam neste navegador até você exportar o arquivo; a avaliação só existe depois das suas notas.</p>
+<section id="welcome">
+<h2>Antes de começar</h2>
+<label for="listener">Identificação do ouvinte (apelido)</label><input id="listener" maxlength="80" autocomplete="off" placeholder="Seu apelido">
+<p id="sessionIntro"></p><button id="start">Iniciar sessão</button>
+</section>
+<section id="experiment" hidden>
+<div id="progressLabel" aria-live="polite"></div><progress id="progress" max="1" value="0"></progress>
+<div class="row" style="margin-top:20px">
+<div class="audio"><h2>Áudio A</h2><button id="playA">Reproduzir A</button><p id="statusA" class="status" aria-live="polite">Ainda não ouvido</p></div>
+<div class="audio"><h2>Áudio B</h2><button id="playB">Reproduzir B</button><p id="statusB" class="status" aria-live="polite">Ainda não ouvido</p></div>
+</div>
+<label for="rating">Sua nota de similaridade (0–100)</label>
+<input id="rating" type="number" min="0" max="100" step="any" inputmode="decimal" placeholder="—" disabled>
+<p id="ratingHelp" class="muted">A nota será habilitada após ouvir os dois áudios inteiros.</p>
+<button id="next" disabled>Registrar nota e avançar</button>
+</section>
+<section id="finished" hidden><h2>Escuta concluída</h2><p>Exporte suas notas para calcular o resultado e a incerteza. Esta página não calcula nem declara equivalência.</p><button id="exportFinal">Exportar avaliação completa</button></section>
+<div class="actions"><button id="exportPartial" class="secondary">Salvar arquivo parcial (pendente)</button></div>
+<p id="message" role="status" aria-live="polite"></p>
+<footer id="identity"></footer>
+</main>
+<script>
+'use strict';
+const study = /*__STUDY_DATA__*/ null;
+if (!study) throw new Error('Esta página é um modelo. Gere o estudo antes de abrir.');
+const {manifest, manifestSha256} = study;
+const byId = id => document.getElementById(id);
+const storageKey = 'open-dehiss-blind-v2:' + manifest.studyId + ':' + manifestSha256;
+const sessionIds = manifest.protocol.sessionIds;
+const empty = () => ({format:'open-dehiss-blind-scores-v2',studyId:manifest.studyId,manifestSha256,listenerId:'',sessions:{},scores:{}});
+let state = empty(), activeAudio = null, current = null, heard = {A:false,B:false};
+const validScore = x => typeof x === 'number' && Number.isFinite(x) && x >= 0 && x <= 100;
+function validEntry(x) { return x && validScore(x.score) && x.playedA === true && x.playedB === true && typeof x.ratedAt === 'string' && Number.isFinite(Date.parse(x.ratedAt)); }
+try {
+  const saved = JSON.parse(localStorage.getItem(storageKey));
+  if (saved && saved.format === state.format && saved.studyId === state.studyId && saved.manifestSha256 === manifestSha256 && typeof saved.listenerId === 'string' && saved.sessions && saved.scores) {
+    const ids = new Set(manifest.trials.map(t => t.id));
+    if (Object.entries(saved.scores).every(([id,row]) => ids.has(id) && validEntry(row))) state = saved;
+  }
+} catch (_) { byId('message').textContent = 'Não foi possível restaurar o progresso. Use a exportação parcial para guardar suas notas.'; }
+function save() { try { localStorage.setItem(storageKey,JSON.stringify(state)); } catch (_) { byId('message').textContent = 'O navegador não permitiu salvar localmente. Exporte o arquivo parcial antes de fechar.'; } }
+function stop() { if(activeAudio) { activeAudio.pause(); activeAudio.currentTime=0; activeAudio=null; } }
+function completeSession(id) { return manifest.trials.filter(t=>t.sessionId===id).every(t=>validEntry(state.scores[t.id])); }
+function allComplete() { return sessionIds.every(id=>completeSession(id) && state.sessions[id]?.completedAt); }
+function readyRating() {
+  const ready = heard.A && heard.B;
+  byId('rating').disabled = !ready;
+  byId('ratingHelp').textContent = ready ? 'Digite uma nota explícita. Você pode ouvir novamente antes de avançar.' : 'A nota será habilitada após ouvir os dois áudios inteiros.';
+  const raw = byId('rating').value.trim();
+  byId('next').disabled = !(ready && raw !== '' && validScore(Number(raw)));
+}
+function render() {
+  stop();
+  for (const id of sessionIds) {
+    if (completeSession(id) && state.sessions[id] && !state.sessions[id].completedAt) state.sessions[id].completedAt = new Date().toISOString();
+  }
+  save();
+  const sid = sessionIds.find(id=>!completeSession(id));
+  byId('welcome').hidden = true; byId('experiment').hidden = true; byId('finished').hidden = true;
+  if (!sid) { byId('finished').hidden=false; return; }
+  const sessionNumber = sessionIds.indexOf(sid)+1;
+  if (!state.sessions[sid]?.startedAt) {
+    byId('welcome').hidden=false;
+    byId('sessionIntro').textContent = sessionNumber === 1 ? 'Sessão 1 de 2. Reserve um ambiente silencioso e evite mudar o volume durante a escuta.' : 'Sessão 1 concluída. Faça uma pausa; quando estiver pronto, inicie a sessão 2 mantendo os mesmos fones e volume.';
+    byId('listener').value=state.listenerId;
+    byId('listener').disabled=Object.keys(state.scores).length>0;
+    byId('start').textContent='Iniciar sessão '+sessionNumber;
+    byId('start').onclick=()=>{
+      const listener=byId('listener').value.trim();
+      if(!listener){byId('message').textContent='Informe um apelido para identificar sua avaliação.';return;}
+      state.listenerId=listener;state.sessions[sid]={startedAt:new Date().toISOString(),completedAt:null};save();render();
+    };
+    return;
+  }
+  byId('experiment').hidden=false;
+  const trials=manifest.trials.filter(t=>t.sessionId===sid);
+  current=trials.find(t=>!validEntry(state.scores[t.id]));
+  const done=trials.filter(t=>validEntry(state.scores[t.id])).length;
+  heard={A:false,B:false};byId('rating').value='';
+  byId('progressLabel').textContent=`Sessão ${sessionNumber} de 2 · Comparação ${done+1} de ${trials.length}`;
+  byId('progress').max=trials.length;byId('progress').value=done;
+  ['A','B'].forEach(side=>byId('status'+side).textContent='Ainda não ouvido');readyRating();
+}
+function play(side) {
+  if(!current)return;
+  stop();
+  const audio=new Audio(current[side.toLowerCase()]);activeAudio=audio;audio.volume=1;
+  let fullPlayback=true;
+  audio.onseeking=()=>{fullPlayback=false;};
+  byId('status'+side).textContent='Reproduzindo…';
+  audio.onended=()=>{
+    if(activeAudio!==audio)return;
+    if(fullPlayback){heard[side]=true;byId('status'+side).textContent='Ouvido até o fim ✓';}
+    else {byId('status'+side).textContent='Reproduza novamente até o fim.';}
+    activeAudio=null;readyRating();
+  };
+  audio.onerror=()=>{byId('status'+side).textContent='Falha ao abrir áudio. Preserve a pasta audio junto desta página.';activeAudio=null;};
+  audio.play().catch(()=>{byId('status'+side).textContent='O navegador não iniciou o áudio. Tente novamente.';activeAudio=null;});
+}
+byId('playA').onclick=()=>play('A');byId('playB').onclick=()=>play('B');
+byId('rating').addEventListener('input',readyRating);
+byId('next').onclick=()=>{
+  const raw=byId('rating').value.trim();
+  if(!current || !heard.A || !heard.B || raw==='' || !validScore(Number(raw)))return;
+  state.scores[current.id]={score:Number(raw),playedA:true,playedB:true,ratedAt:new Date().toISOString()};save();render();
+};
+function download(final) {
+  if(final&&!allComplete())return;
+  const exported={...state,exportedAt:new Date().toISOString(),completion:final?'complete':'pending'};
+  const blob=new Blob([JSON.stringify(exported,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=final?'blind-scores-complete.json':'blind-scores-PENDING.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+byId('exportFinal').onclick=()=>download(true);byId('exportPartial').onclick=()=>download(false);
+byId('studyStatus').textContent=manifest.protocol.confirmatoryEligible?'Avaliação pendente · duas sessões':'Piloto · material insuficiente para percentual confirmatório';
+byId('identity').textContent=`Estudo ${manifest.studyId} · Manifesto SHA-256 ${manifestSha256}`;
+render();
+</script>
+</html>

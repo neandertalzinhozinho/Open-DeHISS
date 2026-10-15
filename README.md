@@ -8,7 +8,13 @@ Interface lilás com três knobs: Atenuação grande à direita, LF Bias e Bias 
 
 ## Uso
 
-Copie a pasta inteira `Open DeHISS.vst3` para `C:\Program Files\Common Files\VST3\`. No FL Studio: Options → Manage plugins → Find installed plugins. Procure Open DeHISS. Comece em 0 dB e desça gradualmente para −6, −12… conforme o ruído. Duplo clique nos knobs restaura o padrão. Auto estima o ruído ao longo do tempo; em modo manual, ajuste Threshold. Mix fica disponível na lista de parâmetros do host.
+Para comparações automáticas com uma referência licenciada, consulte o
+[protocolo técnico de concordância espectral](docs/OBJECTIVE-VOICE-9.md).
+Esse índice usa tolerância de 1 dB, registros de execução e hashes; não mede
+equivalência perceptiva ou porcentagem de algoritmo recuperado. A
+[avaliação de escuta pessoal](docs/PERCEPTUAL-V2.md) é um procedimento separado.
+
+Copie a pasta inteira `Open DeHISS.vst3` para `C:\Program Files\Common Files\VST3\`. No FL Studio: Options → Manage plugins → Find installed plugins. Procure Open DeHISS. Comece em 0 dB e desça gradualmente para −6, −12… conforme o ruído. Duplo clique nos knobs restaura o padrão. Auto estima o ruído ao longo do tempo; em modo manual, ajuste Threshold. MIX fica visível acima do dial principal: 0% é sinal seco alinhado e 100% é processado.
 
 Latência reportada no beta 0.4: 4096 amostras a 44,1/48 kHz (92,9/85,3 ms); 8192 a 96 kHz (85,3 ms). A resolução maior separa melhor harmônicos próximos, mas aumenta o atraso para monitoramento ao vivo. O plugin não altera configurações de áudio do Windows. Sem iLok, ativação ou comunicação de rede no código próprio.
 
@@ -17,6 +23,16 @@ Latência reportada no beta 0.4: 4096 amostras a 44,1/48 kHz (92,9/85,3 ms); 819
 Estimador temporal e espectral corrigido para não aprender imediatamente todo componente sustentado como ruído. Janela Hann com sobreposição de 75% reduz o vazamento de harmônicos para bins vizinhos. A decisão usa energia média acima do piso estimado; não existe uma proteção incondicional baseada apenas em coerência tonal.
 
 Para reduzir sobras durante a voz, aumente **Bias** gradualmente para +6 e, se necessário, +10 dB. Isso aumenta a estimativa de ruído e a supressão também em componentes fracos. Pode retirar detalhes da voz; Atenuação determina o limite máximo, não a redução garantida em cada faixa. Sons misturados no mesmo bin não podem ser perfeitamente separados por esta máscara espectral.
+
+## Beta 0.10.0 — Teste A/B 1
+
+O controle MIX agora aparece na interface, permitindo comparar sinal seco alinhado e processado. Esta revisão de interface mantém o mesmo DSP da candidata hold80 validada: liberação rápida de 40 ms somente após 80 ms contínuos sem evidência densa; nos demais casos, mantém 120 ms. Ataque de 20 ms.
+
+A build local passou três conjuntos CTest e carregamento do VST3 instalado. A candidata DSP foi previamente validada com voz, barítonos e transientes; a matriz histórica permanece em 27/28, com uma divergência no degrau de ruído em −26 dB. Esses resultados não comprovam equivalência perceptiva nem recuperação integral do algoritmo da referência. Consulte [notas da versão](docs/BETA-0.10-AB1.md).
+
+## Beta 0.9.0
+
+A supressão em atenuação funda ganhou profundidade **só acima de 8 kHz e só além de −12 dB**, onde a medição contra a referência licenciada mostrava déficit. O ruído largo estacionário em −26 dB passou de 0,306–0,309 dB abaixo da referência para 0,042–0,045 dB, e a banda 15–24 kHz de +0,70 dB para +0,11 dB. Os 14 casos de −12 dB, os seis tons sustentados e os seis casos de ruído entre harmônicos de barítono saíram **bit-idênticos** ao beta 0.8, por construção do limite de frequência e profundidade. O critério RMS continua 27 de 28 casos; o caso reprovado (salto de ruído em −26 dB) piorou de +1,352 para +1,997 dB de diferença agregada por causa da liberação de supressão da referência nos últimos 250 ms do render, e isso está documentado sem ajuste de tolerância. Latência, interface e controles inalterados. Consulte [mudanças, critérios e limitações](docs/BETA-0.9.md). Não é alegação de equivalência perceptiva ao CEDAR.
 
 ## Beta 0.8.0
 

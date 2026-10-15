@@ -23,6 +23,11 @@ jobs:
           python tools/benchmark/test_target80.py
           python tools/benchmark/test_recovered_kernel.py
           python tools/benchmark/test_audit_noise_step.py
+          python -m unittest discover -s tools/benchmark -p "test_blind*.py" -v
+          python tools/benchmark/test_prepare_blind_pilot.py
+          python tools/benchmark/test_objective_voice.py
+          python tools/benchmark/test_run_objective_voice.py
+          python tools/benchmark/test_processing_effect.py
       - name: Configure
         run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64 -DOPEN_DEHISS_BUILD_HOST_CHECK=ON -DOPEN_DEHISS_BUILD_REFERENCE_HOST=ON
       - name: Build

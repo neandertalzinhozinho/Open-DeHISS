@@ -23,6 +23,8 @@ int main(int argc, char** argv) {
     std::thread watchdog([&] { for(int i=0;i<(argc>2?18000:600) && !complete;++i) Sleep(100); if(!complete) { std::cout << "TIMEOUT: probe deadline exceeded" << std::endl; ExitProcess(124); } });
     struct Completion { std::atomic<bool>& flag; std::thread& thread; ~Completion(){flag=true;thread.join();} } finish{complete,watchdog};
     juce::ScopedJuceInitialiser_GUI runtime;
+    const bool skipStateSnapshot = juce::SystemStats::getEnvironmentVariable("OPEN_DEHISS_HOST_SKIP_STATE_SNAPSHOT", "0") == "1";
+    std::cout << "STAGE host mode skipStateSnapshot=" << skipStateSnapshot << std::endl;
     if (argc != 2 && argc != 7 && argc != 8 && argc != 9 && argc != 10) { std::cout << "bundle [inputDir outputDir attenuationDb autoBool thresholdDb [masterBypassNormalized [realtime|offline [biasDb]]]]" << std::endl; return 2; }
     std::cout << "Scanning " << argv[1] << std::endl;
     juce::AudioPluginFormatManager manager;
@@ -39,11 +41,13 @@ int main(int argc, char** argv) {
     juce::String error;
     std::unique_ptr<juce::AudioPluginInstance> instance;
     bool callbackDone=false;
+    std::cout << "STAGE preflight load begin" << std::endl;
     manager.createPluginInstanceAsync(*descriptions[0], 48000, 256,
         [&](std::unique_ptr<juce::AudioPluginInstance> loaded, const juce::String& problem) {
             instance=std::move(loaded); error=problem; callbackDone=true;
         });
     while(!callbackDone) { MSG message; while(PeekMessageW(&message,nullptr,0,0,PM_REMOVE)) { TranslateMessage(&message); DispatchMessageW(&message); } Sleep(1); }
+    std::cout << "STAGE preflight load end success=" << bool(instance) << std::endl;
     if (!instance) { std::cout << "Load error: " << error << std::endl; return 4; }
     std::cout << "Loaded: " << instance->getName() << std::endl;
     int index = 0;
@@ -52,7 +56,9 @@ int main(int argc, char** argv) {
                   << " value=" << p->getValue() << " text=" << p->getText(p->getValue(), 128)
                   << " endpoints=" << p->getText(0,128) << "," << p->getText(1,128) << std::endl;
     }
+    std::cout << "STAGE preflight setup begin" << std::endl;
     instance->setRateAndBufferSizeDetails(48000, 256); instance->prepareToPlay(48000, 256);
+    std::cout << "STAGE preflight setup end" << std::endl;
     juce::AudioBuffer<float> buffer(juce::jmax(2, instance->getTotalNumInputChannels()),256);
     juce::MidiBuffer midi;
     for (int i=0;i<400;++i) { buffer.clear(); instance->processBlock(buffer,midi); }
@@ -74,15 +80,18 @@ int main(int argc, char** argv) {
                 std::cerr << "Unsupported WAV sample rate: " << reader->sampleRate << std::endl; return 8;
             }
             callbackDone=false;
+            std::cout << "STAGE render load begin file=" << file.getFileName() << std::endl;
             manager.createPluginInstanceAsync(*descriptions[0],reader->sampleRate,256,
                 [&](std::unique_ptr<juce::AudioPluginInstance> loaded,const juce::String& problem){instance=std::move(loaded);error=problem;callbackDone=true;});
             while(!callbackDone){MSG message;while(PeekMessageW(&message,nullptr,0,0,PM_REMOVE)){TranslateMessage(&message);DispatchMessageW(&message);}Sleep(1);}
+            std::cout << "STAGE render load end success=" << bool(instance) << std::endl;
             if(!instance) {std::cout << error << std::endl;return 9;}
 #if REFERENCE_WITH_EDITOR
             auto window=std::make_unique<ReferenceWindow>();
             if(auto* editor=instance->createEditorIfNeeded()){window->setContentOwned(editor,true);window->centreWithSize(editor->getWidth(),editor->getHeight());window->setVisible(true);std::cout << "Official editor opened" << std::endl;}
 #endif
             const bool realtime=argc>=9 && juce::String(argv[8])=="realtime";
+            std::cout << "STAGE render setup begin realtime=" << realtime << std::endl;
             instance->setNonRealtime(!realtime);
             instance->setRateAndBufferSizeDetails(reader->sampleRate,256);instance->prepareToPlay(reader->sampleRate,256);
             for(auto* p:instance->getParameters()) {
@@ -96,22 +105,32 @@ int main(int argc, char** argv) {
                 if(argc==10 && (name=="Bias" || name=="Bias (dB)")) p->setValueNotifyingHost(float((std::atof(argv[9])+10)/20));
                 std::cout << "CONFIG " << name << " normalized=" << p->getValue() << " text=" << p->getText(p->getValue(),128) << std::endl;
             }
+            std::cout << "STAGE render setup end" << std::endl;
             // Flush JUCE's asynchronous controller parameter dispatcher before rendering.
             juce::MemoryBlock stateSnapshot;
-            instance->getStateInformation(stateSnapshot); // JUCE explicitly flushes pending controller changes here.
+            std::cout << "STAGE stateSnapshot begin skipped=" << skipStateSnapshot << std::endl;
+            if (!skipStateSnapshot)
+                instance->getStateInformation(stateSnapshot); // JUCE explicitly flushes pending controller changes here.
+            std::cout << "STAGE stateSnapshot end bytes=" << stateSnapshot.getSize() << std::endl;
+            // The 60 Hz controller dispatcher also flushes during this message pump.
+            std::cout << "STAGE parameter pump begin minimumMs=250" << std::endl;
             const auto dispatchStart=GetTickCount64();
             while(GetTickCount64()-dispatchStart<250){MSG message;while(PeekMessageW(&message,nullptr,0,0,PM_REMOVE)){TranslateMessage(&message);DispatchMessageW(&message);}Sleep(1);}
+            std::cout << "STAGE parameter pump end elapsedMs=" << GetTickCount64()-dispatchStart << std::endl;
             const int latency=instance->getLatencySamples();
             const int length=int(reader->lengthInSamples);const int total=length+latency+96000;
             juce::AudioBuffer<float> input(2,total); input.clear();reader->read(&input,0,length,0,true,true);
             if(reader->numChannels==1)input.copyFrom(1,0,input,0,0,length);
+            std::cout << "STAGE writer begin destination=" << destination.getFullPathName() << std::endl;
             juce::WavAudioFormat wav; auto stream=destination.createOutputStream();
             if(!stream) return 10;
             std::unique_ptr<juce::AudioFormatWriter> writer(wav.createWriterFor(stream.release(),reader->sampleRate,2,32,{},0));
             if(!writer)return 11;
+            std::cout << "STAGE writer end" << std::endl;
             juce::AudioBuffer<float> block(2,256);
             bool finite=true;
             std::atomic<bool> renderDone{false};int renderError=0;
+            std::cout << "STAGE audioThread begin frames=" << total << std::endl;
             std::thread audioThread([&] {
             const auto renderStart=std::chrono::steady_clock::now();
             for(int pos=0;pos<total;pos+=256) {
@@ -125,7 +144,9 @@ int main(int argc, char** argv) {
             renderDone=true;
             });
             while(!renderDone){MSG message;while(PeekMessageW(&message,nullptr,0,0,PM_REMOVE)){TranslateMessage(&message);DispatchMessageW(&message);}Sleep(1);}
-            audioThread.join();if(renderError)return renderError;
+            audioThread.join();
+            std::cout << "STAGE audioThread end error=" << renderError << std::endl;
+            if(renderError)return renderError;
             for(auto* p:instance->getParameters()) std::cout << "FINAL " << p->getName(128) << " normalized=" << p->getValue() << " text=" << p->getText(p->getValue(),128) << std::endl;
             writer.reset();instance->releaseResources();
 #if REFERENCE_WITH_EDITOR

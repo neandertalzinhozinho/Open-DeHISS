@@ -3,7 +3,7 @@
 #include "Denoiser.h"
 #include "RecoveredMath.h"
 #include "RecoveredSynthesis.h"
-// Experimental independent bounded reconstruction; not the released processor.
+// Independent bounded DSP, used by MultiResolutionChannel in the derived build.
 class DerivedChannel {
 public:
     void prepare(double rate){

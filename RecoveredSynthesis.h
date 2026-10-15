@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 // Independent implementation of the audited circular impulse window and
-// old/new crossfade. Experimental: not called by the installed VST3.
+// old/new crossfade, used by DerivedChannel in the derived build.
 class DerivedSynthesis {
 public:
     void prepare(int order){

@@ -5,3 +5,6 @@ __pycache__/
 *.user
 *.suo
 editor-preview.png
+
+# automacao do watchdog local (logs, status, rondas)
+/.codex-watchdog/

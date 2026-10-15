@@ -5,7 +5,7 @@
 #include <complex>
 #include <vector>
 // Independent mathematical expression of audited DSP evidence, not original
-// source. Experimental only: the installed plugin does not call this module.
+// source. Used by DerivedChannel when the derived build is enabled.
 namespace openhiss_derived {
 class BoundedTemporal {
 public:
@@ -68,6 +68,16 @@ inline double probability(double first,double second){
 inline double gain(double probability,double frequency,double attenuation){
     const double f2=frequency*frequency;
     const double floor=std::pow(10.,attenuation/20.)*1.25*(f2+81e6)/(f2+4500*frequency+81e6);
-    const double x=1-probability;return floor+(1-floor)*(1.5*x-.5*x*x);
+    const double x=1.-probability;const double q=1.5*x-.5*x*x;const double affine=floor+(1.-floor)*q;
+    // Measured against the licensed reference: at -26 dB the top band sat +0,70 dB above
+    // the request while 800-6000 Hz matched to 0,00 dB, and at -12 dB the top band was
+    // already 0,10 dB too deep. A full log-domain interpolation fixed that deficit but
+    // redistributed ~1 dB into the valleys between voice partials (rejected). Gating the
+    // new law to f >= 8 kHz and depth > 12 dB keeps the voice band, the sustained tones
+    // and the -12 dB profile mathematically identical to the affine law.
+    const double depth=std::max(0.,-attenuation);
+    const double gate=(frequency>=8000.&&depth>12.)?std::clamp((depth-12.)/14.,0.,1.):0.;
+    if(gate<=0.)return affine;
+    return affine*(1.-gate)+std::exp((1.-q)*std::log(floor))*gate;
 }
 }

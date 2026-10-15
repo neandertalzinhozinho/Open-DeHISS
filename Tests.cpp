@@ -3,6 +3,7 @@
 #include "RecoveredMath.h"
 #include "RecoveredSynthesis.h"
 #include "DerivedChannel.h"
+#include "MultiResolutionChannel.h"
 #include <juce_audio_formats/juce_audio_formats.h>
 #include <random>
 #include <iostream>
@@ -15,18 +16,45 @@ int main(int argc,char** argv)
 {
     try{
     juce::ScopedJuceInitialiser_GUI runtime;
-    if(argc>1 && juce::String(argv[1])=="--derived-render"){
-        if(argc!=6)throw std::runtime_error("--derived-render input.wav output.wav attenuationPositive bias");
+    if(argc>1 && juce::String(argv[1])=="--density-trace"){
+        if(argc!=4)throw std::runtime_error("--density-trace input.wav new-output.csv");
+        juce::AudioFormatManager formats;formats.registerBasicFormats();
+        std::unique_ptr<juce::AudioFormatReader> reader(formats.createReaderFor(juce::File(argv[2])));
+        if(!reader || reader->lengthInSamples>10000000)throw std::runtime_error("Invalid trace audio");
+        const juce::File destination(argv[3]);if(destination.exists())throw std::runtime_error("Preserve trace output");
+        juce::AudioBuffer<float> audio(1,int(reader->lengthInSamples));
+        if(!reader->read(&audio,0,audio.getNumSamples(),0,true,false))throw std::runtime_error("Trace input read failed");
+        HissChannel channel;channel.prepare(reader->sampleRate);
+        HissSettings settings;settings.reduction=26;settings.bias=6;
+        auto stream=destination.createOutputStream();if(!stream)throw std::runtime_error("Trace output failed");
+        stream->writeText("sample,target\n",false,false,nullptr);
+        const int hop=channel.latency()/4;
+        for(int i=0;i<audio.getNumSamples();++i){
+            channel.process(audio.getSample(0,i),settings);
+            if((i+1)%hop==0)stream->writeText(juce::String(i)+","+juce::String(channel.denseSpectrumWeight(),6)+"\n",false,false,nullptr);
+        }
+        stream->flush();std::cout<<"Density trace Fs="<<reader->sampleRate<<" FFT="<<channel.latency()<<" hop="<<hop<<'\n';return 0;
+    }
+    if(argc>1 && (juce::String(argv[1])=="--derived-render" || juce::String(argv[1])=="--fine-render" || juce::String(argv[1])=="--multires-render")){
+        if(argc!=6)throw std::runtime_error("--derived-render/--fine-render/--multires-render input.wav output.wav attenuationPositive bias");
         juce::AudioFormatManager formats;formats.registerBasicFormats();
         std::unique_ptr<juce::AudioFormatReader> reader(formats.createReaderFor(juce::File(argv[2])));
         if(!reader || reader->numChannels<1 || reader->numChannels>2 || reader->lengthInSamples>10000000)throw std::runtime_error("Invalid input audio");
         const juce::File destination(argv[3]);if(destination.exists())throw std::runtime_error("Preserve existing output");
-        DerivedChannel probe;probe.prepare(reader->sampleRate);const int delay=probe.latency(),length=int(reader->lengthInSamples);
+        const juce::String mode(argv[1]);
+        DerivedChannel probe;probe.prepare(reader->sampleRate);HissChannel fineProbe;fineProbe.prepare(reader->sampleRate);
+        MultiResolutionChannel multiProbe;multiProbe.prepare(reader->sampleRate);
+        const int delay=mode=="--fine-render"?fineProbe.latency():(mode=="--multires-render"?multiProbe.latency():probe.latency()),length=int(reader->lengthInSamples);
         juce::AudioBuffer<float> input(int(reader->numChannels),length),output(int(reader->numChannels),length+delay);
         if(!reader->read(&input,0,length,0,true,true))throw std::runtime_error("Audio read failed");
         HissSettings settings;settings.reduction=float(std::atof(argv[4]));settings.bias=float(std::atof(argv[5]));
-        for(int ch=0;ch<input.getNumChannels();++ch){DerivedChannel channel;channel.prepare(reader->sampleRate);
-            for(int t=0;t<length+delay;++t)output.setSample(ch,t,channel.process(t<length?input.getSample(ch,t):0,settings));}
+        const auto renderChannel=[&](auto channel,int ch){channel.prepare(reader->sampleRate);
+            for(int t=0;t<length+delay;++t)output.setSample(ch,t,channel.process(t<length?input.getSample(ch,t):0,settings));};
+        for(int ch=0;ch<input.getNumChannels();++ch){
+            if(mode=="--fine-render")renderChannel(HissChannel{},ch);
+            else if(mode=="--multires-render")renderChannel(MultiResolutionChannel{},ch);
+            else renderChannel(DerivedChannel{},ch);
+        }
         juce::WavAudioFormat wav;auto stream=destination.createOutputStream();
         if(!stream)throw std::runtime_error("Output stream failed");
         std::unique_ptr<juce::AudioFormatWriter> writer(wav.createWriterFor(stream.get(),reader->sampleRate,unsigned(output.getNumChannels()),32,{},0));
@@ -55,9 +83,21 @@ int main(int argc,char** argv)
         require(std::abs(openhiss_derived::probability(.1,.4)-.42857142937447573)<1e-12 &&
                 std::abs(openhiss_derived::probability(.6,.8)-.11111741637065309)<1e-12,
                 "derived C++ stable probability matches independent Python fixture");
-        require(std::abs(openhiss_derived::gain(.5,9000,-26)-.6437945212610228)<1e-12 &&
-                std::abs(openhiss_derived::gain(1,18000,-26)-.05220700350284086)<1e-12,
+        require(std::abs(openhiss_derived::gain(.5,9000,-26)-.32546178349804583)<1e-12 &&
+                std::abs(openhiss_derived::gain(1,18000,-26)-.05220700350284086)<1e-12 &&
+                std::abs(openhiss_derived::gain(.5,9000,-12)-.7191957411816092)<1e-12 &&
+                std::abs(openhiss_derived::gain(.5,4000,-26)-.6448159626339044)<1e-12,
                 "derived C++ frequency gain matches independent Python fixture");
+        // The two last points are below the gate (shallow depth, and 4 kHz voice band):
+        // they must keep the exact affine value, which is what protects the sustained
+        // tones, the interharmonic residual and every -12 dB case from any future
+        // retuning of the deep-attenuation law.
+        // Transparency holds at probability zero (pure signal) for any frequency and
+        // depth; it is not a property of gain() at attenuation zero, which the caller
+        // short-circuits before ever reaching this function.
+        require(openhiss_derived::gain(0,4000,-26)==1.&&openhiss_derived::gain(0,9000,-26)==1.
+                &&openhiss_derived::gain(0,24000,-26)==1.&&openhiss_derived::gain(0,24000,-40)==1.,
+                "derived C++ gain is transparent for pure signal at any frequency and depth");
         double values[]={1,100,3,2};require(openhiss_derived::upperMedian(values,4)==3,"derived global upper median");
         openhiss_derived::BoundedTemporal temporal;temporal.prepare(3,1024,48000,.125);
         const double first[]={-.8,.2,.7,.1,.9,-.5,.8,-.4,.3};double smoothed[3];

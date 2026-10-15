@@ -1,7 +1,10 @@
 """Independent experimental translation of evidence-backed DSP equations.
 
-Not enabled in the VST3. No claim of complete recovery or perceptual equivalence.
-Finite protection is our own; temporal alignment/synthesis still need validation.
+This Python module is an offline diagnostic. The C++ derived branch uses related
+equations, while the complete VST3 also mixes a separate fine-resolution path.
+Historical defaults here are not the current plugin configuration: its derived
+branch uses slow_tau=.125, fast_width=1500, rapid_noise=True and persistence=.04.
+No claim of complete recovery or perceptual equivalence.
 """
 import numpy as np
 
@@ -42,9 +45,16 @@ def noise_probability(s1,s2):
     return np.clip(np.sum(weights*values,axis=0),0,1)
 
 def gain(probability,frequencies,attenuation,curve=1.5):
-    f=np.asarray(frequencies);profile=1.25*(f*f+81e6)/(f*f+4500*f+81e6)
+    f=np.asarray(frequencies,dtype=float);profile=1.25*(f*f+81e6)/(f*f+4500*f+81e6)
     floor=10**(attenuation/20)*profile;x=1-np.asarray(probability)
-    return floor+(1-floor)*(curve*x+(1-curve)*x*x)
+    q=curve*x+(1-curve)*x*x;affine=floor+(1-floor)*q
+    # Gate identical to RecoveredMath::gain: only at f >= 8 kHz and past -12 dB, ramping to
+    # the full log-domain interpolation by -26 dB. Under the gate the affine law is
+    # returned untouched, which is what keeps the voice band and shallow settings equal.
+    depth=np.maximum(0.,-float(attenuation))
+    gate=np.where((f>=8000.)&(depth>12.),np.clip((depth-12.)/14.,0,1),0.)
+    geo=floor**(1-q)
+    return np.where(gate<=0,affine,affine*(1-gate)+geo*gate)
 
 def lookahead_hops(fs,n,hop):
     if n/fs>.096:raise ValueError('FFT alone exceeds latency budget')

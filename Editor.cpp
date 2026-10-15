@@ -41,7 +41,7 @@ OpenDeHISSEditor::OpenDeHISSEditor(OpenHissProcessor& p):AudioProcessorEditor(p)
 {
     setLookAndFeel(&look);setSize(550,426);
     versionInfo.setComponentID("versionInfo");
-    versionInfo.setText(juce::String("Beta ")+OPEN_DEHISS_VERSION+"  |  Atualizado: "+OPEN_DEHISS_UPDATE_DATE,juce::dontSendNotification);
+    versionInfo.setText(juce::String("Beta ")+OPEN_DEHISS_VERSION+"  |  Teste A/B 1  |  "+OPEN_DEHISS_UPDATE_DATE,juce::dontSendNotification);
     versionInfo.setFont(juce::Font(11.f));
     versionInfo.setColour(juce::Label::textColourId,juce::Colour(0xffd0c1dd));
     versionInfo.setJustificationType(juce::Justification::centred);
@@ -59,7 +59,8 @@ OpenDeHISSEditor::OpenDeHISSEditor(OpenHissProcessor& p):AudioProcessorEditor(p)
     attenuation.setRotaryParameters(juce::MathConstants<float>::halfPi,juce::MathConstants<float>::pi*2.5f,true);
     lfBias.setRotaryParameters(juce::MathConstants<float>::pi*1.5f,juce::MathConstants<float>::pi*2.5f,true);
     bias.setRotaryParameters(juce::MathConstants<float>::pi*1.5f,juce::MathConstants<float>::pi*2.5f,true);
-    threshold.setVisible(false);mix.setVisible(false);
+    threshold.setVisible(false);mix.setVisible(true);
+    mix.setTooltip("0%: sinal seco alinhado; 100%: processado. Compare mantendo o mesmo volume de reproducao.");
     highEndCut.setDoubleClickReturnValue(true,0);
     highEndCut.setTooltip("Dehiss acima de 15 kHz. 0 dB desliga; valores negativos aumentam a reducao.");
     addAndMakeVisible(bypass);addAndMakeVisible(automatic);
@@ -80,7 +81,7 @@ void OpenDeHISSEditor::resized()
 {
     lfBias.setBounds(58,72,128,128);bias.setBounds(58,200,128,128);attenuation.setBounds(266,63,255,255);
     bypass.setBounds(44,331,95,30);automatic.setBounds(145,331,85,30);
-    threshold.setBounds(40,366,185,22);mix.setBounds(375,366,146,22);
+    threshold.setBounds(40,366,185,22);mix.setBounds(310,26,214,22);
     highEndCut.setBounds(245,386,287,27);
     versionInfo.setBounds(18,360,514,18);
 }
@@ -90,6 +91,7 @@ void OpenDeHISSEditor::paint(juce::Graphics& g)
     g.setGradientFill(juce::ColourGradient(juce::Colour(0xff5a4a67),0,0,juce::Colour(0xff29232f),235,400,false));g.fillRect(0,0,235,400);
     g.setColour(juce::Colour(0xff100e14));g.fillRoundedRectangle(235,6,309,363,29);
     g.setGradientFill(juce::ColourGradient(juce::Colour(0xff34273e),260,0,juce::Colour(0xff19141f),500,365,false));g.fillRoundedRectangle(239,8,303,359,27);
+    g.setColour(juce::Colour(0xffd0c1dd));g.setFont(11.f);g.drawText("MIX %",250,26,58,22,juce::Justification::centredLeft);
     for(int line=0;line<30;++line){juce::Path wave;for(int x=239;x<=542;x+=3){float y=205+float(line-15)*4+float(std::sin(x*0.014+line*0.1)*62);
         if(x==239)wave.startNewSubPath(float(x),y);else wave.lineTo(float(x),y);}g.setColour(purple.withAlpha(0.09f));g.strokePath(wave,juce::PathStrokeType(0.7f));}
     g.setColour(juce::Colour(0xfff1ddff));g.setFont(25.f);g.drawText("OPEN DeHISS",27,24,207,34,juce::Justification::centredLeft);
