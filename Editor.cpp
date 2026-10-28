@@ -24,10 +24,10 @@ void PurpleDialLook::drawRotarySlider(juce::Graphics& g,int x,int y,int w,int h,
     g.setColour(purple.withAlpha(0.18f));g.fillEllipse(px-7,py-7,14,14);
     g.setColour(juce::Colour(0xfff5eaff));g.fillEllipse(px-3,py-3,6,6);
     const bool large=w>180;
-    g.setColour(juce::Colour(0xffddd1e9));g.setFont(large?42.f:23.f);
+    g.setColour(juce::Colour(0xffddd1e9));g.setFont(juce::FontOptions(large?42.f:23.f));
     const double v=s.getValue();const juce::String text=std::abs(v)<0.05?"0":juce::String(v,0);
     g.drawText(text,juce::Rectangle<float>(cx-r,cy-(large?29.f:23.f),2*r,large?50.f:32.f),juce::Justification::centred);
-    g.setColour(juce::Colour(0xffbaacc6));g.setFont(large?13.f:10.f);
+    g.setColour(juce::Colour(0xffbaacc6));g.setFont(juce::FontOptions(large?13.f:10.f));
     g.drawText(s.getName(),juce::Rectangle<float>(cx-r,cy+16,2*r,22),juce::Justification::centred);
 }
 void PurpleDialLook::drawToggleButton(juce::Graphics& g,juce::ToggleButton& b,bool hover,bool)
@@ -35,14 +35,14 @@ void PurpleDialLook::drawToggleButton(juce::Graphics& g,juce::ToggleButton& b,bo
     auto box=juce::Rectangle<float>(2,5,20,20);
     g.setColour(b.getToggleState()?purple:juce::Colour(0xff665d70));g.fillRoundedRectangle(box,3);
     g.setColour(juce::Colours::white.withAlpha(hover?0.5f:0.2f));g.drawRoundedRectangle(box,3,1);
-    g.setColour(juce::Colour(0xffd0c1dd));g.setFont(11.f);g.drawText(b.getButtonText(),27,0,b.getWidth()-27,b.getHeight(),juce::Justification::centredLeft);
+    g.setColour(juce::Colour(0xffd0c1dd));g.setFont(juce::FontOptions(11.f));g.drawText(b.getButtonText(),27,0,b.getWidth()-27,b.getHeight(),juce::Justification::centredLeft);
 }
 OpenDeHISSEditor::OpenDeHISSEditor(OpenHissProcessor& p):AudioProcessorEditor(p),processor(p)
 {
     setLookAndFeel(&look);setSize(550,426);
     versionInfo.setComponentID("versionInfo");
     versionInfo.setText(juce::String("Beta ")+OPEN_DEHISS_VERSION+"  |  Teste A/B 1  |  "+OPEN_DEHISS_UPDATE_DATE,juce::dontSendNotification);
-    versionInfo.setFont(juce::Font(11.f));
+    versionInfo.setFont(juce::FontOptions(11.f));
     versionInfo.setColour(juce::Label::textColourId,juce::Colour(0xffd0c1dd));
     versionInfo.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(versionInfo);
@@ -91,13 +91,13 @@ void OpenDeHISSEditor::paint(juce::Graphics& g)
     g.setGradientFill(juce::ColourGradient(juce::Colour(0xff5a4a67),0,0,juce::Colour(0xff29232f),235,400,false));g.fillRect(0,0,235,400);
     g.setColour(juce::Colour(0xff100e14));g.fillRoundedRectangle(235,6,309,363,29);
     g.setGradientFill(juce::ColourGradient(juce::Colour(0xff34273e),260,0,juce::Colour(0xff19141f),500,365,false));g.fillRoundedRectangle(239,8,303,359,27);
-    g.setColour(juce::Colour(0xffd0c1dd));g.setFont(11.f);g.drawText("MIX %",250,26,58,22,juce::Justification::centredLeft);
+    g.setColour(juce::Colour(0xffd0c1dd));g.setFont(juce::FontOptions(11.f));g.drawText("MIX %",250,26,58,22,juce::Justification::centredLeft);
     for(int line=0;line<30;++line){juce::Path wave;for(int x=239;x<=542;x+=3){float y=205+float(line-15)*4+float(std::sin(x*0.014+line*0.1)*62);
         if(x==239)wave.startNewSubPath(float(x),y);else wave.lineTo(float(x),y);}g.setColour(purple.withAlpha(0.09f));g.strokePath(wave,juce::PathStrokeType(0.7f));}
-    g.setColour(juce::Colour(0xfff1ddff));g.setFont(25.f);g.drawText("OPEN DeHISS",27,24,207,34,juce::Justification::centredLeft);
-    g.setColour(juce::Colour(0xff9989a9));g.setFont(20.f);g.drawText("OPEN DEHISS",265,321,260,29,juce::Justification::centred);
+    g.setColour(juce::Colour(0xfff1ddff));g.setFont(juce::FontOptions(25.f));g.drawText("OPEN DeHISS",27,24,207,34,juce::Justification::centredLeft);
+    g.setColour(juce::Colour(0xff9989a9));g.setFont(juce::FontOptions(20.f));g.drawText("OPEN DEHISS",265,321,260,29,juce::Justification::centred);
     g.setColour(juce::Colour(0xff34283f));g.fillRoundedRectangle(12,379,526,38,6);
-    g.setColour(purple);g.setFont(13.f);g.drawText("HIGH END CUT",26,386,145,26,juce::Justification::centredLeft);
-    g.setColour(juce::Colour(0xffa99ab5));g.setFont(10.f);g.drawText("> 15 kHz",170,386,70,26,juce::Justification::centredLeft);
+    g.setColour(purple);g.setFont(juce::FontOptions(13.f));g.drawText("HIGH END CUT",26,386,145,26,juce::Justification::centredLeft);
+    g.setColour(juce::Colour(0xffa99ab5));g.setFont(juce::FontOptions(10.f));g.drawText("> 15 kHz",170,386,70,26,juce::Justification::centredLeft);
     g.setColour(juce::Colour(0xffb89ecb).withAlpha(0.5f));g.drawRoundedRectangle(1,1,548,424,4,1);
 }
